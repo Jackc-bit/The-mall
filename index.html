@@ -14,18 +14,18 @@ body {
     overflow: hidden;
 }
 
-/* Perfectly centered transparent button */
+/* Invisible button placed exactly over your image's TAP TO START */
 .start-button {
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    top: 72%;                 /* Adjust this higher/lower until perfect */
+    transform: translateX(-50%);
 
-    width: 280px;        /* size of your invisible button */
-    height: 80px;        /* adjust to match your image button */
+    width: 330px;             /* Match the size of the graphic */
+    height: 90px;
 
-    background: rgba(255, 255, 255, 0.0);  /* fully invisible */
-    border: none;        /* no outline */
+    background: rgba(255, 255, 255, 0);  /* fully invisible */
+    border: none;
     cursor: pointer;
 }
 </style>
@@ -33,7 +33,7 @@ body {
 
 <body>
 
-    <!-- Invisible clickable button -->
+    <!-- Invisible clickable area -->
     <div class="start-button" onclick="window.location='menu.html'"></div>
 
 </body>
