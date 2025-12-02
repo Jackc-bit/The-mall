@@ -1,40 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
-    
-    .‎body {
-‎    background-image: url("DYCI_NEXUS.jpeg");
-‎    background-size: cover;
-‎    background-position: center;
-‎    background-repeat: no-repeat;
-‎}
-    body {
-        margin: 0;
-        padding: 0;
-        background: url('DYCI_NEXUS.jpeg') no-repeat center center fixed;
-        background-size: cover;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        font-family: Arial, sans-serif;
-        user-select: none;
-    }
+body {
+    margin: 0;
+    padding: 0;
+    background: url("DYCI_NEXUS.jpeg") no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-family: Arial, sans-serif;
+    user-select: none;
+}
 
-    .start-button {
-        background: rgba(255, 255, 255, 0.2);
-        padding: 20px 40px;
-        margin-bottom: 80px;
-        border-radius: 40px;
-        border: 3px solid #ffffff40;
-        font-size: 32px;
-        font-weight: bold;
-        letter-spacing: 2px;
-        color: #ffffff;
-        text-shadow: 0 0 8px #0033ff;
+.start-button {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px 40px;
+    margin-bottom: 80px;
+    border-radius: 40px;
+    border: 3px solid #ffffff40;
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 0 0 8px #0033ff;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.start-button:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.35);
+}
+</style>        text-shadow: 0 0 8px #0033ff;
         backdrop-filter: blur(10px);
         cursor: pointer;
         transition: 0.2s;
