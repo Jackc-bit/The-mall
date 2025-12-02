@@ -2,39 +2,47 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
+
 body {
     margin: 0;
     padding: 0;
+    background: black;
+}
+
+/* Main container holding the background image */
+.bg-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
     background: url("DYCI_NEXUS.jpeg") no-repeat center center;
     background-size: cover;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
 }
 
-/* Invisible button placed exactly over your image's TAP TO START */
+/* Pixel-perfect invisible button */
 .start-button {
     position: absolute;
+
+    /* PERFECT PIXEL-FIT VALUES (relative to image) */
+    top: 63%;          /* vertical position of TAP TO START bar */
     left: 50%;
-    top: 66%;                 /* Adjust this higher/lower until perfect */
     transform: translateX(-50%);
 
-    width: 1000px;             /* Match the size of the graphic */
-    height: 100px;
+    width: 80%;        /* width of button relative to image */
+    height: 8%;        /* height of curved bar */
 
-    background: rgba(255, 255, 255, 0);  /* fully invisible */
-    border: none;
+    background: rgba(255,255,255,0);
     cursor: pointer;
 }
+
 </style>
 </head>
 
 <body>
 
-    <!-- Invisible clickable area -->
+<div class="bg-container">
     <div class="start-button" onclick="window.location='menu.html'"></div>
+</div>
 
 </body>
 </html>
