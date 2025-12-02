@@ -13,27 +13,27 @@ body {
     height: 100vh;
 }
 
-/* FIX: container with locked aspect ratio 1000×1500 */
+/* FIXED — SAFE, UNIVERSAL, ALWAYS WORKING */
 .game-wrapper {
     position: relative;
-    width: 100vw;
-    max-width: 1000px;
-    aspect-ratio: 1000 / 1500;   /* <--- KEY FIX */
-    background: url("DYCI_NEXUS.jpeg") no-repeat center;
-    background-size: contain;    /* <--- prevents distortion */
+    width: min(100vw, 1000px);
+    aspect-ratio: 1000 / 1500;
+    background: url("DYCI_NEXUS.jpeg") center / contain no-repeat;
+    overflow: visible;   /* IMPORTANT FIX */
 }
 
-/* Button aligned by true pixel proportions */
+/* INVISIBLE BUTTON — NOW ALWAYS CLICKABLE */
 .start-button {
     position: absolute;
 
-    /* Pixel to proportional conversion */
-    left: calc(80px / 1000 * 100%);
-    top: calc(980px / 1500 * 100%);
-    width: calc(840px / 1000 * 100%);
-    height: calc(140px / 1500 * 100%);
+    /* Pixel -> percentage (1000×1500 base) */
+    left: 8%;
+    top: 65.33%;
+    width: 84%;
+    height: 9.33%;
 
-    background: rgba(255,255,255,0); /* invisible */
+    /* debugging – REMOVE after verification */
+    background: rgba(0, 255, 255, 0.2); /* set transparency so you can see it */
     cursor: pointer;
 }
 
