@@ -1,40 +1,50 @@
-‎<!DOCTYPE html>  <html>  
-‎<head>  
-‎<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-‎<style>  body {
-‎margin: 0;
-‎padding: 0;
-‎background: black;
-‎}
-‎
-‎/* Main container holding the background image */
-‎.bg-container {
-‎position: relative;
-‎width: 100vw;
-‎height: 100vh;
-‎background: url("DYCI_NEXUS.jpeg") no-repeat center center;
-‎background-size: cover;
-‎}
-‎
-‎/* Pixel-perfect invisible button */
-‎.start-button {
-‎position: absolute;
-‎
-‎/* PERFECT PIXEL-FIT VALUES (relative to image) */  
-‎top: 61%;          /* vertical position of TAP TO START bar */  
-‎left: 50%;  
-‎transform: translateX(-50%);  
-‎
-‎width: 80%;        /* width of button relative to image */  
-‎height: 8%;        /* height of curved bar */  
-‎
-‎background: rgba(255,255,255,0);  
-‎cursor: pointer;
-‎
-‎}
-‎
-‎</style>  
-‎</head>  <body>  <div class="bg-container">  
-‎    <div class="start-button" onclick="window.location='menu.html'"></div>  
-‎</div>  </body>  
-‎</html>  
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+
+body {
+    margin: 0;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* FIXED — SAFE, UNIVERSAL, ALWAYS WORKING */
+.game-wrapper {
+    position: relative;
+    width: min(100vw, 1000px);
+    aspect-ratio: 1000 / 1500;
+    background: url("DYCI_NEXUS.jpeg") center / contain no-repeat;
+    overflow: visible;   /* IMPORTANT FIX */
+}
+
+/* INVISIBLE BUTTON — NOW ALWAYS CLICKABLE */
+.start-button {
+    position: absolute;
+
+    /* Pixel -> percentage (1000×1500 base) */
+    left: 8%;
+    top: 65.33%;
+    width: 84%;
+    height: 9.33%;
+
+    /* debugging – REMOVE after verification */
+    background: rgba(0, 255, 255, 0.2); /* set transparency so you can see it */
+    cursor: pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="game-wrapper">
+    <div class="start-button" onclick="window.location='menu.html'"></div>
+</div>
+
+</body>
+</html>
