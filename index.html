@@ -14,21 +14,23 @@ body {
     overflow: hidden;
 }
 
-/* Invisible-but-translucent button */
+/* Translucent clickable button with white outline */
 .start-button {
     position: absolute;
     left: 50%;
     top: 62%;                     /* adjust if needed */
     transform: translateX(-50%);
 
-    width: 1000px;                /* same size you set */
+    width: 1000px;
     height: 100px;
 
-    background: rgba(255, 255, 255, 0.10); /* <--- translucent (10% opacity) */
-    border: none;
+    background: rgba(255, 255, 255, 0.10); /* translucent */
+    border: 3px solid rgba(255, 255, 255, 0.8); /* white outline */
+    border-radius: 50px;          /* matches rounded button shape */
+
     cursor: pointer;
 
-    /* remove any text or outline */
+    /* fully remove text/outline artifacts */
     color: transparent;
     outline: none;
 }
@@ -37,5 +39,7 @@ body {
 
 <body>
 
-    <!-- Clickable translucent area -->
-    <div
+    <div class="start-button" onclick="window.location='menu.html'"></div>
+
+</body>
+</html>
