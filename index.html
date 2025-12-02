@@ -2,49 +2,40 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
 
+<style>
 body {
     margin: 0;
-    background: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 0;
+    background: url("DYCI_NEXUS.jpeg") no-repeat center center;
+    background-size: cover;
     height: 100vh;
-}
-
-/* FIXED — SAFE, UNIVERSAL, ALWAYS WORKING */
-.game-wrapper {
     position: relative;
-    width: min(100vw, 1000px);
-    aspect-ratio: 1000 / 1500;
-    background: url("DYCI_NEXUS.jpeg") center / contain no-repeat;
-    overflow: visible;   /* IMPORTANT FIX */
+    overflow: hidden;
 }
 
-/* INVISIBLE BUTTON — NOW ALWAYS CLICKABLE */
+/* Invisible-but-translucent button */
 .start-button {
     position: absolute;
+    left: 50%;
+    top: 62%;                     /* adjust if needed */
+    transform: translateX(-50%);
 
-    /* Pixel -> percentage (1000×1500 base) */
-    left: 8%;
-    top: 65.33%;
-    width: 84%;
-    height: 9.33%;
+    width: 1000px;                /* same size you set */
+    height: 100px;
 
-    /* debugging – REMOVE after verification */
-    background: rgba(0, 255, 255, 0.2); /* set transparency so you can see it */
+    background: rgba(255, 255, 255, 0.10); /* <--- translucent (10% opacity) */
+    border: none;
     cursor: pointer;
-}
 
+    /* remove any text or outline */
+    color: transparent;
+    outline: none;
+}
 </style>
 </head>
 
 <body>
 
-<div class="game-wrapper">
-    <div class="start-button" onclick="window.location='menu.html'"></div>
-</div>
-
-</body>
-</html>
+    <!-- Clickable translucent area -->
+    <div
