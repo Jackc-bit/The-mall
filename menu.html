@@ -33,7 +33,12 @@
         padding: 20px;
     }
 
+    a.button-link {
+        text-decoration: none;
+    }
+
     button {
+        width: 100%;
         font-size: 26px;
         padding: 30px;
         border: none;
@@ -47,127 +52,33 @@
         transform: scale(0.97);
         background: #e5e5e5;
     }
-
-    /* Slide-up menu */
-    .slide-menu {
-        position: fixed;
-        bottom: -60%;
-        left: 0;
-        width: 100%;
-        background: white;
-        padding: 20px;
-        border-radius: 20px 20px 0 0;
-        box-shadow: 0 -4px 10px rgba(0,0,0,0.25);
-        transition: 0.35s ease-out;
-        font-size: 22px;
-    }
-
-    .slide-menu h2 {
-        margin-top: 0;
-        font-size: 28px;
-    }
-
-    .slide-menu ul {
-        padding-left: 20px;
-        font-size: 24px;
-    }
-
-    .slide-menu li {
-        padding: 10px 0;
-    }
-
-    .slide-menu a {
-        text-decoration: none;
-        color: black;
-    }
-
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.35);
-        display: none;
-    }
 </style>
-
 </head>
+
 <body>
 
 <header>Information Kiosk</header>
 
 <div class="buttons">
-    <button onclick="openMenu('mapMenu')">Campus Map</button>
-    <button onclick="openMenu('facultyMenu')">Faculty Directory</button>
-    <button onclick="openMenu('docsMenu')">Documents Processing</button>
-    <button onclick="openMenu('aboutMenu')">About DYCI</button>
+
+    <!-- Direct links to pages -->
+    <a class="button-link" href="map.html">
+        <button>Campus Map</button>
+    </a>
+
+    <a class="button-link" href="faculty-menu.html">
+        <button>Faculty Directory</button>
+    </a>
+
+    <a class="button-link" href="documents.html">
+        <button>Documents Processing</button>
+    </a>
+
+    <a class="button-link" href="about-menu.html">
+        <button>About DYCI</button>
+    </a>
+
 </div>
-
-<div id="overlay" class="overlay" onclick="closeAll()"></div>
-
-<!-- Campus Map Menu -->
-<div id="mapMenu" class="slide-menu">
-    <h2>Campus Map</h2>
-    <ul>
-        <li><a href="main-building.html">Main Building</a></li>
-        <li><a href="high-school-building.html">High School Building</a></li>
-        <li><a href="grade-school-building.html">Grade School Building</a></li>
-        <li><a href="covered-court.html">Covered Court</a></li>
-        <li><a href="gymnasium.html">Gymnasium</a></li>
-    </ul>
-</div>
-
-<!-- Faculty Directory Menu -->
-<div id="facultyMenu" class="slide-menu">
-    <h2>Faculty Directory</h2>
-    <ul>
-        <li><a href="grade-school.html">Grade School</a></li>
-        <li><a href="high-school.html">High School</a></li>
-        <li><a href="principals.html">Principals</a></li>
-        <li><a href="missions-office.html">Missions Office</a></li>
-        <li><a href="mission-values-office.html">Mission &amp; Values Office</a></li>
-        <li><a href="guidance-counselors.html">Guidance Counselors</a></li>
-    </ul>
-</div>
-
-<!-- Documents Processing Menu -->
-<div id="docsMenu" class="slide-menu">
-    <h2>Documents Processing</h2>
-    <ul>
-        <li><a href="form-137.html">Form 137 Request</a></li>
-        <li><a href="good-moral.html">Good Moral Certificate</a></li>
-        <li><a href="enrollment-certificate.html">Enrollment Certificate</a></li>
-        <li><a href="id-replacement.html">ID Replacement</a></li>
-        <li><a href="payment-verification.html">Payment Verification</a></li>
-    </ul>
-</div>
-
-<!-- About DYCI Menu -->
-<div id="aboutMenu" class="slide-menu">
-    <h2>About DYCI</h2>
-    <ul>
-        <li><a href="robotics.html">Robotics Program</a></li>
-        <li><a href="history.html">School History</a></li>
-        <li><a href="organizations.html">Organizations</a></li>
-    </ul>
-</div>
-
-<script>
-function openMenu(menuId) {
-    closeAll();
-    document.getElementById(menuId).style.bottom = "0";
-    document.getElementById("overlay").style.display = "block";
-}
-
-function closeAll() {
-    document.getElementById("mapMenu").style.bottom = "-60%";
-    document.getElementById("facultyMenu").style.bottom = "-60%";
-    document.getElementById("docsMenu").style.bottom = "-60%";
-    document.getElementById("aboutMenu").style.bottom = "-60%";
-    document.getElementById("overlay").style.display = "none";
-}
-</script>
 
 </body>
 </html>
