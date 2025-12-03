@@ -72,6 +72,15 @@
         font-size: 24px;
     }
 
+    .slide-menu li {
+        padding: 10px 0;
+    }
+
+    .slide-menu a {
+        text-decoration: none;
+        color: black;
+    }
+
     .overlay {
         position: fixed;
         top: 0;
@@ -89,27 +98,23 @@
 <header>Information Kiosk</header>
 
 <div class="buttons">
-
-    <!-- OPEN MENUS -->
     <button onclick="openMenu('mapMenu')">Campus Map</button>
     <button onclick="openMenu('facultyMenu')">Faculty Directory</button>
     <button onclick="openMenu('docsMenu')">Documents Processing</button>
     <button onclick="openMenu('aboutMenu')">About DYCI</button>
-
 </div>
 
-<!-- Overlay -->
 <div id="overlay" class="overlay" onclick="closeAll()"></div>
 
 <!-- Campus Map Menu -->
 <div id="mapMenu" class="slide-menu">
     <h2>Campus Map</h2>
     <ul>
-        <li>Main Building</li>
-        <li>High School Building</li>
-        <li>Grade School Building</li>
-        <li>Covered Court</li>
-        <li>Gymnasium</li>
+        <li><a href="main-building.html">Main Building</a></li>
+        <li><a href="high-school-building.html">High School Building</a></li>
+        <li><a href="grade-school-building.html">Grade School Building</a></li>
+        <li><a href="covered-court.html">Covered Court</a></li>
+        <li><a href="gymnasium.html">Gymnasium</a></li>
     </ul>
 </div>
 
@@ -117,12 +122,12 @@
 <div id="facultyMenu" class="slide-menu">
     <h2>Faculty Directory</h2>
     <ul>
-        <li>Grade School</li>
-        <li>High School</li>
-        <li>Principals</li>
-        <li>Missions Office</li>
-        <li>Mission & Values Office</li>
-        <li>Guidance Counselors</li>
+        <li><a href="grade-school.html">Grade School</a></li>
+        <li><a href="high-school.html">High School</a></li>
+        <li><a href="principals.html">Principals</a></li>
+        <li><a href="missions-office.html">Missions Office</a></li>
+        <li><a href="mission-values-office.html">Mission &amp; Values Office</a></li>
+        <li><a href="guidance-counselors.html">Guidance Counselors</a></li>
     </ul>
 </div>
 
@@ -130,11 +135,11 @@
 <div id="docsMenu" class="slide-menu">
     <h2>Documents Processing</h2>
     <ul>
-        <li>Form 137 Request</li>
-        <li>Good Moral Certificate</li>
-        <li>Enrollment Certificate</li>
-        <li>ID Replacement</li>
-        <li>Payment Verification</li>
+        <li><a href="form-137.html">Form 137 Request</a></li>
+        <li><a href="good-moral.html">Good Moral Certificate</a></li>
+        <li><a href="enrollment-certificate.html">Enrollment Certificate</a></li>
+        <li><a href="id-replacement.html">ID Replacement</a></li>
+        <li><a href="payment-verification.html">Payment Verification</a></li>
     </ul>
 </div>
 
@@ -142,15 +147,15 @@
 <div id="aboutMenu" class="slide-menu">
     <h2>About DYCI</h2>
     <ul>
-        <li>Robotics Program</li>
-        <li>School History</li>
-        <li>Organizations</li>
+        <li><a href="robotics.html">Robotics Program</a></li>
+        <li><a href="history.html">School History</a></li>
+        <li><a href="organizations.html">Organizations</a></li>
     </ul>
 </div>
 
 <script>
 function openMenu(menuId) {
-    closeAll(); // close others first
+    closeAll();
     document.getElementById(menuId).style.bottom = "0";
     document.getElementById("overlay").style.display = "block";
 }
