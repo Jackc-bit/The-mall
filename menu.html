@@ -47,6 +47,40 @@
         transform: scale(0.97);
         background: #e5e5e5;
     }
+
+    /* --- Slide-up Menu Styles --- */
+    .slide-menu {
+        position: fixed;
+        bottom: -60%;
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 20px;
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -4px 10px rgba(0,0,0,0.25);
+        transition: 0.35s ease-out;
+        font-size: 22px;
+    }
+
+    .slide-menu h2 {
+        margin-top: 0;
+        font-size: 28px;
+    }
+
+    .slide-menu ul {
+        padding-left: 20px;
+        font-size: 24px;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.35);
+        display: none;
+    }
 </style>
 
 </head>
@@ -56,10 +90,41 @@
 
 <div class="buttons">
     <button onclick="alert('Map Screen Here')">Campus Map</button>
-    <button onclick="alert('Faculty Directory Options: Grade School, High School, Principals, Missions Office, Mission & Values Office, Guidance Counselors')">Faculty Directory</button>
+
+    <!-- Faculty Directory Button Opens Slide Menu -->
+    <button onclick="openMenu()">Faculty Directory</button>
+
     <button onclick="alert('Documents Processing Screen Here')">Documents Processing</button>
     <button onclick="alert('About DYCI: Robotics, History, Organizations')">About DYCI</button>
 </div>
+
+<!-- Overlay -->
+<div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+<!-- Slide-Up Menu -->
+<div id="slideMenu" class="slide-menu">
+    <h2>Faculty Directory</h2>
+    <ul>
+        <li>Grade School</li>
+        <li>High School</li>
+        <li>Principals</li>
+        <li>Missions Office</li>
+        <li>Mission & Values Office</li>
+        <li>Guidance Counselors</li>
+    </ul>
+</div>
+
+<script>
+function openMenu() {
+    document.getElementById("slideMenu").style.bottom = "0";
+    document.getElementById("overlay").style.display = "block";
+}
+
+function closeMenu() {
+    document.getElementById("slideMenu").style.bottom = "-60%";
+    document.getElementById("overlay").style.display = "none";
+}
+</script>
 
 </body>
 </html>
