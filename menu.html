@@ -48,7 +48,7 @@
         background: #e5e5e5;
     }
 
-    /* --- Slide-up Menu Styles --- */
+    /* Slide-up menu */
     .slide-menu {
         position: fixed;
         bottom: -60%;
@@ -89,20 +89,32 @@
 <header>Information Kiosk</header>
 
 <div class="buttons">
-    <button onclick="alert('Map Screen Here')">Campus Map</button>
 
-    <!-- Faculty Directory Button Opens Slide Menu -->
-    <button onclick="openMenu()">Faculty Directory</button>
+    <!-- OPEN MENUS -->
+    <button onclick="openMenu('mapMenu')">Campus Map</button>
+    <button onclick="openMenu('facultyMenu')">Faculty Directory</button>
+    <button onclick="openMenu('docsMenu')">Documents Processing</button>
+    <button onclick="openMenu('aboutMenu')">About DYCI</button>
 
-    <button onclick="alert('Documents Processing Screen Here')">Documents Processing</button>
-    <button onclick="alert('About DYCI: Robotics, History, Organizations')">About DYCI</button>
 </div>
 
 <!-- Overlay -->
-<div id="overlay" class="overlay" onclick="closeMenu()"></div>
+<div id="overlay" class="overlay" onclick="closeAll()"></div>
 
-<!-- Slide-Up Menu -->
-<div id="slideMenu" class="slide-menu">
+<!-- Campus Map Menu -->
+<div id="mapMenu" class="slide-menu">
+    <h2>Campus Map</h2>
+    <ul>
+        <li>Main Building</li>
+        <li>High School Building</li>
+        <li>Grade School Building</li>
+        <li>Covered Court</li>
+        <li>Gymnasium</li>
+    </ul>
+</div>
+
+<!-- Faculty Directory Menu -->
+<div id="facultyMenu" class="slide-menu">
     <h2>Faculty Directory</h2>
     <ul>
         <li>Grade School</li>
@@ -114,14 +126,40 @@
     </ul>
 </div>
 
+<!-- Documents Processing Menu -->
+<div id="docsMenu" class="slide-menu">
+    <h2>Documents Processing</h2>
+    <ul>
+        <li>Form 137 Request</li>
+        <li>Good Moral Certificate</li>
+        <li>Enrollment Certificate</li>
+        <li>ID Replacement</li>
+        <li>Payment Verification</li>
+    </ul>
+</div>
+
+<!-- About DYCI Menu -->
+<div id="aboutMenu" class="slide-menu">
+    <h2>About DYCI</h2>
+    <ul>
+        <li>Robotics Program</li>
+        <li>School History</li>
+        <li>Organizations</li>
+    </ul>
+</div>
+
 <script>
-function openMenu() {
-    document.getElementById("slideMenu").style.bottom = "0";
+function openMenu(menuId) {
+    closeAll(); // close others first
+    document.getElementById(menuId).style.bottom = "0";
     document.getElementById("overlay").style.display = "block";
 }
 
-function closeMenu() {
-    document.getElementById("slideMenu").style.bottom = "-60%";
+function closeAll() {
+    document.getElementById("mapMenu").style.bottom = "-60%";
+    document.getElementById("facultyMenu").style.bottom = "-60%";
+    document.getElementById("docsMenu").style.bottom = "-60%";
+    document.getElementById("aboutMenu").style.bottom = "-60%";
     document.getElementById("overlay").style.display = "none";
 }
 </script>
