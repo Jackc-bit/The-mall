@@ -14,7 +14,7 @@ body {
     overflow: hidden;
 }
 
-/* Translucent clickable button with visible text */
+/* Button with blue text + thick white outline */
 .start-button {
     position: absolute;
     left: 50%;
@@ -24,7 +24,7 @@ body {
     width: 1000px;
     height: 300px;
 
-    background: rgba(0, 0, 0, 0.35);     /* darker translucent background */
+    background: rgba(255, 255, 255, 0.20);
     border: 3px solid rgba(255, 255, 255, 0.9);
     border-radius: 50px;
 
@@ -34,10 +34,16 @@ body {
     justify-content: center;
     align-items: center;
 
-    font-size: 90px;
-    font-weight: bold;
-    color: #FFFFFF;  /* WHITE TEXT (always visible) */
-    text-shadow: 0 0 15px #0057d8; /* blue glow */
+    font-size: 95px;
+    font-weight: 900;
+    color: #003d99; /* dark blue */
+
+    /* thick white outline */
+    -webkit-text-stroke: 5px white;
+    text-stroke: 5px white;
+
+    /* small shadow for crisp edges */
+    text-shadow: 0 0 5px rgba(0,0,0,0.4);
 }
 
 .start-button:active {
