@@ -9,11 +9,8 @@
     body {
         margin: 0;
         font-family: Arial, sans-serif;
-
-        /* ADDED BACKGROUND IMAGE */
         background: url("Background.png") no-repeat center center fixed;
         background-size: cover;
-
         display: flex;
         flex-direction: column;
         height: 100vh;
@@ -22,7 +19,7 @@
     }
 
     header {
-        background: rgba(0, 87, 216, 0.85); /* slight transparency so bg shows */
+        background: rgba(0, 87, 216, 0.85);
         color: white;
         padding: 20px;
         font-size: 28px;
@@ -37,24 +34,23 @@
         padding: 20px;
     }
 
-    a {
-        text-decoration: none;
-    }
-
-    button {
+    .img-button {
         width: 100%;
-        font-size: 26px;
-        padding: 30px;
-        border: none;
-        background: #ffffff;
+        height: 100%;
+        object-fit: contain;
         border-radius: 14px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.15);
-        transition: 0.2s;
+        transition: 0.15s;
     }
 
-    button:active {
+    .img-button:active {
         transform: scale(0.97);
-        background: #e5e5e5;
+        filter: brightness(85%);
+    }
+
+    a {
+        display: block;
+        width: 100%;
+        height: 100%;
     }
 </style>
 </head>
@@ -66,19 +62,19 @@
 <div class="buttons">
 
     <a href="map.html">
-        <button>Campus Map</button>
+        <img src="Campus_Map.png" class="img-button">
     </a>
 
     <a href="faculty-menu.html">
-        <button>Faculty Directory</button>
+        <img src="Faculty_Directory.png" class="img-button">
     </a>
 
     <a href="documents.html">
-        <button>Documents Processing</button>
+        <img src="Staff_Directory.png" class="img-button">
     </a>
 
     <a href="about-menu.html">
-        <button>About DYCI</button>
+        <img src="About_Dyci.png" class="img-button">
     </a>
 
 </div>
