@@ -14,6 +14,7 @@
         background: url("Background.png") no-repeat center center fixed;
         background-size: cover;
     }
+
     h1 {
         margin-top: 10px;
         font-size: 32px;
@@ -43,12 +44,13 @@
         background: none;
         box-shadow: none;
     }
+
     .imgBtn img {
         width: 100%;
         border-radius: 14px;
     }
 
-    /* POPUP PANELS */
+    /* PANELS */
     .panel {
         position: fixed;
         bottom: -100vh;
@@ -68,6 +70,7 @@
         padding: 30px;
         overflow-y: auto;
         text-align: center;
+
         transition: bottom 0.45s ease;
     }
 
@@ -95,13 +98,13 @@
         text-align: center;
     }
 
-    /* FADE SLIDESHOW (CONTAINED TOP PORTION ONLY) */
+    /* FULLSCREEN FADE SLIDESHOW */
     .slideshow {
         width: 90%;
-        max-width: 500px;
+        max-width: 600px;
         margin: 0 auto 20px auto;
         position: relative;
-        height: 250px; /* slideshow height */
+        height: 400px; 
         overflow: hidden;
         border-radius: 16px;
     }
@@ -117,7 +120,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%; 
+        height: 100%;
         object-fit: cover;
         opacity: 0;
         transition: opacity 1s ease-in-out;
@@ -128,7 +131,6 @@
         opacity: 1;
     }
 
-    /* Specific rule for ASCEND_ORGM.png */
     .slides img[src="ASCEND_ORGM.png"] {
         object-fit: contain;
         background: white;
@@ -140,16 +142,16 @@
 <h1>Organizations</h1>
 
 <a class="backBtn" onclick="window.history.back();">⬅ Back</a>
-
 <div id="orgButtons"></div>
 
 <script>
-/* Organization List */
+/* List of orgs */
 const orgData = [
     "ASCEND","STRINGS","THE ANG","VERBUM","HIMIG","DAGALAK","DANCE","LIGHT","UNICUS","SCSL","SENTINELS",
     "GLOBALIZE","ENG FACI","NOVELLUS","TVOA","GLOBALIVE","DYCIAN LIVE","TAKEOFF","AVANT","DEBATE","SPEAKERS",
-    "PRIMES","USBONG","SIBOL","FENCING","TAEKWONDO","ARCHERY","SEQUINTIA","THE ANG DYCIAN","AXIOM","PEER FACI",
-    "SILO","GREEN GROUP","CREATIVES TEAM","EUNOMIA","DGITS","TYCOONS","COACHES","ALTAR SERVERS","CHOIR","SYMPHONIA"
+    "PRIMES","USBONG","SIBOL","FENCING","TAEKWONDO","ARCHERY","SEQUINTIA","THE ANG DYCIAN","AXIOM",
+    "PEER FACI","SILO","GREEN GROUP","CREATIVES TEAM","EUNOMIA","DGITS","TYCOONS","COACHES",
+    "ALTAR SERVERS","CHOIR","SYMPHONIA"
 ];
 
 const container = document.getElementById("orgButtons");
@@ -172,7 +174,6 @@ orgData.forEach(name => {
         container.appendChild(btn);
     }
 
-    /* PANEL CREATION */
     const panel = document.createElement("div");
     panel.className = "panel";
     panel.id = id;
@@ -194,10 +195,6 @@ orgData.forEach(name => {
                     </div>
                 </div>
 
-                <p style="color:white; font-size:20px; text-shadow:2px 2px 4px rgba(0,0,0,0.4);">
-                    ASCEND organization information can be placed here.
-                </p>
-
                 <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
             </div>
         `;
@@ -214,8 +211,7 @@ orgData.forEach(name => {
     document.body.appendChild(panel);
 });
 
-
-/* PANEL + SLIDESHOW CONTROL */
+/* SLIDESHOW CONTROL */
 let slideInterval = null;
 let currentIndex = 0;
 
@@ -229,7 +225,6 @@ function closePanel(id) {
     if (id === "ASCEND") stopAutoSlide();
 }
 
-/* Start FADE Slideshow */
 function startAutoSlide() {
     stopAutoSlide();
 
@@ -242,10 +237,9 @@ function startAutoSlide() {
         slides[currentIndex].style.opacity = 0;
         currentIndex = (currentIndex + 1) % slides.length;
         slides[currentIndex].style.opacity = 1;
-    }, 5000); // 5 seconds per slide
+    }, 5000);
 }
 
-/* Stop slideshow when panel closes */
 function stopAutoSlide() {
     clearInterval(slideInterval);
     slideInterval = null;
