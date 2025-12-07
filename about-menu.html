@@ -25,18 +25,21 @@
         text-align: center;
     }
 
-    /* Buttons */
-    .btn {
+    /* Image buttons */
+    .imgBtn {
+        width: 100%;
+        max-width: 500px;
         display: block;
-        background: rgba(255,255,255,0.85);
-        padding: 20px;
-        margin: 15px 0;
-        font-size: 24px;
-        border-radius: 10px;
-        text-decoration: none;
-        color: black;
-        box-shadow: 0 0 8px rgba(0,0,0,0.15);
-        backdrop-filter: blur(3px);
+        margin: 15px auto;
+        border-radius: 14px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.25);
+        cursor: pointer;
+        transition: transform 0.15s, filter 0.15s;
+    }
+
+    .imgBtn:active {
+        transform: scale(0.96);
+        filter: brightness(85%);
     }
 
     /* Slide-up panels */
@@ -77,6 +80,20 @@
         display: inline-block;
         text-decoration: none;
     }
+
+    /* Back button */
+    .backBtn {
+        background: #0057d8;
+        color: white;
+        padding: 20px;
+        font-size: 24px;
+        text-decoration: none;
+        display: block;
+        border-radius: 10px;
+        margin: 25px auto;
+        max-width: 500px;
+        text-align: center;
+    }
 </style>
 </head>
 
@@ -84,12 +101,14 @@
 
 <h1>About DYCI</h1>
 
-<!-- Main buttons -->
-<a class="btn" onclick="openPanel('roboticsPanel')">Robotics</a>
-<a class="btn" onclick="openPanel('historyPanel')">History</a>
-<a class="btn" onclick="openPanel('orgPanel')">Organizations</a>
+<!-- Image Buttons -->
+<img src="Robotics.png" class="imgBtn" onclick="openPanel('roboticsPanel')">
+<img src="History.png" class="imgBtn" onclick="openPanel('historyPanel')">
+<img src="Organizations.png" class="imgBtn" onclick="openPanel('orgPanel')">
 
-<a href="index.html" class="btn" style="background:#0057d8;color:white;">⬅ Back</a>
+<!-- Back button -->
+<a href="index.html" class="backBtn">⬅ Back</a>
+
 
 <!-- Panels -->
 
