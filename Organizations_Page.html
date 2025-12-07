@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DYCI Organizations</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial;
+        padding: 20px;
+        overflow-x: hidden;
+        background: url("Background.png") no-repeat center center fixed;
+        background-size: cover;
+    }
+    h1 {
+        margin-top: 10px;
+        font-size: 32px;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        text-align: center;
+    }
+    .orgBtn, .imgBtn {
+        width: 100%;
+        max-width: 500px;
+        display: block;
+        margin: 15px auto;
+        border-radius: 14px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.25);
+        cursor: pointer;
+        padding: 18px;
+        font-size: 22px;
+        text-align: center;
+        background: #0057d8;
+        color: white;
+        text-decoration: none;
+    }
+    .imgBtn {
+        padding: 0;
+        background: none;
+        box-shadow: none;
+    }
+    .imgBtn img {
+        width: 100%;
+        border-radius: 14px;
+    }
+    .panel {
+        position: fixed;
+        bottom: -100vh;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(255,255,255,0.97);
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.35);
+        border-radius: 25px 25px 0 0;
+        box-sizing: border-box;
+        padding: 30px;
+        overflow-y: auto;
+        text-align: center;
+        transition: bottom 0.45s ease;
+    }
+    .panelContent {
+        opacity: 1;
+    }
+    .closeBtn {
+        background: #0057d8;
+        color: white;
+        padding: 15px 20px;
+        font-size: 22px;
+        border-radius: 10px;
+        margin-top: 25px;
+        display: inline-block;
+        text-decoration: none;
+    }
+    .backBtn {
+        background: #0057d8;
+        color: white;
+        padding: 20px;
+        font-size: 24px;
+        text-decoration: none;
+        display: block;
+        border-radius: 10px;
+        margin: 25px auto;
+        max-width: 500px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+
+<h1>Organizations</h1>
+<a href="AboutDyci.html" class="backBtn">⬅ Back</a>
+
+<!-- Buttons -->
+<div id="orgButtons"></div>
+
+<script>
+const orgData = [
+    "ASCEND","STRINGS","THE ANG","VERBUM","HIMIG","DAGALAK","DANCE","LIGHT","UNICUS","SCSL","SENTINELS","GLOBALIZE","ENG FACI","NOVELLUS","TVOA","GLOBALIVE","DYCIAN LIVE","TAKEOFF","AVANT","DEBATE","SPEAKERS","PRIMES","USBONG","SIBOL","FENCING","TAEKWONDO","ARCHERY","SEQUINTIA","THE ANG DYCIAN","AXIOM","PEER FACI","SILO","GREEN GROUP","CREATIVES TEAM","EUNOMIA","DGITS","TYCOONS","COACHES","ALTAR SERVERS","CHOIR","SYMPHONIA"
+];
+
+const container = document.getElementById("orgButtons");
+
+orgData.forEach(name => {
+    const id = name.replace(/ /g, "_");
+
+    const btn = document.createElement("a");
+    btn.className = "orgBtn";
+    btn.textContent = name;
+    btn.onclick = () => openPanel(id);
+    container.appendChild(btn);
+
+    const panel = document.createElement("div");
+    panel.className = "panel";
+    panel.id = id;
+    panel.innerHTML = `
+        <div class="panelContent">
+            <h2>${name}</h2>
+            <p>Content for ${name} goes here.</p>
+            <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
+        </div>
+    `;
+    document.body.appendChild(panel);
+});
+
+function openPanel(id) {
+    document.getElementById(id).style.bottom = "0";
+}
+function closePanel(id) {
+    document.getElementById(id).style.bottom = "-100vh";
+}
+</script>
+
+</body>
+</html>
