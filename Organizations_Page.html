@@ -90,9 +90,11 @@
 <body>
 
 <h1>Organizations</h1>
-<a href="AboutDyci.html" class="backBtn">⬅ Back</a>
 
-<!-- Buttons -->
+<!-- Updated Back Button -->
+<a class="backBtn" onclick="window.history.back();">⬅ Back</a>
+
+<!-- Button container -->
 <div id="orgButtons"></div>
 
 <script>
@@ -108,7 +110,7 @@ const container = document.getElementById("orgButtons");
 orgData.forEach(name => {
     const id = name.replace(/ /g, "_");
 
-    // ASCEND gets an image instead of text button
+    // ASCEND uses an image button
     if (name === "ASCEND") {
         const btn = document.createElement("div");
         btn.className = "imgBtn";
@@ -123,6 +125,7 @@ orgData.forEach(name => {
         container.appendChild(btn);
     }
 
+    // Create slide-up panel
     const panel = document.createElement("div");
     panel.className = "panel";
     panel.id = id;
