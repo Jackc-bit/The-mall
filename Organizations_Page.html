@@ -97,7 +97,10 @@
 
 <script>
 const orgData = [
-    "ASCEND","STRINGS","THE ANG","VERBUM","HIMIG","DAGALAK","DANCE","LIGHT","UNICUS","SCSL","SENTINELS","GLOBALIZE","ENG FACI","NOVELLUS","TVOA","GLOBALIVE","DYCIAN LIVE","TAKEOFF","AVANT","DEBATE","SPEAKERS","PRIMES","USBONG","SIBOL","FENCING","TAEKWONDO","ARCHERY","SEQUINTIA","THE ANG DYCIAN","AXIOM","PEER FACI","SILO","GREEN GROUP","CREATIVES TEAM","EUNOMIA","DGITS","TYCOONS","COACHES","ALTAR SERVERS","CHOIR","SYMPHONIA"
+    "ASCEND","STRINGS","THE ANG","VERBUM","HIMIG","DAGALAK","DANCE","LIGHT","UNICUS","SCSL","SENTINELS",
+    "GLOBALIZE","ENG FACI","NOVELLUS","TVOA","GLOBALIVE","DYCIAN LIVE","TAKEOFF","AVANT","DEBATE","SPEAKERS",
+    "PRIMES","USBONG","SIBOL","FENCING","TAEKWONDO","ARCHERY","SEQUINTIA","THE ANG DYCIAN","AXIOM","PEER FACI",
+    "SILO","GREEN GROUP","CREATIVES TEAM","EUNOMIA","DGITS","TYCOONS","COACHES","ALTAR SERVERS","CHOIR","SYMPHONIA"
 ];
 
 const container = document.getElementById("orgButtons");
@@ -105,11 +108,20 @@ const container = document.getElementById("orgButtons");
 orgData.forEach(name => {
     const id = name.replace(/ /g, "_");
 
-    const btn = document.createElement("a");
-    btn.className = "orgBtn";
-    btn.textContent = name;
-    btn.onclick = () => openPanel(id);
-    container.appendChild(btn);
+    // ASCEND gets an image instead of text button
+    if (name === "ASCEND") {
+        const btn = document.createElement("div");
+        btn.className = "imgBtn";
+        btn.onclick = () => openPanel(id);
+        btn.innerHTML = `<img src="Ascend.png">`;
+        container.appendChild(btn);
+    } else {
+        const btn = document.createElement("a");
+        btn.className = "orgBtn";
+        btn.textContent = name;
+        btn.onclick = () => openPanel(id);
+        container.appendChild(btn);
+    }
 
     const panel = document.createElement("div");
     panel.className = "panel";
