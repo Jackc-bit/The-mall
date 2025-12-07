@@ -14,6 +14,7 @@
         background: url("Background.png") no-repeat center center fixed;
         background-size: cover;
     }
+
     h1 {
         margin-top: 20px;
         font-size: 32px;
@@ -21,6 +22,7 @@
         text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         text-align: center;
     }
+
     .imgBtn {
         width: 100%;
         max-width: 500px;
@@ -35,6 +37,7 @@
         transform: scale(0.96);
         filter: brightness(85%);
     }
+
     .panel {
         position: fixed;
         bottom: -100vh;
@@ -51,13 +54,11 @@
         transition: bottom 0.45s ease;
         backdrop-filter: blur(5px);
     }
+
     .panelContent {
-        opacity: 0;
-        transition: opacity 0.4s ease;
+        opacity: 1; /* No fade animations */
     }
-    .panelContent.visible {
-        opacity: 1;
-    }
+
     .closeBtn {
         background: #0057d8;
         color: white;
@@ -68,6 +69,7 @@
         display: inline-block;
         text-decoration: none;
     }
+
     .backBtn {
         background: #0057d8;
         color: white;
@@ -80,29 +82,27 @@
         max-width: 500px;
         text-align: center;
     }
-    .orgBtn {
-        background: #0057d8;
-        color: white;
-        padding: 18px;
-        font-size: 22px;
-        border-radius: 10px;
-        margin: 10px auto;
-        max-width: 500px;
-        display: block;
-        text-decoration: none;
-    }
 </style>
 </head>
 <body>
 
 <h1>About DYCI</h1>
 
+<!-- Robotics -->
 <img src="Robotics.png" class="imgBtn" onclick="openPanel('roboticsPanel')">
-<img src="History.png" class="imgBtn" onclick="openPanel('historyPanel')">
-<img src="Organizations.png" class="imgBtn" onclick="openPanel('orgPanel')">
 
+<!-- History -->
+<img src="History.png" class="imgBtn" onclick="openPanel('historyPanel')">
+
+<!-- Organizations (GO TO SEPARATE PAGE) -->
+<a href="Organizations_Page.html">
+    <img src="Organizations.png" class="imgBtn">
+</a>
+
+<!-- Back button -->
 <a href="index.html" class="backBtn">⬅ Back</a>
 
+<!-- ROBOTICS PANEL -->
 <div class="panel" id="roboticsPanel">
     <div class="panelContent">
         <h2>Robotics</h2>
@@ -111,6 +111,7 @@
     </div>
 </div>
 
+<!-- HISTORY PANEL -->
 <div class="panel" id="historyPanel">
     <div class="panelContent">
         <h2>History</h2>
@@ -119,99 +120,21 @@
     </div>
 </div>
 
-<div class="panel" id="orgPanel">
-    <div class="panelContent">
-        <h2>Organizations</h2>
-
-        <!-- Organization buttons added here -->
-        <a class="orgBtn" onclick="openPanel('ASCEND')">ASCEND</a>
-        <a class="orgBtn" onclick="openPanel('STRINGS')">DYCI Strings Ensemble</a>
-        <a class="orgBtn" onclick="openPanel('THE_ANG')">The/Ang</a>
-        <a class="orgBtn" onclick="openPanel('VERBUM')">DYCI Verbum Domini</a>
-        <a class="orgBtn" onclick="openPanel('HIMIG')">Himig DYCIan</a>
-        <a class="orgBtn" onclick="openPanel('DAGALAK')">DYCI Dagalak</a>
-        <a class="orgBtn" onclick="openPanel('DANCE')">Dance Troupe</a>
-        <a class="orgBtn" onclick="openPanel('LIGHT')">DYCI LIGHT</a>
-        <a class="orgBtn" onclick="openPanel('UNICUS')">UNICUS</a>
-        <a class="orgBtn" onclick="openPanel('SCSL')">SCSL</a>
-        <a class="orgBtn" onclick="openPanel('SENTINELS')">Sentinels</a>
-        <a class="orgBtn" onclick="openPanel('GLOBALIZE')">Globalize</a>
-        <a class="orgBtn" onclick="openPanel('ENG_FACI')">Eng. Faci.</a>
-        <a class="orgBtn" onclick="openPanel('NOVELLUS')">Novellus</a>
-        <a class="orgBtn" onclick="openPanel('TVOA')">TVOA</a>
-        <a class="orgBtn" onclick="openPanel('GLOBALIVE')">GlobaLive</a>
-        <a class="orgBtn" onclick="openPanel('DYCIAN_LIVE')">DYCIan Live</a>
-        <a class="orgBtn" onclick="openPanel('TAKEOFF')">TAKEOFF</a>
-        <a class="orgBtn" onclick="openPanel('AVANT')">Avant Garde</a>
-        <a class="orgBtn" onclick="openPanel('DEBATE')">Debate Society</a>
-        <a class="orgBtn" onclick="openPanel('SPEAKERS')">Speakers Society</a>
-        <a class="orgBtn" onclick="openPanel('PRIMES')">DYCI Primes</a>
-        <a class="orgBtn" onclick="openPanel('USBONG')">Usbong</a>
-        <a class="orgBtn" onclick="openPanel('SIBOL')">Sibol</a>
-        <a class="orgBtn" onclick="openPanel('FENCING')">Fencing</a>
-        <a class="orgBtn" onclick="openPanel('TAEKWONDO')">Taekwondo</a>
-        <a class="orgBtn" onclick="openPanel('ARCHERY')">Archery</a>
-        <a class="orgBtn" onclick="openPanel('SEQUINTIA')">Sequintia Studios</a>
-        <a class="orgBtn" onclick="openPanel('THE_ANG_DYCIAN')">The/Ang DYCIan</a>
-        <a class="orgBtn" onclick="openPanel('AXIOM')">Axiom</a>
-        <a class="orgBtn" onclick="openPanel('PEER')">Peer Faci.</a>
-        <a class="orgBtn" onclick="openPanel('SILO')">SILO</a>
-        <a class="orgBtn" onclick="openPanel('GREEN')">Green Group</a>
-        <a class="orgBtn" onclick="openPanel('CREATIVES')">Creatives Team</a>
-        <a class="orgBtn" onclick="openPanel('EUNOMIA')">Eunomia</a>
-        <a class="orgBtn" onclick="openPanel('DGITS')">DGITS</a>
-        <a class="orgBtn" onclick="openPanel('TYCOONS')">Societal Tycoons</a>
-        <a class="orgBtn" onclick="openPanel('COACHES')">COACHES</a>
-        <a class="orgBtn" onclick="openPanel('ALTAR')">DYCI Ministry of Altar Servers</a>
-        <a class="orgBtn" onclick="openPanel('CHOIR')">DYCI Liturgical Choir</a>
-        <a class="orgBtn" onclick="openPanel('SYMPHONIA')">DYCI Symphonia</a>
-
-        <a class="closeBtn" onclick="closePanel('orgPanel')">Close</a>
-    </div>
-</div>
-
-<!-- AUTO-GENERATED PANELS FOR ORGANIZATIONS -->
 <script>
-const orgList = [
-    "ASCEND","STRINGS","THE_ANG","VERBUM","HIMIG","DAGALAK","DANCE","LIGHT","UNICUS","SCSL","SENTINELS","GLOBALIZE","ENG_FACI","NOVELLUS","TVOA","GLOBALIVE","DYCIAN_LIVE","TAKEOFF","AVANT","DEBATE","SPEAKERS","PRIMES","USBONG","SIBOL","FENCING","TAEKWONDO","ARCHERY","SEQUINTIA","THE_ANG_DYCIAN","AXIOM","PEER","SILO","GREEN","CREATIVES","EUNOMIA","DGITS","TYCOONS","COACHES","ALTAR","CHOIR","SYMPHONIA"
-];
-
-orgList.forEach(id=>{
-    const panel = document.createElement("div");
-    panel.className = "panel";
-    panel.id = id;
-    panel.innerHTML = `
-        <div class="panelContent">
-            <h2>${id.replace(/_/g,' ')}</h2>
-            <p>Content for ${id.replace(/_/g,' ')} goes here.</p>
-            <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
-        </div>
-    `;
-    document.body.appendChild(panel);
-});
-
 function openPanel(id){
-    const p=document.getElementById(id);
-    const c=p.querySelector(".panelContent");
-    p.style.bottom="0";
-    setTimeout(()=>c.classList.add("visible"),150);
+    document.getElementById(id).style.bottom = "0";
 }
 function closePanel(id){
-    const p=document.getElementById(id);
-    const c=p.querySelector(".panelContent");
-    c.classList.remove("visible");
-    setTimeout(()=>p.style.bottom="-100vh",300);
+    document.getElementById(id).style.bottom = "-100vh";
 }
 
-let startY=0;
-document.addEventListener("touchstart",e=>startY=e.touches[0].clientY);
-document.addEventListener("touchend",e=>{
-    let diff=e.changedTouches[0].clientY-startY;
-    if(diff>80){
+let startY = 0;
+document.addEventListener("touchstart", e => startY = e.touches[0].clientY);
+document.addEventListener("touchend", e => {
+    let diff = e.changedTouches[0].clientY - startY;
+    if (diff > 80) {
         document.querySelectorAll(".panel").forEach(p=>{
-            const c=p.querySelector(".panelContent");
-            c.classList.remove("visible");
-            setTimeout(()=>p.style.bottom="-100vh",300);
+            p.style.bottom = "-100vh";
         });
     }
 });
