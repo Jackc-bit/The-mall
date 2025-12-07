@@ -21,6 +21,7 @@
         text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         text-align: center;
     }
+
     .orgBtn, .imgBtn {
         width: 100%;
         max-width: 500px;
@@ -36,6 +37,7 @@
         color: white;
         text-decoration: none;
     }
+
     .imgBtn {
         padding: 0;
         background: none;
@@ -46,21 +48,32 @@
         border-radius: 14px;
     }
 
-    /* Slide-up panel */
+    /* BLURRED POPUP BACKGROUND */
     .panel {
         position: fixed;
         bottom: -100vh;
         left: 0;
         width: 100%;
         height: 100vh;
-        background: rgba(255,255,255,0.97);
+
+        /* Matching background with blur */
+        background: url("Background.png") no-repeat center center fixed;
+        background-size: cover;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+
         box-shadow: 0 -5px 20px rgba(0,0,0,0.35);
         border-radius: 25px 25px 0 0;
+
         box-sizing: border-box;
         padding: 30px;
         overflow-y: auto;
         text-align: center;
         transition: bottom 0.45s ease;
+    }
+
+    .panelContent {
+        opacity: 1;
     }
 
     .closeBtn {
@@ -87,53 +100,40 @@
         text-align: center;
     }
 
-    /* SLIDESHOW */
-    .slideshow-container {
-        width: 100%;
-        max-width: 600px;
-        margin: auto;
+    /* Slideshow container */
+    .slideshow {
+        width: 90%;
+        max-width: 500px;
+        margin: 0 auto;
         overflow: hidden;
-        border-radius: 15px;
+        border-radius: 16px;
         position: relative;
-        touch-action: pan-y;
     }
 
     .slides {
         display: flex;
-        width: 100%;
-        transition: transform 0.35s ease;
+        transition: transform 0.4s ease;
     }
 
     .slides img {
         width: 100%;
         flex-shrink: 0;
-        border-radius: 15px;
+        border-radius: 16px;
     }
-
-    .arrow {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 40px;
-        color: white;
-        padding: 10px;
-        cursor: pointer;
-        user-select: none;
-        text-shadow: 0 0 10px black;
-    }
-    .left-arrow { left: 10px; }
-    .right-arrow { right: 10px; }
 </style>
 </head>
 <body>
 
 <h1>Organizations</h1>
 
+<!-- Back Button -->
 <a class="backBtn" onclick="window.history.back();">⬅ Back</a>
 
+<!-- Buttons -->
 <div id="orgButtons"></div>
 
 <script>
+/* All organization names */
 const orgData = [
     "ASCEND","STRINGS","THE ANG","VERBUM","HIMIG","DAGALAK","DANCE","LIGHT","UNICUS","SCSL","SENTINELS",
     "GLOBALIZE","ENG FACI","NOVELLUS","TVOA","GLOBALIVE","DYCIAN LIVE","TAKEOFF","AVANT","DEBATE","SPEAKERS",
@@ -146,13 +146,15 @@ const container = document.getElementById("orgButtons");
 orgData.forEach(name => {
     const id = name.replace(/ /g, "_");
 
+    /* ASCEND uses slideshow */
     if (name === "ASCEND") {
         const btn = document.createElement("div");
         btn.className = "imgBtn";
         btn.onclick = () => openPanel(id);
         btn.innerHTML = `<img src="Ascend.png">`;
         container.appendChild(btn);
-    } else {
+    } 
+    else {
         const btn = document.createElement("a");
         btn.className = "orgBtn";
         btn.textContent = name;
@@ -160,15 +162,18 @@ orgData.forEach(name => {
         container.appendChild(btn);
     }
 
-    let panelHTML = "";
+    /* Create Popup Panel */
+    const panel = document.createElement("div");
+    panel.className = "panel";
+    panel.id = id;
 
     if (name === "ASCEND") {
-        panelHTML = `
+        panel.innerHTML = `
             <div class="panelContent">
-                <h2>ASCEND</h2>
+                <h2>${name}</h2>
 
-                <div class="slideshow-container" id="slideshow">
-                    <div class="slides" id="slides">
+                <div class="slideshow" id="${id}_slideshow">
+                    <div class="slides">
                         <img src="ASCEND_ORGM.png">
                         <img src="ASCEND_ORG1.JPG">
                         <img src="ASCEND_ORG2.JPG">
@@ -177,26 +182,20 @@ orgData.forEach(name => {
                         <img src="ASCEND_ORG5.JPG">
                         <img src="ASCEND_ORG6.JPG">
                     </div>
-
-                    <div class="arrow left-arrow" onclick="slideLeft()">❮</div>
-                    <div class="arrow right-arrow" onclick="slideRight()">❯</div>
                 </div>
 
                 <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
-            </div>`;
+            </div>
+        `;
     } else {
-        panelHTML = `
+        panel.innerHTML = `
             <div class="panelContent">
                 <h2>${name}</h2>
                 <p>Content for ${name} goes here.</p>
                 <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
-            </div>`;
+            </div>
+        `;
     }
-
-    const panel = document.createElement("div");
-    panel.className = "panel";
-    panel.id = id;
-    panel.innerHTML = panelHTML;
 
     document.body.appendChild(panel);
 });
@@ -204,52 +203,32 @@ orgData.forEach(name => {
 function openPanel(id) {
     document.getElementById(id).style.bottom = "0";
 }
+
 function closePanel(id) {
     document.getElementById(id).style.bottom = "-100vh";
 }
 
-/* -------------- SLIDESHOW LOGIC -------------- */
-let index = 0;
-
-function updateSlide() {
-    const slides = document.getElementById("slides");
-    if (!slides) return;
-    const width = slides.clientWidth;
-    slides.style.transform = `translateX(-${index * 100}%)`;
-}
-
-function slideLeft() {
-    const slides = document.getElementById("slides");
-    if (!slides) return;
-    index = (index - 1 + slides.children.length) % slides.children.length;
-    updateSlide();
-}
-
-function slideRight() {
-    const slides = document.getElementById("slides");
-    if (!slides) return;
-    index = (index + 1) % slides.children.length;
-    updateSlide();
-}
-
-/* ------ TOUCH DRAGGING ----- */
+/* Slide Variables */
 let startX = 0;
-let currentX = 0;
+let currentIndex = 0;
 
 document.addEventListener("touchstart", e => {
     startX = e.touches[0].clientX;
 });
 
-document.addEventListener("touchmove", e => {
-    currentX = e.touches[0].clientX;
-});
+document.addEventListener("touchend", e => {
+    const endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+    const threshold = 50;
 
-document.addEventListener("touchend", () => {
-    let diff = startX - currentX;
+    const slideShow = document.querySelector("#ASCEND_slideshow .slides");
+    const slides = slideShow.children;
+    const total = slides.length;
 
-    if (Math.abs(diff) > 50) {
-        if (diff > 0) slideRight();
-        else slideLeft();
+    if (Math.abs(diff) > threshold) {
+        if (diff > 0 && currentIndex < total - 1) currentIndex++;
+        else if (diff < 0 && currentIndex > 0) currentIndex--;
+        slideShow.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
 });
 </script>
