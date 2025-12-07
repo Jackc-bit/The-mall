@@ -60,8 +60,10 @@
         text-align: center;
         transition: bottom 0.45s ease;
     }
-    .panelContent {
-        opacity: 1;
+    .panelContent img {
+        width: 100%;
+        border-radius: 14px;
+        margin: 10px 0;
     }
     .closeBtn {
         background: #0057d8;
@@ -91,10 +93,8 @@
 
 <h1>Organizations</h1>
 
-<!-- Updated Back Button -->
 <a class="backBtn" onclick="window.history.back();">⬅ Back</a>
 
-<!-- Button container -->
 <div id="orgButtons"></div>
 
 <script>
@@ -110,7 +110,7 @@ const container = document.getElementById("orgButtons");
 orgData.forEach(name => {
     const id = name.replace(/ /g, "_");
 
-    // ASCEND uses an image button
+    // ASCEND = Image Button
     if (name === "ASCEND") {
         const btn = document.createElement("div");
         btn.className = "imgBtn";
@@ -125,14 +125,32 @@ orgData.forEach(name => {
         container.appendChild(btn);
     }
 
-    // Create slide-up panel
+    // Panel content
+    let contentHTML = `
+        <h2>${name}</h2>
+        <p>Content for ${name} goes here.</p>
+    `;
+
+    // Special ASCEND images
+    if (name === "ASCEND") {
+        contentHTML = `
+            <h2>ASCEND</h2>
+            <img src="ASCEND_ORGM.png">
+            <img src="ASCEND_ORG1.JPG">
+            <img src="ASCEND_ORG2.JPG">
+            <img src="ASCEND_ORG3.JPG">
+            <img src="ASCEND_ORG4.JPG">
+            <img src="ASCEND_ORG5.JPG">
+            <img src="ASCEND_ORG6.JPG">
+        `;
+    }
+
     const panel = document.createElement("div");
     panel.className = "panel";
     panel.id = id;
     panel.innerHTML = `
         <div class="panelContent">
-            <h2>${name}</h2>
-            <p>Content for ${name} goes here.</p>
+            ${contentHTML}
             <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
         </div>
     `;
