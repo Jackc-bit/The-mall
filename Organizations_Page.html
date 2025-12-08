@@ -26,20 +26,20 @@
     .container {    
         display: flex;    
         flex-direction: column;    
-        gap: 15px;    
+        gap: 20px;    
         margin-top: 20px;    
     }    
     
-    /* SMALLER ROUNDED PNG BUTTONS */    
+    /* PNG BUTTONS — NOT FORCED TO FILL */    
     .org-btn {    
         width: 100%;    
-        max-width: 360px;       /* smaller width */    
-        height: 100px;          /* smaller height */    
-        background-size: cover;    
+        max-width: 360px;    
+        aspect-ratio: 3.5 / 1;        /* keeps PNG shape proportional */    
+        background-size: contain;     /* show entire PNG, no cropping */    
         background-position: center;    
         background-repeat: no-repeat;    
-        border-radius: 20px;    
-        overflow: hidden;    
+        border-radius: 0;             /* PNG already has rounded edges */    
+        overflow: visible;            /* prevents clipping */    
         margin: 0 auto;    
         cursor: pointer;    
     }    
