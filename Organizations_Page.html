@@ -15,9 +15,8 @@
     }
 
     h1 {
-        margin: 15px 0;
+        margin: 20px 0;
         text-align: center;
-        font-size: 32px;
         color: white;
         text-shadow: 2px 2px 5px black;
     }
@@ -34,11 +33,11 @@
     .orgBtn img {
         width: 100%;
         border-radius: 12px;
-        cursor: pointer;
         display: block;
+        cursor: pointer;
     }
 
-    /* Dark overlay when panel opens */
+    /* Overlay */
     #overlay {
         position: fixed;
         top: 0;
@@ -49,11 +48,11 @@
         backdrop-filter: blur(6px);
         opacity: 0;
         pointer-events: none;
-        transition: opacity .35s ease;
+        transition: 0.35s ease;
         z-index: 9;
     }
 
-    /* Slide-up panel */
+    /* Slide panel */
     .panel {
         position: fixed;
         bottom: -100vh;
@@ -64,42 +63,39 @@
         backdrop-filter: blur(14px);
         border-radius: 25px 25px 0 0;
         padding: 25px;
-        box-sizing: border-box;
         overflow-y: auto;
+        transition: 0.45s ease;
         z-index: 10;
-        transition: bottom .45s ease;
         color: white;
+        box-sizing: border-box;
     }
 
     .closeBtn {
         background: #0057d8;
         color: white;
-        font-size: 22px;
         padding: 12px 20px;
         border-radius: 10px;
-        text-decoration: none;
+        font-size: 20px;
         display: block;
         width: fit-content;
         margin: 20px auto;
         cursor: pointer;
+        text-align: center;
     }
 
-    /* ASCEND slideshow wrapper */
+    /* Slideshow */
     .slideshowWrapper {
         width: 100%;
         max-width: 600px;
         margin: auto;
-        position: relative;
     }
 
-    /* Auto aspect-ratio box */
     .slideshow {
         width: 100%;
-        position: relative;
-        overflow: hidden;
+        aspect-ratio: 16/9;
         border-radius: 18px;
-        /* auto-adjust height */
-        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        position: relative;
     }
 
     .slideshow img {
@@ -107,10 +103,8 @@
         width: 100%;
         height: 100%;
         object-fit: contain;
-        top: 0;
-        left: 0;
         opacity: 0;
-        transition: opacity 1s ease-in-out;
+        transition: opacity 1s;
     }
 </style>
 </head>
@@ -119,11 +113,11 @@
 <h1>DYCI Organizations</h1>
 
 <div id="overlay"></div>
-
-<div class="grid" id="orgGrid"></div>
+<div id="orgGrid" class="grid"></div>
 
 <script>
-/* BUTTON LIST */
+
+/* ALL ORGS */
 const orgData = {
     "SIBOL": "Sibol.png",
     "ARCHERY": "Archery.png",
@@ -165,23 +159,22 @@ const orgData = {
     "VERBUM DOMINI": "Verbum_Domini.png"
 };
 
-const orgGrid = document.getElementById("orgGrid");
-const overlay = document.getElementById("overlay");
+/* Insert buttons */
+const grid = document.getElementById("orgGrid");
 
 Object.entries(orgData).forEach(([name, file]) => {
     const id = name.replace(/ /g, "_");
 
-    orgGrid.innerHTML += `
+    grid.innerHTML += `
         <div class="orgBtn">
             <img src="${file}" onclick="openPanel('${id}')">
         </div>
     `;
 
-    /* ASCEND SPECIAL PANEL */
     if (name === "ASCEND") {
         document.body.innerHTML += `
             <div class="panel" id="${id}">
-                <h2 style="text-align:center;">${name}</h2>
+                <h2 style="text-align:center">${name}</h2>
 
                 <div class="slideshowWrapper">
                     <div class="slideshow" id="ascendShow">
@@ -198,61 +191,60 @@ Object.entries(orgData).forEach(([name, file]) => {
                 <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
             </div>
         `;
-    }
-
-    /* NORMAL PANEL */
-    else {
+    } else {
         document.body.innerHTML += `
             <div class="panel" id="${id}">
-                <h2 style="text-align:center;">${name}</h2>
-                <p style="text-align:center;">Content for ${name} will be added soon.</p>
+                <h2 style="text-align:center">${name}</h2>
+                <p style="text-align:center">Content coming soon</p>
                 <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
             </div>
         `;
     }
 });
 
-/* OPEN & CLOSE PANEL */
-let slideInterval;
-let ascendIndex = 0;
+/* Slide panels */
+const overlay = document.getElementById("overlay");
 
 function openPanel(id) {
     document.getElementById(id).style.bottom = "0";
-    overlay.style.opacity = 1;
+    overlay.style.opacity = "1";
     overlay.style.pointerEvents = "auto";
     document.body.style.overflow = "hidden";
 
-    if (id === "ASCEND") startAscendShow();
+    if (id === "ASCEND") startAscend();
 }
 
 function closePanel(id) {
     document.getElementById(id).style.bottom = "-100vh";
-    overlay.style.opacity = 0;
+    overlay.style.opacity = "0";
     overlay.style.pointerEvents = "none";
     document.body.style.overflow = "auto";
-
-    stopAscendShow();
+    stopAscend();
 }
 
-/* ASCEND SLIDESHOW */
-function startAscendShow() {
-    stopAscendShow();
-    const imgs = document.querySelectorAll("#ascendShow img");
-    if (imgs.length === 0) return;
+/* ASCEND slideshow */
+let ascendIndex = 0;
+let ascendTimer;
 
-    imgs.forEach(i => i.style.opacity = 0);
+function startAscend() {
+    stopAscend();
+    const imgs = document.querySelectorAll("#ascendShow img");
+    if (!imgs.length) return;
+
+    imgs.forEach(img => img.style.opacity = 0);
     imgs[0].style.opacity = 1;
 
-    slideInterval = setInterval(() => {
+    ascendTimer = setInterval(() => {
         imgs[ascendIndex].style.opacity = 0;
         ascendIndex = (ascendIndex + 1) % imgs.length;
         imgs[ascendIndex].style.opacity = 1;
     }, 5000);
 }
 
-function stopAscendShow() {
-    clearInterval(slideInterval);
+function stopAscend() {
+    clearInterval(ascendTimer);
 }
+
 </script>
 
 </body>
