@@ -1,237 +1,422 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DYCI Organizations</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>DYCI Organizations — Responsive</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial;
-        padding: 20px;
-        overflow-x: hidden;
-        background: url("Background.png") no-repeat center center fixed;
-        background-size: cover;
-    }
+  :root{
+    --panel-bg: rgba(6,10,18,0.88);
+    --accent: #0a66ff;
+    --gap: 14px;
+  }
 
-    h1 {
-        margin-top: 10px;
-        font-size: 32px;
-        color: white;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        text-align: center;
-    }
+  /* ---------- Page layout ---------- */
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:#050816;color:#fff}
+  .page {
+    max-width:1200px;
+    margin:0 auto;
+    padding:20px;
+  }
+  h1{margin:6px 0 18px;font-size:28px;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,0.6)}
+  /* Grid of PNG buttons */
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+    gap:var(--gap);
+    align-items:start;
+  }
+  .btn {
+    width:100%;
+    padding-top:80%; /* square-ish area */
+    position:relative;
+    border-radius:14px;
+    overflow:hidden;
+    background-size:cover;
+    background-position:center;
+    border:2px solid rgba(255,255,255,0.06);
+    box-shadow:0 6px 16px rgba(0,0,0,0.35);
+    cursor:pointer;
+    transition:transform .14s ease, box-shadow .14s ease;
+  }
+  .btn:active{transform:scale(.98)}
+  .btn .label {
+    position:absolute;
+    left:8px;right:8px;bottom:6px;
+    font-size:12px;text-align:center;
+    color: rgba(255,255,255,0.95);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    pointer-events:none;
+  }
 
-    .imgBtn {
-        width: 100%;
-        max-width: 500px;
-        display: block;
-        margin: 15px auto;
-        cursor: pointer;
-        border-radius: 14px;
-    }
+  /* ---------- Reusable dynamic panel ---------- */
+  #panel {
+    position:fixed;
+    left:0;right:0;bottom:0;
+    height:100vh;
+    transform:translateY(100%);
+    transition:transform .36s cubic-bezier(.2,.9,.2,1);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    z-index:80;
+    pointer-events:none;
+  }
+  #panel.open{transform:translateY(0);pointer-events:auto}
+  .panel-inner {
+    width:100%;
+    max-width:1100px;
+    height:92vh;
+    margin:0 14px 14px;
+    border-radius:18px;
+    background:linear-gradient(180deg, rgba(8,10,15,0.95), rgba(8,10,15,0.98));
+    box-shadow:0 40px 80px rgba(0,0,0,0.6);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
 
-    .imgBtn img {
-        width: 100%;
-        border-radius: 14px;
-    }
+  /* header area */
+  .panel-head {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 18px;
+    gap:8px;
+    border-bottom:1px solid rgba(255,255,255,0.03);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  }
+  .panel-title{font-size:20px}
+  .panel-controls {display:flex; gap:10px; align-items:center}
+  .control-btn{
+    background:var(--accent); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:600;
+  }
 
-    .panel {
-        position: fixed;
-        bottom: -100vh;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: rgba(0,0,0,0.60);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-radius: 25px 25px 0 0;
-        padding: 30px;
-        overflow-y: auto;
-        text-align: center;
-        transition: bottom 0.45s ease;
-        color: white;
-    }
+  /* content area */
+  .panel-body{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:12px 18px 22px;
+  }
 
-    .closeBtn {
-        background: #0057d8;
-        color: white;
-        padding: 15px 20px;
-        font-size: 22px;
-        border-radius: 10px;
-        margin-top: 25px;
-        display: inline-block;
-        text-decoration: none;
-    }
+  /* responsive slideshow container that auto-fits */
+  .slideshow-wrap{
+    width:100%;
+    max-width:920px;
+    margin:0 auto;
+    display:block;
+    position:relative;
+    /* default aspect (will be replaced by .portrait/.landscape JS) */
+    aspect-ratio: 16/9;
+    max-height:85vh;
+    border-radius:12px;
+    overflow:hidden;
+    background:#000;
+  }
 
-    .backBtn {
-        background: #0057d8;
-        color: white;
-        padding: 20px;
-        font-size: 24px;
-        display: block;
-        border-radius: 10px;
-        margin: 25px auto;
-        max-width: 500px;
-        text-align: center;
-    }
+  /* portrait or landscape modifier classes */
+  .slideshow-wrap.portrait{ aspect-ratio: 9/16; max-width:560px; } /* tall narrow */
+  .slideshow-wrap.landscape{ aspect-ratio: 16/9; max-width:920px; } /* wide */
 
-    /* ----------- SLIDESHOW ----------- */
-    .slideshow {
-        width: 100%;
-        max-width: 850px;
-        height: 65vh;
-        margin: 0 auto;
-        position: relative;
-        overflow: hidden;
-        border-radius: 18px;
-        background: black;
-    }
+  .slides{
+    width:100%; height:100%; position:relative;
+  }
+  .slides img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;           /* default: images fill container */
+    opacity:0;
+    transition:opacity .6s ease;
+    background:#000;
+  }
+  .slides img.visible{ opacity:1; z-index:2; }
 
-    .slides img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-    }
+  /* if portrait-first image needs to be shown fully */
+  .slides.portrait img:first-child{ object-fit:contain; background:#000; }
 
-    /* Portrait fix for first image */
-    #ASCENDshow img:nth-child(1) {
-        object-fit: contain;
-        background: black;
-    }
+  /* small text area below slideshow */
+  .panel-footer{
+    padding:12px 18px 22px;
+    border-top:1px solid rgba(255,255,255,0.03);
+    background: linear-gradient(0deg, rgba(255,255,255,0.01), transparent);
+    font-size:14px;
+    line-height:1.4;
+    color:rgba(255,255,255,0.9);
+  }
 
-    /* Landscape fix for other images */
-    #ASCENDshow img:nth-child(n+2) {
-        object-fit: cover;
-    }
+  /* small screens adjustments */
+  @media (max-width:520px){
+    .orgGrid{gap:10px}
+    .btn{padding-top:85%}
+    .panel-inner{height:95vh;margin:0 10px 10px}
+    .slideshow-wrap.portrait{max-width:92vw}
+  }
 </style>
 </head>
 <body>
+  <div class="page">
+    <h1>DYCI Organizations</h1>
 
-<h1>Organizations</h1>
-<a class="backBtn" onclick="window.history.back();">⬅ Back</a>
-<div id="orgButtons"></div>
+    <div class="grid orgGrid" id="orgGrid"></div>
+  </div>
+
+  <!-- Reusable dynamic panel -->
+  <div id="panel" aria-hidden="true">
+    <div class="panel-inner" role="dialog" aria-modal="true" aria-label="Organization details">
+      <div class="panel-head">
+        <div class="panel-title" id="panelTitle">Organization</div>
+        <div class="panel-controls">
+          <button id="prevBtn" class="control-btn" style="display:none">Prev</button>
+          <button id="nextBtn" class="control-btn" style="display:none">Next</button>
+          <button id="closeBtn" class="control-btn">Close</button>
+        </div>
+      </div>
+
+      <div class="panel-body" id="panelBody">
+        <!-- slideshow-wrap will be inserted here dynamically -->
+      </div>
+
+      <div class="panel-footer" id="panelFooter" style="display:none"></div>
+    </div>
+  </div>
 
 <script>
-/* ******** ORG NAME → PNG FILE MAP ******** */
-const orgData = {
-    "SIBOL": "Sibol.png",
-    "ARCHERY": "Archery.png",
-    "ASCEND": "Ascend.png",
-    "AVANT GARDE": "Avant_Garde.png",
-    "AXIOM": "Axiom.png",
-    "COACHES": "Coaches.png",
-    "CSL": "Csl.png",
-    "DANCE TROUPE": "Dance_Troupe.png",
-    "DEBATE SOCIETY": "Debate_Society.png",
-    "DGITS": "Dgits.png",
-    "DYCI CREATIVE TEAM": "Dyci_Creatives_Team.png",   /* fixed filename */
-    "DYCI DAGALAK": "Dyci_Dagalak.png",
-    "DYCI LIGHT": "Dyci_Light.png",
-    "DYCI NOVELLUS": "Dyci_Novellus.png",
-    "DYCI PRIMES": "Dyci_Primes.png",
-    "DYCIAN LIVE": "Dycian_Live.png",
-    "ENGLISH FACILITATORS": "English_Facilitators.png",
-    "FENCING": "Fencing.png",
-    "GLOBALIVE": "Globalive.png",
-    "GREEN GROUP": "Green_Group.png",
-    "HIMIG DYCIAN": "Himig_Dycian.png",
-    "LITURGICAL CHOIR": "Liturgical_Choir.png",
-    "MINISTRY OF ALTAR SERVICES": "Ministry_Of_Altar_Services.png",
-    "PEER FACILITATORS CIRCLE": "Peer_Facilitators_Circle.png",
-    "SCSL": "Scsl.png",
-    "SENTINELS": "Sentinels.png",
-    "SEQUENTIA STUDIOS": "Sequentia_Studios.png",
-    "SOCIETAL TYCOONS": "Societal_Tycoons.png",
-    "SPEAKERS SOCIETY": "Speakers_Society.png",
-    "STRINGS SOCIETY": "Strings_Society.png",
-    "STRINGS ENSEMBLE": "Strings_Ensemble.png",
-    "SYMPHONIA": "Symphonia.png",
-    "TAEKWONDO": "Taekwondo.png",
-    "TAKEOFF": "Takeoff.png",
-    "THE ANG DYCIAN": "The_Ang_Dycian.png",
-    "TVQA": "Tvqa.png",
-    "UNICUS": "Unicus.png",
-    "USBONG": "Usbong.png",
-    "VERBUM DOMINI": "Verbum_Domini.png"
+/* ============================
+   CONFIG: map org name -> png
+   Filenames must match those in your repo
+   ============================ */
+const ORG_MAP = {
+  "SIBOL":"Sibol.png","ARCHERY":"Archery.png","ASCEND":"Ascend.png","AVANT GARDE":"Avant_Garde.png",
+  "AXIOM":"Axiom.png","COACHES":"Coaches.png","CSL":"Csl.png","DANCE TROUPE":"Dance_Troupe.png",
+  "DEBATE SOCIETY":"Debate_Society.png","DGITS":"Dgits.png","DYCI CREATIVES TEAM":"Dyci_Creatives_Team.png",
+  "DYCI DAGALAK":"Dyci_Dagalak.png","DYCI LIGHT":"Dyci_Light.png","DYCI NOVELLUS":"Dyci_Novellus.png",
+  "DYCI PRIMES":"Dyci_Primes.png","DYCIAN LIVE":"Dycian_Live.png","ENGLISH FACILITATORS":"English_Facilitators.png",
+  "FENCING":"Fencing.png","GLOBALIVE":"Globalive.png","GREEN GROUP":"Green_Group.png","HIMIG DYCIAN":"Himig_Dycian.png",
+  "LITURGICAL CHOIR":"Liturgical_Choir.png","MINISTRY OF ALTAR SERVICES":"Ministry_Of_Altar_Services.png",
+  "PEER FACILITATORS CIRCLE":"Peer_Facilitators_Circle.png","SCSL":"Scsl.png","SENTINELS":"Sentinels.png",
+  "SEQUENTIA STUDIOS":"Sequentia_Studios.png","SOCIETAL TYCOONS":"Societal_Tycoons.png","SPEAKERS SOCIETY":"Speakers_Society.png",
+  "STRINGS SOCIETY":"Strings_Society.png","STRINGS ENSEMBLE":"Strings_Ensemble.png","SYMPHONIA":"Symphonia.png",
+  "TAEKWONDO":"Taekwondo.png","TAKEOFF":"Takeoff.png","THE ANG DYCIAN":"The_Ang_Dycian.png",
+  "TVQA":"Tvqa.png","UNICUS":"Unicus.png","USBONG":"Usbong.png","VERBUM DOMINI":"Verbum_Domini.png"
 };
 
-const container = document.getElementById("orgButtons");
+/* ASCEND slideshow images (exact files in your repo) */
+const ASCEND_SLIDES = [
+  "ASCEND_ORGM.png",
+  "ASCEND_ORG1.JPG",
+  "ASCEND_ORG2.JPG",
+  "ASCEND_ORG3.JPG",
+  "ASCEND_ORG4.JPG",
+  "ASCEND_ORG5.JPG",
+  "ASCEND_ORG6.JPG"
+];
 
-/* ******** CREATE BUTTONS AND PANELS ******** */
-Object.entries(orgData).forEach(([name, file]) => {
-    const id = name.replace(/ /g, "_");
+/* ============================
+   Build grid of PNG buttons
+   ============================ */
+const grid = document.getElementById('orgGrid');
 
-    const btn = document.createElement("div");
-    btn.className = "imgBtn";
-    btn.onclick = () => openPanel(id);
-    btn.innerHTML = `<img src="${file}">`;
-    container.appendChild(btn);
+Object.entries(ORG_MAP).forEach(([name,file])=>{
+  const btn = document.createElement('button');
+  btn.className = 'btn';
+  btn.style.backgroundImage = `url("${file}")`;
+  btn.title = name;
+  // show small label (optional)
+  const lbl = document.createElement('div');
+  lbl.className = 'label';
+  lbl.textContent = name;
+  btn.appendChild(lbl);
 
-    const panel = document.createElement("div");
-    panel.className = "panel";
-    panel.id = id;
-
-    if (name === "ASCEND") {
-        panel.innerHTML = `
-            <h2>${name}</h2>
-            <div class="slideshow">
-                <div class="slides" id="ASCENDshow">
-                    <img src="ASCEND_ORGM.png">
-                    <img src="ASCEND_ORG1.JPG">
-                    <img src="ASCEND_ORG2.JPG">
-                    <img src="ASCEND_ORG3.JPG">
-                </div>
-            </div>
-            <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
-        `;
-    } else {
-        panel.innerHTML = `
-            <h2>${name}</h2>
-            <p>Content for ${name} goes here.</p>
-            <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
-        `;
-    }
-
-    document.body.appendChild(panel);
+  btn.addEventListener('click', ()=> openOrg(name));
+  grid.appendChild(btn);
 });
 
-/* ********* SLIDESHOW ********* */
-let slideInterval = null;
-let currentIndex = 0;
+/* ============================
+   Panel + slideshow logic
+   - Single dynamic panel, low DOM footprint
+   - Auto-detect orientation from first image natural dimensions
+   - Portrait => portrait container + first image object-fit:contain
+   - Landscape => landscape container + object-fit:cover
+   - Clean start/stop of interval
+   ============================ */
 
-function openPanel(id) {
-    document.getElementById(id).style.bottom = "0";
-    if (id === "ASCEND") startAutoSlide();
+const panel = document.getElementById('panel');
+const panelTitle = document.getElementById('panelTitle');
+const panelBody = document.getElementById('panelBody');
+const panelFooter = document.getElementById('panelFooter');
+const closeBtn = document.getElementById('closeBtn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+let slideTimer = null;
+let slideIndex = 0;
+let currentImgs = [];
+let slidesContainer = null;
+
+closeBtn.addEventListener('click', closePanel);
+panel.addEventListener('click', (e)=> { if (e.target===panel) closePanel(); });
+document.addEventListener('keydown', (e)=> { if (e.key==='Escape') closePanel(); });
+
+prevBtn.addEventListener('click', ()=> changeSlide(-1));
+nextBtn.addEventListener('click', ()=> changeSlide(1));
+
+function openOrg(name){
+  panelTitle.textContent = name;
+  panelFooter.style.display = 'none';
+  panelBody.innerHTML = '';        // clear old content
+  stopSlide();
+
+  // If ASCEND: use multi-image slideshow; otherwise show single big PNG
+  if (name === "ASCEND"){
+    buildSlideshow(ASCEND_SLIDES, { portraitFirst:true });
+  } else {
+    const file = ORG_MAP[name];
+    buildSingleView(file, name);
+  }
+
+  // show panel
+  panel.classList.add('open');
+  panel.setAttribute('aria-hidden','false');
 }
 
-function closePanel(id) {
-    document.getElementById(id).style.bottom = "-100vh";
-    if (id === "ASCEND") stopAutoSlide();
+/* build single-image view (fast) */
+function buildSingleView(file, name){
+  const wrap = document.createElement('div');
+  wrap.className = 'slideshow-wrap landscape';
+  const slides = document.createElement('div');
+  slides.className = 'slides';
+  const img = document.createElement('img');
+  img.src = file;
+  img.onload = () => {
+    // set orientation class for better fit
+    if (img.naturalHeight > img.naturalWidth) wrap.classList.replace('landscape','portrait');
+    else wrap.classList.replace('portrait','landscape');
+    img.classList.add('visible');
+  };
+  slides.appendChild(img);
+  wrap.appendChild(slides);
+  panelBody.appendChild(wrap);
+  panelFooter.style.display='block';
+  panelFooter.textContent = `Image: ${file}`;
 }
 
-function startAutoSlide() {
-    stopAutoSlide();
-    const slides = document.querySelectorAll(`#ASCENDshow img`);
-    if (slides.length === 0) return;
+/* build multi-image slideshow */
+function buildSlideshow(files, opts = {portraitFirst:false}){
+  // create container elements
+  const wrap = document.createElement('div');
+  wrap.className = 'slideshow-wrap landscape';
+  const slides = document.createElement('div');
+  slides.className = 'slides';
 
-    slides[currentIndex].style.opacity = 1;
+  // prepare image elements but do not assume orientation yet
+  currentImgs = files.map(src=>{
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = '';
+    slides.appendChild(img);
+    return img;
+  });
 
-    slideInterval = setInterval(() => {
-        slides[currentIndex].style.opacity = 0;
-        currentIndex = (currentIndex + 1) % slides.length;
-        slides[currentIndex].style.opacity = 1;
-    }, 5000);
+  wrap.appendChild(slides);
+  panelBody.appendChild(wrap);
+  slidesContainer = slides;
+
+  // once first image loads, detect orientation and apply classes
+  currentImgs[0].addEventListener('load', function onFirstLoad(){
+    const first = currentImgs[0];
+    // determine orientation based on first image natural dims
+    if (first.naturalHeight > first.naturalWidth){
+      wrap.classList.remove('landscape'); wrap.classList.add('portrait');
+      slides.classList.add('portrait'); // special rule so first uses contain
+      // ensure first image fits fully
+      first.style.objectFit = 'contain';
+      // other images fill container
+      for (let i=1;i<currentImgs.length;i++) currentImgs[i].style.objectFit='cover';
+    } else {
+      // treat as landscape
+      wrap.classList.remove('portrait'); wrap.classList.add('landscape');
+      slides.classList.remove('portrait');
+      currentImgs.forEach(img=> img.style.objectFit='cover');
+    }
+
+    // start slideshow after orientation is set
+    startSlide();
+    currentImgs[0].removeEventListener('load', onFirstLoad);
+  });
+
+  // small footer
+  panelFooter.style.display = 'block';
+  panelFooter.textContent = `Images: ${files.length} — Slides auto-play every 5s.`;
+
+  // show prev/next buttons
+  prevBtn.style.display = 'inline-block';
+  nextBtn.style.display = 'inline-block';
 }
 
-function stopAutoSlide() {
-    clearInterval(slideInterval);
-    slideInterval = null;
+/* slideshow controls */
+function startSlide(){
+  stopSlide(); // reset
+  if (!slidesContainer) return;
+
+  // make first visible
+  slideIndex = 0;
+  currentImgs.forEach(img => img.classList.remove('visible'));
+  if (currentImgs[0]) currentImgs[0].classList.add('visible');
+
+  slideTimer = setInterval(()=>{
+    // fade current out
+    if (currentImgs[slideIndex]) currentImgs[slideIndex].classList.remove('visible');
+    slideIndex = (slideIndex + 1) % currentImgs.length;
+    if (currentImgs[slideIndex]) currentImgs[slideIndex].classList.add('visible');
+  }, 5000);
 }
+
+function stopSlide(){
+  clearInterval(slideTimer);
+  slideTimer = null;
+  // hide prev/next if not in multi-slide mode
+  prevBtn.style.display = 'none';
+  nextBtn.style.display = 'none';
+  slidesContainer = null;
+  currentImgs = [];
+}
+
+function changeSlide(delta){
+  if (!currentImgs || currentImgs.length===0) return;
+  // manual change resets timer
+  if (slideTimer) clearInterval(slideTimer);
+  if (currentImgs[slideIndex]) currentImgs[slideIndex].classList.remove('visible');
+  slideIndex = (slideIndex + delta + currentImgs.length) % currentImgs.length;
+  currentImgs[slideIndex].classList.add('visible');
+  // restart auto after short timeout
+  slideTimer = setInterval(()=>{
+    if (currentImgs[slideIndex]) currentImgs[slideIndex].classList.remove('visible');
+    slideIndex = (slideIndex + 1) % currentImgs.length;
+    if (currentImgs[slideIndex]) currentImgs[slideIndex].classList.add('visible');
+  }, 5000);
+}
+
+function closePanel(){
+  panel.classList.remove('open');
+  panel.setAttribute('aria-hidden','true');
+  stopSlide();
+}
+
+/* Prevent huge reflows: preload small thumbnails for buttons (progressive) */
+(function preloadButtons(){
+  const files = Object.values(ORG_MAP);
+  files.forEach(src=>{
+    const img = new Image();
+    img.src = src;
+    // no onload required — browser caches them for button backgrounds
+  });
+})();
+
 </script>
-
 </body>
 </html>
