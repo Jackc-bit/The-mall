@@ -23,26 +23,13 @@
         text-align: center;
     }
 
-    .orgBtn, .imgBtn {
+    .imgBtn {
         width: 100%;
         max-width: 500px;
         display: block;
         margin: 15px auto;
-        border-radius: 14px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.25);
         cursor: pointer;
-        padding: 18px;
-        font-size: 22px;
-        text-align: center;
-        background: #0057d8;
-        color: white;
-        text-decoration: none;
-    }
-
-    .imgBtn {
-        padding: 0;
-        background: none;
-        box-shadow: none;
+        border-radius: 14px;
     }
 
     .imgBtn img {
@@ -50,27 +37,22 @@
         border-radius: 14px;
     }
 
-    /* PANELS */
     .panel {
         position: fixed;
         bottom: -100vh;
         left: 0;
         width: 100%;
         height: 100vh;
-
         background: url("Background.png") no-repeat center center fixed;
         background-size: cover;
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-
         box-shadow: 0 -5px 20px rgba(0,0,0,0.35);
         border-radius: 25px 25px 0 0;
-
         box-sizing: border-box;
         padding: 30px;
         overflow-y: auto;
         text-align: center;
-
         transition: bottom 0.45s ease;
     }
 
@@ -98,21 +80,14 @@
         text-align: center;
     }
 
-    /* FULLSCREEN FADE SLIDESHOW */
     .slideshow {
         width: 90%;
         max-width: 600px;
         margin: 0 auto 20px auto;
         position: relative;
-        height: 400px; 
+        height: 400px;
         overflow: hidden;
         border-radius: 16px;
-    }
-
-    .slides {
-        position: relative;
-        width: 100%;
-        height: 100%;
     }
 
     .slides img {
@@ -126,26 +101,16 @@
         transition: opacity 1s ease-in-out;
         border-radius: 16px;
     }
-
-    .slides img:first-child {
-        opacity: 1;
-    }
-
-    .slides img[src="ASCEND_ORGM.png"] {
-        object-fit: contain;
-        background: white;
-    }
 </style>
 </head>
 <body>
 
 <h1>Organizations</h1>
-
 <a class="backBtn" onclick="window.history.back();">⬅ Back</a>
 <div id="orgButtons"></div>
 
 <script>
-/* List of orgs */
+/* ORG NAMES → IMAGE FILENAMES */
 const orgData = [
     "ASCEND","STRINGS","THE ANG","VERBUM","HIMIG","DAGALAK","DANCE","LIGHT","UNICUS","SCSL","SENTINELS",
     "GLOBALIZE","ENG FACI","NOVELLUS","TVOA","GLOBALIVE","DYCIAN LIVE","TAKEOFF","AVANT","DEBATE","SPEAKERS",
@@ -154,25 +119,21 @@ const orgData = [
     "ALTAR SERVERS","CHOIR","SYMPHONIA"
 ];
 
+function toFileName(name) {
+    return name.replace(/ /g, "_") + ".png";
+}
+
 const container = document.getElementById("orgButtons");
 
 orgData.forEach(name => {
     const id = name.replace(/ /g, "_");
+    const file = toFileName(name);
 
-    /* ASCEND uses image button */
-    if (name === "ASCEND") {
-        const btn = document.createElement("div");
-        btn.className = "imgBtn";
-        btn.onclick = () => openPanel(id);
-        btn.innerHTML = `<img src="Ascend.png">`;
-        container.appendChild(btn);
-    } else {
-        const btn = document.createElement("a");
-        btn.className = "orgBtn";
-        btn.textContent = name;
-        btn.onclick = () => openPanel(id);
-        container.appendChild(btn);
-    }
+    const btn = document.createElement("div");
+    btn.className = "imgBtn";
+    btn.onclick = () => openPanel(id);
+    btn.innerHTML = `<img src="${file}">`;
+    container.appendChild(btn);
 
     const panel = document.createElement("div");
     panel.className = "panel";
@@ -180,38 +141,28 @@ orgData.forEach(name => {
 
     if (name === "ASCEND") {
         panel.innerHTML = `
-            <div class="panelContent">
-                <h2>${name}</h2>
-
-                <div class="slideshow" id="${id}_slideshow">
-                    <div class="slides">
-                        <img src="ASCEND_ORGM.png">
-                        <img src="ASCEND_ORG1.JPG">
-                        <img src="ASCEND_ORG2.JPG">
-                        <img src="ASCEND_ORG3.JPG">
-                        <img src="ASCEND_ORG4.JPG">
-                        <img src="ASCEND_ORG5.JPG">
-                        <img src="ASCEND_ORG6.JPG">
-                    </div>
+            <h2>${name}</h2>
+            <div class="slideshow" id="${id}_slideshow">
+                <div class="slides">
+                    <img src="ASCEND_ORGM.png">
+                    <img src="ASCEND_ORG1.JPG">
+                    <img src="ASCEND_ORG2.JPG">
+                    <img src="ASCEND_ORG3.JPG">
                 </div>
-
-                <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
             </div>
+            <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
         `;
     } else {
         panel.innerHTML = `
-            <div class="panelContent">
-                <h2>${name}</h2>
-                <p>Content for ${name} goes here.</p>
-                <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
-            </div>
+            <h2>${name}</h2>
+            <p>Content for ${name} goes here.</p>
+            <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
         `;
     }
 
     document.body.appendChild(panel);
 });
 
-/* SLIDESHOW CONTROL */
 let slideInterval = null;
 let currentIndex = 0;
 
@@ -227,8 +178,7 @@ function closePanel(id) {
 
 function startAutoSlide() {
     stopAutoSlide();
-
-    const slides = document.querySelectorAll("#ASCEND_slideshow .slides img");
+    const slides = document.querySelectorAll(`#ASCEND_slideshow .slides img`);
     if (slides.length === 0) return;
 
     slides[currentIndex].style.opacity = 1;
@@ -245,6 +195,5 @@ function stopAutoSlide() {
     slideInterval = null;
 }
 </script>
-
 </body>
 </html>
