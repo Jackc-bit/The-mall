@@ -1,251 +1,361 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>DYCI Organizations</title>
-
 <style>
-    body {
-        margin: 0;
-        font-family: Arial;
-        background: url("Background.png") no-repeat center center fixed;
-        background-size: cover;
-        overflow-x: hidden;
-    }
+  :root{
+    --accent: #0a66ff;
+    --panel-height: 88vh;
+    --panel-radius: 24px;
+  }
 
-    h1 {
-        margin: 20px 0;
-        text-align: center;
-        color: white;
-        text-shadow: 2px 2px 5px black;
-    }
+  html,body{height:100%;margin:0;font-family:Arial, Helvetica, sans-serif;background:#04102a;color:#fff}
+  .page {max-width:1100px;margin:0 auto;padding:18px;}
+  h1{margin:6px 0 18px;text-align:center;font-size:26px}
 
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 12px;
-        padding: 10px;
-        max-width: 900px;
-        margin: auto;
-    }
+  /* grid */
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:14px; align-items:start; }
+  .card { position:relative; width:100%; padding-top:60%; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.35); background:#071227; }
+  .card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+  .card .label { position:absolute; left:6px; right:6px; bottom:6px; font-size:11px; color:rgba(255,255,255,0.95); text-align:center; pointer-events:none; text-shadow:0 2px 6px rgba(0,0,0,0.6); }
 
-    .orgBtn img {
-        width: 100%;
-        border-radius: 12px;
-        display: block;
-        cursor: pointer;
-    }
+  /* overlay */
+  #overlay { position:fixed; inset:0; background:rgba(0,0,0,0.55); backdrop-filter:blur(6px); opacity:0; pointer-events:none; transition:opacity .28s ease; z-index:60; }
 
-    /* Overlay */
-    #overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.55);
-        backdrop-filter: blur(6px);
-        opacity: 0;
-        pointer-events: none;
-        transition: 0.35s ease;
-        z-index: 9;
-    }
+  /* slide-up panel - Option A */
+  .panel {
+    position:fixed;
+    left:0; right:0; bottom:-120%;
+    height:var(--panel-height);
+    margin:auto;
+    max-width:1100px;
+    border-radius:var(--panel-radius) var(--panel-radius) 0 0;
+    background:linear-gradient(180deg, rgba(6,10,18,0.98), rgba(8,12,20,0.96));
+    box-shadow:0 -30px 80px rgba(0,0,0,0.6);
+    overflow:hidden;
+    z-index:70;
+    transition:bottom .38s cubic-bezier(.2,.9,.2,1);
+    display:flex; flex-direction:column;
+  }
+  .panel.open { bottom:0; }
+  .panel-header { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .panel-title { font-size:20px; font-weight:700; }
+  .panel-body { padding:14px 18px; flex:1; overflow:auto; display:flex; align-items:flex-start; justify-content:center; flex-direction:column; gap:12px; }
 
-    /* Slide panel */
-    .panel {
-        position: fixed;
-        bottom: -100vh;
-        left: 0;
-        width: 100%;
-        height: 88vh;
-        background: rgba(5, 15, 30, 0.85);
-        backdrop-filter: blur(14px);
-        border-radius: 25px 25px 0 0;
-        padding: 25px;
-        overflow-y: auto;
-        transition: 0.45s ease;
-        z-index: 10;
-        color: white;
-        box-sizing: border-box;
-    }
+  .panel-footer { padding:12px 18px; border-top:1px solid rgba(255,255,255,0.03); display:flex; justify-content:center; gap:10px; }
+  .btn { background:var(--accent); color:#fff; border:none; padding:10px 16px; border-radius:10px; cursor:pointer; font-weight:700; }
 
-    .closeBtn {
-        background: #0057d8;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 10px;
-        font-size: 20px;
-        display: block;
-        width: fit-content;
-        margin: 20px auto;
-        cursor: pointer;
-        text-align: center;
-    }
+  /* slideshow container - auto-fit */
+  .slideshow-wrap { width:100%; max-width:920px; margin:0 auto; border-radius:12px; overflow:hidden; background:#000; display:block; position:relative; aspect-ratio:16/9; max-height:calc(var(--panel-height) - 160px); }
+  .slideshow-wrap.portrait { aspect-ratio:9/16; max-width:560px; }
 
-    /* Slideshow */
-    .slideshowWrapper {
-        width: 100%;
-        max-width: 600px;
-        margin: auto;
-    }
+  .slides { position:relative; width:100%; height:100%; }
+  .slides img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .6s ease; background:#000; }
+  .slides img.visible { opacity:1; z-index:2; }
+  .slides.portrait img:first-child { object-fit:contain; background:#000; }
 
-    .slideshow {
-        width: 100%;
-        aspect-ratio: 16/9;
-        border-radius: 18px;
-        overflow: hidden;
-        position: relative;
-    }
+  .info { max-width:920px; margin:0 auto; color:rgba(255,255,255,0.9); font-size:14px; text-align:center; }
 
-    .slideshow img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        opacity: 0;
-        transition: opacity 1s;
-    }
+  @media (max-width:520px){
+    .card{ padding-top:78% }
+    .slideshow-wrap.portrait{ max-width:92vw }
+  }
 </style>
 </head>
 <body>
+  <div class="page">
+    <h1>DYCI Organizations</h1>
+    <div id="orgGrid" class="grid" aria-live="polite"></div>
+  </div>
 
-<h1>DYCI Organizations</h1>
+  <div id="overlay" aria-hidden="true"></div>
 
-<div id="overlay"></div>
-<div id="orgGrid" class="grid"></div>
+  <!-- single dynamic panel (Option A) -->
+  <div id="panel" class="panel" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="panel-header">
+      <div id="panelTitle" class="panel-title">Organization</div>
+      <div>
+        <button id="prevBtn" class="btn" style="display:none">Prev</button>
+        <button id="nextBtn" class="btn" style="display:none">Next</button>
+      </div>
+    </div>
+    <div id="panelBody" class="panel-body"></div>
+    <div class="panel-footer">
+      <button id="closeBtn" class="btn">Close</button>
+    </div>
+  </div>
 
 <script>
+/* ---------- Exact filenames from your repo in the confirmed order ---------- */
+const ORG_LIST = [
+  {name:"SIBOL", file:"Sibol.png"},
+  {name:"ARCHERY", file:"Archery.png"},
+  {name:"ASCEND", file:"Ascend.png"},
+  {name:"AVANT GARDE", file:"Avant_Garde.png"},
+  {name:"AXIOM", file:"Axiom.png"},
+  {name:"COACHES", file:"Coaches.png"},
+  {name:"CSL", file:"Csl.png"},
+  {name:"DANCE TROUPE", file:"Dance_Troupe.png"},
+  {name:"DEBATE SOCIETY", file:"Debate_Society.png"},
+  {name:"DGITS", file:"Dgits.png"},
+  {name:"DYCI CREATIVES TEAM", file:"Dyci_Creatives_Team.png"},
+  {name:"DYCI DAGALAK", file:"Dyci_Dagalak.png"},
+  {name:"DYCI LIGHT", file:"Dyci_Light.png"},
+  {name:"DYCI NOVELLUS", file:"Dyci_Novellus.png"},
+  {name:"DYCI PRIMES", file:"Dyci_Primes.png"},
+  {name:"DYCIAN LIVE", file:"Dycian_Live.png"},
+  {name:"ENGLISH FACILITATORS", file:"English_Facilitators.png"},
+  {name:"FENCING", file:"Fencing.png"},
+  {name:"GLOBALIVE", file:"Globalive.png"},
+  {name:"GREEN GROUP", file:"Green_Group.png"},
+  {name:"HIMIG DYCIAN", file:"Himig_Dycian.png"},
+  {name:"LITURGICAL CHOIR", file:"Liturgical_Choir.png"},
+  {name:"MINISTRY OF ALTAR SERVICES", file:"Ministry_Of_Altar_Services.png"},
+  {name:"PEER FACILITATORS CIRCLE", file:"Peer_Facilitators_Circle.png"},
+  {name:"SCSL", file:"Scsl.png"},
+  {name:"SENTINELS", file:"Sentinels.png"},
+  {name:"SEQUENTIA STUDIOS", file:"Sequentia_Studios.png"},
+  {name:"SOCIETAL TYCOONS", file:"Societal_Tycoons.png"},
+  {name:"SPEAKERS SOCIETY", file:"Speakers_Society.png"},
+  {name:"STRINGS ENSEMBLE", file:"Strings_Ensemble.png"},
+  {name:"SYMPHONIA", file:"Symphonia.png"},
+  {name:"TAEKWONDO", file:"Taekwondo.png"},
+  {name:"TAKEOFF", file:"Takeoff.png"},
+  {name:"THE ANG DYCIAN", file:"The_Ang_Dycian.png"},
+  {name:"TVQA", file:"Tvqa.png"},
+  {name:"UNICUS", file:"Unicus.png"},
+  {name:"USBONG", file:"Usbong.png"},
+  {name:"VERBUM DOMINI", file:"Verbum_Domini.png"},
+  {name:"ROBOTICS", file:"Robotics.png"}
+];
 
-/* ALL ORGS */
-const orgData = {
-    "SIBOL": "Sibol.png",
-    "ARCHERY": "Archery.png",
-    "ASCEND": "Ascend.png",
-    "AVANT GARDE": "Avant_Garde.png",
-    "AXIOM": "Axiom.png",
-    "COACHES": "Coaches.png",
-    "CSL": "Csl.png",
-    "DANCE TROUPE": "Dance_Troupe.png",
-    "DEBATE SOCIETY": "Debate_Society.png",
-    "DGITS": "Dgits.png",
-    "DYCI CREATIVES TEAM": "Dyci_Creatives_Team.png",
-    "DYCI DAGALAK": "Dyci_Dagalak.png",
-    "DYCI LIGHT": "Dyci_Light.png",
-    "DYCI NOVELLUS": "Dyci_Novellus.png",
-    "DYCI PRIMES": "Dyci_Primes.png",
-    "DYCIAN LIVE": "Dycian_Live.png",
-    "ENGLISH FACILITATORS": "English_Facilitators.png",
-    "FENCING": "Fencing.png",
-    "GLOBALIVE": "Globalive.png",
-    "GREEN GROUP": "Green_Group.png",
-    "HIMIG DYCIAN": "Himig_Dycian.png",
-    "LITURGICAL CHOIR": "Liturgical_Choir.png",
-    "MINISTRY OF ALTAR SERVICES": "Ministry_Of_Altar_Services.png",
-    "PEER FACILITATORS CIRCLE": "Peer_Facilitators_Circle.png",
-    "SCSL": "Scsl.png",
-    "SENTINELS": "Sentinels.png",
-    "SEQUENTIA STUDIOS": "Sequentia_Studios.png",
-    "SOCIETAL TYCOONS": "Societal_Tycoons.png",
-    "SPEAKERS SOCIETY": "Speakers_Society.png",
-    "STRINGS ENSEMBLE": "Strings_Ensemble.png",
-    "SYMPHONIA": "Symphonia.png",
-    "TAEKWONDO": "Taekwondo.png",
-    "TAKEOFF": "Takeoff.png",
-    "THE ANG DYCIAN": "The_Ang_Dycian.png",
-    "TVQA": "Tvqa.png",
-    "UNICUS": "Unicus.png",
-    "USBONG": "Usbong.png",
-    "VERBUM DOMINI": "Verbum_Domini.png"
-};
+/* ASCEND slide image files (must exist in repo) */
+const ASCEND_SLIDES = [
+  "ASCEND_ORGM.png",
+  "ASCEND_ORG1.JPG",
+  "ASCEND_ORG2.JPG",
+  "ASCEND_ORG3.JPG",
+  "ASCEND_ORG4.JPG",
+  "ASCEND_ORG5.JPG",
+  "ASCEND_ORG6.JPG"
+];
 
-/* Insert buttons */
-const grid = document.getElementById("orgGrid");
+/* Build grid safely */
+const grid = document.getElementById('orgGrid');
 
-Object.entries(orgData).forEach(([name, file]) => {
-    const id = name.replace(/ /g, "_");
+ORG_LIST.forEach(item => {
+  const card = document.createElement('div');
+  card.className = 'card';
 
-    grid.innerHTML += `
-        <div class="orgBtn">
-            <img src="${file}" onclick="openPanel('${id}')">
-        </div>
-    `;
+  const img = document.createElement('img');
+  img.src = item.file;
+  img.alt = item.name;
+  // if an image fails to load, show a subtle fallback background color and keep JS running
+  img.onerror = () => { img.style.display = 'none'; card.style.background = '#12303c'; };
 
-    if (name === "ASCEND") {
-        document.body.innerHTML += `
-            <div class="panel" id="${id}">
-                <h2 style="text-align:center">${name}</h2>
+  img.addEventListener('click', () => openOrg(item.name));
 
-                <div class="slideshowWrapper">
-                    <div class="slideshow" id="ascendShow">
-                        <img src="ASCEND_ORGM.png">
-                        <img src="ASCEND_ORG1.JPG">
-                        <img src="ASCEND_ORG2.JPG">
-                        <img src="ASCEND_ORG3.JPG">
-                        <img src="ASCEND_ORG4.JPG">
-                        <img src="ASCEND_ORG5.JPG">
-                        <img src="ASCEND_ORG6.JPG">
-                    </div>
-                </div>
+  const label = document.createElement('div');
+  label.className = 'label';
+  label.textContent = item.name;
 
-                <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
-            </div>
-        `;
-    } else {
-        document.body.innerHTML += `
-            <div class="panel" id="${id}">
-                <h2 style="text-align:center">${name}</h2>
-                <p style="text-align:center">Content coming soon</p>
-                <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
-            </div>
-        `;
-    }
+  card.appendChild(img);
+  card.appendChild(label);
+  grid.appendChild(card);
 });
 
-/* Slide panels */
-const overlay = document.getElementById("overlay");
+/* Panel controls */
+const overlay = document.getElementById('overlay');
+const panel = document.getElementById('panel');
+const panelTitle = document.getElementById('panelTitle');
+const panelBody = document.getElementById('panelBody');
+const closeBtn = document.getElementById('closeBtn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
 
-function openPanel(id) {
-    document.getElementById(id).style.bottom = "0";
-    overlay.style.opacity = "1";
-    overlay.style.pointerEvents = "auto";
-    document.body.style.overflow = "hidden";
+let currentSlides = [];
+let slideTimer = null;
+let slideIndex = 0;
 
-    if (id === "ASCEND") startAscend();
+closeBtn.addEventListener('click', closePanel);
+overlay.addEventListener('click', closePanel);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+prevBtn.addEventListener('click', ()=> manualChange(-1));
+nextBtn.addEventListener('click', ()=> manualChange(1));
+
+/* Open org */
+function openOrg(name){
+  panelTitle.textContent = name;
+  panelBody.innerHTML = ''; // clear
+
+  // prevent background scroll
+  document.body.style.overflow = 'hidden';
+  overlay.style.opacity = '1';
+  overlay.style.pointerEvents = 'auto';
+
+  if (name === 'ASCEND'){
+    buildAscendPanel();
+  } else {
+    buildSimplePanel(name);
+  }
+
+  panel.classList.add('open');
+  panel.setAttribute('aria-hidden','false');
 }
 
-function closePanel(id) {
-    document.getElementById(id).style.bottom = "-100vh";
-    overlay.style.opacity = "0";
-    overlay.style.pointerEvents = "none";
-    document.body.style.overflow = "auto";
-    stopAscend();
+/* Close panel */
+function closePanel(){
+  panel.classList.remove('open');
+  panel.setAttribute('aria-hidden','true');
+
+  overlay.style.opacity = '0';
+  overlay.style.pointerEvents = 'none';
+  document.body.style.overflow = 'auto';
+
+  stopSlides();
 }
 
-/* ASCEND slideshow */
-let ascendIndex = 0;
-let ascendTimer;
+/* Build simple single-image panel for non-ASCEND orgs */
+function buildSimplePanel(name){
+  const entry = ORG_LIST.find(e => e.name === name);
+  const wrap = document.createElement('div');
+  wrap.className = 'slideshow-wrap landscape';
 
-function startAscend() {
-    stopAscend();
-    const imgs = document.querySelectorAll("#ascendShow img");
-    if (!imgs.length) return;
+  const slides = document.createElement('div');
+  slides.className = 'slides';
 
-    imgs.forEach(img => img.style.opacity = 0);
-    imgs[0].style.opacity = 1;
+  const img = document.createElement('img');
+  img.src = entry ? entry.file : '';
+  img.alt = name;
+  img.onload = () => {
+    // set orientation from natural size
+    if (img.naturalHeight > img.naturalWidth) wrap.classList.add('portrait');
+    else wrap.classList.add('landscape');
+    img.classList.add('visible');
+  };
+  img.onerror = () => {
+    // fallback text if image missing
+    const info = document.createElement('div');
+    info.className = 'info';
+    info.textContent = `Image for ${name} not found.`;
+    panelBody.appendChild(info);
+  };
 
-    ascendTimer = setInterval(() => {
-        imgs[ascendIndex].style.opacity = 0;
-        ascendIndex = (ascendIndex + 1) % imgs.length;
-        imgs[ascendIndex].style.opacity = 1;
-    }, 5000);
+  slides.appendChild(img);
+  wrap.appendChild(slides);
+  panelBody.appendChild(wrap);
+
+  const info = document.createElement('div');
+  info.className = 'info';
+  info.textContent = `Information about ${name} goes here.`;
+  panelBody.appendChild(info);
 }
 
-function stopAscend() {
-    clearInterval(ascendTimer);
+/* Build ASCEND slideshow (only when opened) */
+function buildAscendPanel(){
+  // container
+  const wrap = document.createElement('div');
+  wrap.className = 'slideshow-wrap';
+
+  const slides = document.createElement('div');
+  slides.className = 'slides';
+
+  currentSlides = ASCEND_SLIDES.map(src => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = '';
+    img.style.objectFit = 'cover';
+    slides.appendChild(img);
+    return img;
+  });
+
+  wrap.appendChild(slides);
+  panelBody.appendChild(wrap);
+
+  // show controls
+  prevBtn.style.display = 'inline-block';
+  nextBtn.style.display = 'inline-block';
+
+  // once first image loads, detect orientation and set object-fit rules
+  const first = currentSlides[0];
+  const onFirstLoad = function(){
+    if (first.naturalHeight > first.naturalWidth){
+      // portrait-first
+      wrap.classList.add('portrait');
+      slides.classList.add('portrait'); // first-child will use contain via CSS rule
+      // ensure first contains, others cover
+      first.style.objectFit = 'contain';
+      for (let i=1;i<currentSlides.length;i++) currentSlides[i].style.objectFit = 'cover';
+    } else {
+      wrap.classList.remove('portrait');
+      slides.classList.remove('portrait');
+      currentSlides.forEach(img => img.style.objectFit = 'cover');
+    }
+
+    // start slideshow after orientation determined
+    startSlides();
+    first.removeEventListener('load', onFirstLoad);
+  };
+
+  // attach handler (if already loaded, call directly)
+  if (first.complete && first.naturalWidth) onFirstLoad();
+  else first.addEventListener('load', onFirstLoad);
+
+  // footer text
+  const info = document.createElement('div');
+  info.className = 'info';
+  info.textContent = `ASCEND gallery — ${ASCEND_SLIDES.length} images. Slideshow auto-fits and centers for your device.`;
+  panelBody.appendChild(info);
 }
 
+/* slideshow controls */
+function startSlides(){
+  stopSlides();
+  if (!currentSlides || currentSlides.length === 0) return;
+  slideIndex = 0;
+  currentSlides.forEach(img => img.classList.remove('visible'));
+  if (currentSlides[0]) currentSlides[0].classList.add('visible');
+
+  slideTimer = setInterval(()=>{
+    if (currentSlides[slideIndex]) currentSlides[slideIndex].classList.remove('visible');
+    slideIndex = (slideIndex + 1) % currentSlides.length;
+    if (currentSlides[slideIndex]) currentSlides[slideIndex].classList.add('visible');
+  }, 5000);
+}
+
+function stopSlides(){
+  clearInterval(slideTimer);
+  slideTimer = null;
+  currentSlides = [];
+  prevBtn.style.display = 'none';
+  nextBtn.style.display = 'none';
+}
+
+/* manual nav resets timer */
+function manualChange(delta){
+  if (!currentSlides || currentSlides.length === 0) return;
+  if (slideTimer) { clearInterval(slideTimer); slideTimer = null; }
+  if (currentSlides[slideIndex]) currentSlides[slideIndex].classList.remove('visible');
+  slideIndex = (slideIndex + delta + currentSlides.length) % currentSlides.length;
+  if (currentSlides[slideIndex]) currentSlides[slideIndex].classList.add('visible');
+  // restart auto
+  slideTimer = setInterval(()=>{
+    if (currentSlides[slideIndex]) currentSlides[slideIndex].classList.remove('visible');
+    slideIndex = (slideIndex + 1) % currentSlides.length;
+    if (currentSlides[slideIndex]) currentSlides[slideIndex].classList.add('visible');
+  }, 5000);
+}
+
+/* Preload button images gently so grid renders quickly (won't throw if missing) */
+(function preload(){
+  ORG_LIST.forEach(item => {
+    const i = new Image();
+    i.src = item.file;
+  });
+})();
 </script>
-
 </body>
 </html>
