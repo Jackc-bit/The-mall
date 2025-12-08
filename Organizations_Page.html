@@ -3,110 +3,245 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASCEND Popup Slideshow</title>
+<title>DYCI Organizations</title>
 
 <style>
     body {
         margin: 0;
         font-family: Arial;
-        background: #000;
+        padding: 20px;
+        overflow-x: hidden;
+        background: url("Background.png") no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    h1 {
+        margin-top: 10px;
+        font-size: 32px;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        text-align: center;
+    }
+
+    /* PNG BUTTONS */
+    .imgBtn {
+        width: 100%;
+        max-width: 500px;
+        display: block;
+        margin: 15px auto;
+        cursor: pointer;
+        border-radius: 14px;
+    }
+
+    .imgBtn img {
+        width: 100%;
+        border-radius: 14px;
+    }
+
+    /* SLIDE-UP PANEL */
+    .panel {
+        position: fixed;
+        bottom: -100vh;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0,0,0,0.55);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.35);
+        border-radius: 25px 25px 0 0;
+        box-sizing: border-box;
+        padding: 30px;
+        overflow-y: auto;
+        text-align: center;
+        transition: bottom 0.45s ease;
         color: white;
     }
 
-    /* Popup background */
-    .popup-bg {
-        position: fixed;
+    .closeBtn {
+        background: #0057d8;
+        color: white;
+        padding: 15px 20px;
+        font-size: 22px;
+        border-radius: 10px;
+        margin-top: 25px;
+        display: inline-block;
+        text-decoration: none;
+    }
+
+    .backBtn {
+        background: #0057d8;
+        color: white;
+        padding: 20px;
+        font-size: 24px;
+        text-decoration: none;
+        display: block;
+        border-radius: 10px;
+        margin: 25px auto;
+        max-width: 500px;
+        text-align: center;
+    }
+
+    /* SLIDESHOW */
+    .slideshow {
+        width: 90%;
+        max-width: 600px;
+        margin: 0 auto 20px auto;
+        position: relative;
+        height: 400px;
+        overflow: hidden;
+        border-radius: 16px;
+    }
+
+    .slides img {
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.7);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-    }
-
-    /* Popup window */
-    .popup-box {
-        background: rgba(0,0,0,0.6);
-        padding: 15px;
-        border-radius: 15px;
-        width: 90%;
-        max-width: 500px;
-        text-align: center;
-        backdrop-filter: blur(4px);
-    }
-
-    /* Slideshow image */
-    .popup-image {
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-        object-fit: contain;
-    }
-
-    /* Close button */
-    .close-btn {
-        margin-top: 10px;
-        padding: 10px 20px;
-        border: none;
-        background: #2196f3;
-        color: white;
-        border-radius: 10px;
-        font-size: 16px;
-        cursor: pointer;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+        border-radius: 16px;
     }
 </style>
 </head>
 <body>
 
-<!-- Button to open -->
-<button onclick="openAscend()">Open ASCEND</button>
-
-<!-- Popup -->
-<div id="ascendPopup" class="popup-bg">
-    <div class="popup-box">
-        <img id="ascendImg" class="popup-image" src="">
-        <button class="close-btn" onclick="closeAscend()">Close</button>
-    </div>
-</div>
+<h1>Organizations</h1>
+<a class="backBtn" onclick="window.history.back();">⬅ Back</a>
+<div id="orgButtons"></div>
 
 <script>
-/* Images EXACTLY as you requested */
-const ascendImages = [
-    "ASCEND_ORGM.png",   // portrait first
-    "ASCEND_ORG1.JPG",
-    "ASCEND_ORG2.JPG",
-    "ASCEND_ORG3.JPG",
-    "ASCEND_ORG4.JPG",
-    "ASCEND_ORG5.JPG",
-    "ASCEND_ORG6.JPG"
-];
+/* EXACT ORG → PNG MAP */
+const orgData = {
+    "SIBOL": "Sibol.png",
+    "ARCHERY": "Archery.png",
+    "ASCEND": "Ascend.png",
+    "AVANT GARDE": "Avant_Garde.png",
+    "AXIOM": "Axiom.png",
+    "COACHES": "Coaches.png",
+    "CSL": "Csl.png",
+    "DANCE TROUPE": "Dance_Troupe.png",
+    "DEBATE SOCIETY": "Debate_Society.png",
+    "DGITS": "Dgits.png",
+    "DYCI CREATIVE TEAM": "Dyci_Creative_Team.png",
+    "DYCI DAGALAK": "Dyci_Dagalak.png",
+    "DYCI LIGHT": "Dyci_Light.png",
+    "DYCI NOVELLUS": "Dyci_Novellus.png",
+    "DYCI PRIMES": "Dyci_Primes.png",
+    "DYCIAN LIVE": "Dycian_Live.png",
+    "ENGLISH FACILITATORS": "English_Facilitators.png",
+    "FENCING": "Fencing.png",
+    "GLOBALIVE": "Globalive.png",
+    "GREEN GROUP": "Green_Group.png",
+    "HIMIG DYCIAN": "Himig_Dycian.png",
+    "LITURGICAL CHOIR": "Liturgical_Choir.png",
+    "MINISTRY OF ALTAR SERVICES": "Ministry_Of_Altar_Services.png",
+    "PEER FACILITATORS CIRCLE": "Peer_Facilitators_Circle.png",
+    "SCSL": "Scsl.png",
+    "SENTINELS": "Sentinels.png",
+    "SEQUENTIA STUDIOS": "Sequentia_Studios.png",
+    "SOCIETAL TYCOONS": "Societal_Tycoons.png",
+    "SPEAKERS SOCIETY": "Speakers_Society.png",
+    "STRINGS SOCIETY": "Strings_Society.png",
+    "STRINGS ENSEMBLE": "Strings_Ensemble.png",
+    "SYMPHONIA": "Symphonia.png",
+    "TAEKWONDO": "Taekwondo.png",
+    "TAKEOFF": "Takeoff.png",
+    "THE ANG DYCIAN": "The_Ang_Dycian.png",
+    "TVQA": "Tvqa.png",
+    "UNICUS": "Unicus.png",
+    "USBONG": "Usbong.png",
+    "VERBUM DOMINI": "Verbum_Domini.png"
+};
 
-let ascendIndex = 0;
-let ascendTimer = null;
+const container = document.getElementById("orgButtons");
 
-function openAscend() {
-    document.getElementById("ascendPopup").style.display = "flex";
-    ascendIndex = 0;
-    changeAscendImage();
+/* CREATE BUTTONS & PANELS */
+Object.entries(orgData).forEach(([name, file]) => {
+    const id = name.replace(/ /g, "_");
 
-    // Auto slideshow every 5 seconds
-    ascendTimer = setInterval(() => {
-        ascendIndex = (ascendIndex + 1) % ascendImages.length;
-        changeAscendImage();
+    /* PNG BUTTON */
+    const btn = document.createElement("div");
+    btn.className = "imgBtn";
+    btn.onclick = () => openPanel(id);
+    btn.innerHTML = `<img src="${file}">`;
+    container.appendChild(btn);
+
+    /* PANEL */
+    const panel = document.createElement("div");
+    panel.className = "panel";
+    panel.id = id;
+
+    /* ASCEND SPECIAL SLIDESHOW */
+    if (name === "ASCEND") {
+        panel.innerHTML = `
+            <h2>${name}</h2>
+            <div class="slideshow" id="${id}_slideshow">
+                <div class="slides">
+
+                    <!-- PORTRAIT FIRST -->
+                    <img src="ASCEND_ORGM.png" style="object-fit: contain;">
+
+                    <!-- LANDSCAPE IMAGES -->
+                    <img src="ASCEND_ORG1.JPG" style="object-fit: cover;">
+                    <img src="ASCEND_ORG2.JPG" style="object-fit: cover;">
+                    <img src="ASCEND_ORG3.JPG" style="object-fit: cover;">
+                    <img src="ASCEND_ORG4.JPG" style="object-fit: cover;">
+                    <img src="ASCEND_ORG5.JPG" style="object-fit: cover;">
+                    <img src="ASCEND_ORG6.JPG" style="object-fit: cover;">
+
+                </div>
+            </div>
+            <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
+        `;
+    } 
+    
+    else {
+        /* NORMAL ORGS */
+        panel.innerHTML = `
+            <h2>${name}</h2>
+            <img src="${file}" style="width:90%; max-width:600px; border-radius:16px; margin-bottom:20px;">
+            <p>Content for ${name} goes here.</p>
+            <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
+        `;
+    }
+
+    document.body.appendChild(panel);
+});
+
+/* SLIDESHOW LOGIC */
+let slideInterval = null;
+let currentIndex = 0;
+
+function openPanel(id) {
+    document.getElementById(id).style.bottom = "0";
+    if (id === "ASCEND") startAutoSlide();
+}
+
+function closePanel(id) {
+    document.getElementById(id).style.bottom = "-100vh";
+    if (id === "ASCEND") stopAutoSlide();
+}
+
+function startAutoSlide() {
+    stopAutoSlide();
+    const slides = document.querySelectorAll(`#ASCEND_slideshow .slides img`);
+    if (!slides.length) return;
+
+    currentIndex = 0;
+    slides[currentIndex].style.opacity = 1;
+
+    slideInterval = setInterval(() => {
+        slides[currentIndex].style.opacity = 0;
+        currentIndex = (currentIndex + 1) % slides.length;
+        slides[currentIndex].style.opacity = 1;
     }, 5000);
 }
 
-function closeAscend() {
-    document.getElementById("ascendPopup").style.display = "none";
-    clearInterval(ascendTimer);
-}
-
-function changeAscendImage() {
-    const img = document.getElementById("ascendImg");
-    img.src = ascendImages[ascendIndex];
+function stopAutoSlide() {
+    clearInterval(slideInterval);
+    slideInterval = null;
 }
 </script>
 
