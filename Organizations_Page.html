@@ -1,247 +1,211 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DYCI Organizations</title>
+<title>Organizations</title>
 
 <style>
     body {
         margin: 0;
-        font-family: Arial;
-        padding: 20px;
-        overflow-x: hidden;
-        background: url("Background.png") no-repeat center center fixed;
-        background-size: cover;
-    }
-
-    h1 {
-        margin-top: 10px;
-        font-size: 32px;
+        font-family: Arial, sans-serif;
+        background: #111;
         color: white;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        text-align: center;
+        overflow-x: hidden;
     }
 
-    /* PNG BUTTONS */
-    .imgBtn {
+    /* Organization PNG Buttons */
+    .orgGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 14px;
+        padding: 20px;
+    }
+
+    .orgButton {
         width: 100%;
-        max-width: 500px;
-        display: block;
-        margin: 15px auto;
-        cursor: pointer;
-        border-radius: 14px;
+        aspect-ratio: 1 / 1;
+        border: none;
+        background-size: cover;
+        background-position: center;
+        border-radius: 12px;
+        transition: transform 0.2s ease;
     }
 
-    .imgBtn img {
-        width: 100%;
-        border-radius: 14px;
+    .orgButton:active {
+        transform: scale(0.95);
     }
 
-    /* SLIDE-UP PANEL */
+    /* Slide-up Panel */
     .panel {
         position: fixed;
-        bottom: -100vh;
+        bottom: -100%;
         left: 0;
         width: 100%;
-        height: 100vh;
-        background: rgba(0,0,0,0.55);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        box-shadow: 0 -5px 20px rgba(0,0,0,0.35);
-        border-radius: 25px 25px 0 0;
-        box-sizing: border-box;
-        padding: 30px;
+        height: 90vh;
+        background: rgba(0,0,0,0.95);
+        backdrop-filter: blur(8px);
+        padding: 0;
         overflow-y: auto;
-        text-align: center;
-        transition: bottom 0.45s ease;
-        color: white;
+        transition: transform 0.35s ease-out;
+        transform: translateY(100%);
     }
 
-    .closeBtn {
-        background: #0057d8;
-        color: white;
-        padding: 15px 20px;
-        font-size: 22px;
-        border-radius: 10px;
-        margin-top: 25px;
-        display: inline-block;
-        text-decoration: none;
+    .panel.open {
+        transform: translateY(0);
     }
 
-    .backBtn {
-        background: #0057d8;
-        color: white;
-        padding: 20px;
-        font-size: 24px;
-        text-decoration: none;
-        display: block;
-        border-radius: 10px;
-        margin: 25px auto;
-        max-width: 500px;
-        text-align: center;
-    }
-
-    /* SLIDESHOW */
+    /* Slideshow container (larger aspect ratio) */
     .slideshow {
-        width: 90%;
-        max-width: 600px;
-        margin: 0 auto 20px auto;
-        position: relative;
-        height: 400px;
+        width: 100%;
+        height: 55vh; /* 🔥 Increased aspect ratio */
         overflow: hidden;
-        border-radius: 16px;
+        position: relative;
+        background: black;
     }
 
-    .slides img {
+    .slideshow img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;  /* 🔥 Fixes portrait + landscape correctly */
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
         opacity: 0;
-        transition: opacity 1s ease-in-out;
-        border-radius: 16px;
+        transition: opacity 0.6s ease;
     }
+
+    .slideshow img.active {
+        opacity: 1;
+    }
+
+    /* Panel Title */
+    .panelTitle {
+        text-align: center;
+        font-size: 24px;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
 </style>
 </head>
+
 <body>
 
-<h1>Organizations</h1>
-<a class="backBtn" onclick="window.history.back();">⬅ Back</a>
-<div id="orgButtons"></div>
+<!-- ========== ORGANIZATION PNG BUTTONS ========== -->
+<div class="orgGrid">
+    <button class="orgButton" style="background-image:url('Ascend.png')" onclick="openPanel('ASCEND')"></button>
+    <button class="orgButton" style="background-image:url('Avant_Garde.png')" onclick="openPanel('AG')"></button>
+    <button class="orgButton" style="background-image:url('Axiom.png')" onclick="openPanel('AXIOM')"></button>
+    <button class="orgButton" style="background-image:url('Dyci_Dagalak.png')" onclick="openPanel('DAGALAK')"></button>
+    <button class="orgButton" style="background-image:url('Dgits.png')" onclick="openPanel('DGITS')"></button>
+    <button class="orgButton" style="background-image:url('Globalive.png')" onclick="openPanel('GLOBALIVE')"></button>
+</div>
+
+
+<!-- ========== ASCEND PANEL (Portrait + Landscape Fix) ========== -->
+<div id="ASCEND" class="panel">
+    <div class="panelTitle">ASCEND</div>
+
+    <div class="slideshow" id="ASCENDshow">
+        <img src="Ascend1_Portrait.jpeg">   <!-- First = portrait -->
+        <img src="Ascend2_Landscape.jpeg">
+        <img src="Ascend3_Landscape.jpeg">
+        <img src="Ascend4_Landscape.jpeg">
+        <img src="Ascend5_Landscape.jpeg">
+    </div>
+</div>
+
+
+<!-- ========== AG PANEL ========== -->
+<div id="AG" class="panel">
+    <div class="panelTitle">AVANT GARDE</div>
+
+    <div class="slideshow" id="AGshow">
+        <img src="AG1.jpeg">
+        <img src="AG2.jpeg">
+        <img src="AG3.jpeg">
+    </div>
+</div>
+
+
+<!-- ========== AXIOM PANEL ========== -->
+<div id="AXIOM" class="panel">
+    <div class="panelTitle">AXIOM</div>
+
+    <div class="slideshow" id="AXIOMshow">
+        <img src="AX1.jpeg">
+        <img src="AX2.jpeg">
+    </div>
+</div>
+
+
+<!-- ========== DAGALAK PANEL ========== -->
+<div id="DAGALAK" class="panel">
+    <div class="panelTitle">DAGALAK</div>
+
+    <div class="slideshow" id="DAGALAKshow">
+        <img src="DA1.jpeg">
+        <img src="DA2.jpeg">
+        <img src="DA3.jpeg">
+    </div>
+</div>
+
+
+<!-- ========== DGITS PANEL ========== -->
+<div id="DGITS" class="panel">
+    <div class="panelTitle">DGITS</div>
+
+    <div class="slideshow" id="DGITSshow">
+        <img src="DG1.jpeg">
+        <img src="DG2.jpeg">
+    </div>
+</div>
+
+
+<!-- ========== GLOBALIVE PANEL ========== -->
+<div id="GLOBALIVE" class="panel">
+    <div class="panelTitle">GLOBALIVE</div>
+
+    <div class="slideshow" id="GLOBALIVEshow">
+        <img src="GL1.jpeg">
+        <img src="GL2.jpeg">
+    </div>
+</div>
+
 
 <script>
-/* EXACT ORG → PNG MAP */
-const orgData = {
-    "SIBOL": "Sibol.png",
-    "ARCHERY": "Archery.png",
-    "ASCEND": "Ascend.png",
-    "AVANT GARDE": "Avant_Garde.png",
-    "AXIOM": "Axiom.png",
-    "COACHES": "Coaches.png",
-    "CSL": "Csl.png",
-    "DANCE TROUPE": "Dance_Troupe.png",
-    "DEBATE SOCIETY": "Debate_Society.png",
-    "DGITS": "Dgits.png",
-    "DYCI CREATIVE TEAM": "Dyci_Creative_Team.png",
-    "DYCI DAGALAK": "Dyci_Dagalak.png",
-    "DYCI LIGHT": "Dyci_Light.png",
-    "DYCI NOVELLUS": "Dyci_Novellus.png",
-    "DYCI PRIMES": "Dyci_Primes.png",
-    "DYCIAN LIVE": "Dycian_Live.png",
-    "ENGLISH FACILITATORS": "English_Facilitators.png",
-    "FENCING": "Fencing.png",
-    "GLOBALIVE": "Globalive.png",
-    "GREEN GROUP": "Green_Group.png",
-    "HIMIG DYCIAN": "Himig_Dycian.png",
-    "LITURGICAL CHOIR": "Liturgical_Choir.png",
-    "MINISTRY OF ALTAR SERVICES": "Ministry_Of_Altar_Services.png",
-    "PEER FACILITATORS CIRCLE": "Peer_Facilitators_Circle.png",
-    "SCSL": "Scsl.png",
-    "SENTINELS": "Sentinels.png",
-    "SEQUENTIA STUDIOS": "Sequentia_Studios.png",
-    "SOCIETAL TYCOONS": "Societal_Tycoons.png",
-    "SPEAKERS SOCIETY": "Speakers_Society.png",
-    "STRINGS SOCIETY": "Strings_Society.png",
-    "STRINGS ENSEMBLE": "Strings_Ensemble.png",
-    "SYMPHONIA": "Symphonia.png",
-    "TAEKWONDO": "Taekwondo.png",
-    "TAKEOFF": "Takeoff.png",
-    "THE ANG DYCIAN": "The_Ang_Dycian.png",
-    "TVQA": "Tvqa.png",
-    "UNICUS": "Unicus.png",
-    "USBONG": "Usbong.png",
-    "VERBUM DOMINI": "Verbum_Domini.png"
-};
-
-const container = document.getElementById("orgButtons");
-
-/* CREATE BUTTONS & PANELS */
-Object.entries(orgData).forEach(([name, file]) => {
-    const id = name.replace(/ /g, "_");
-
-    /* PNG BUTTON */
-    const btn = document.createElement("div");
-    btn.className = "imgBtn";
-    btn.onclick = () => openPanel(id);
-    btn.innerHTML = `<img src="${file}">`;
-    container.appendChild(btn);
-
-    /* PANEL */
-    const panel = document.createElement("div");
-    panel.className = "panel";
-    panel.id = id;
-
-    /* ASCEND SPECIAL SLIDESHOW */
-    if (name === "ASCEND") {
-        panel.innerHTML = `
-            <h2>${name}</h2>
-            <div class="slideshow" id="${id}_slideshow">
-                <div class="slides">
-
-                    <!-- PORTRAIT FIRST -->
-                    <img src="ASCEND_ORGM.png" style="object-fit: contain;">
-
-                    <!-- LANDSCAPE IMAGES -->
-                    <img src="ASCEND_ORG1.JPG" style="object-fit: cover;">
-                    <img src="ASCEND_ORG2.JPG" style="object-fit: cover;">
-                    <img src="ASCEND_ORG3.JPG" style="object-fit: cover;">
-                    <img src="ASCEND_ORG4.JPG" style="object-fit: cover;">
-                    <img src="ASCEND_ORG5.JPG" style="object-fit: cover;">
-                    <img src="ASCEND_ORG6.JPG" style="object-fit: cover;">
-
-                </div>
-            </div>
-            <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
-        `;
-    } 
-    
-    else {
-        /* NORMAL ORGS */
-        panel.innerHTML = `
-            <h2>${name}</h2>
-            <img src="${file}" style="width:90%; max-width:600px; border-radius:16px; margin-bottom:20px;">
-            <p>Content for ${name} goes here.</p>
-            <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
-        `;
-    }
-
-    document.body.appendChild(panel);
-});
-
-/* SLIDESHOW LOGIC */
-let slideInterval = null;
-let currentIndex = 0;
+/* -------- Open & Close Panels -------- */
+let currentPanel = null;
 
 function openPanel(id) {
-    document.getElementById(id).style.bottom = "0";
-    if (id === "ASCEND") startAutoSlide();
+    if (currentPanel) currentPanel.classList.remove('open');
+
+    currentPanel = document.getElementById(id);
+    currentPanel.classList.add('open');
+
+    startSlideshow(id + "show");
 }
 
-function closePanel(id) {
-    document.getElementById(id).style.bottom = "-100vh";
-    if (id === "ASCEND") stopAutoSlide();
-}
+document.body.addEventListener("click", function (e) {
+    if (e.target.classList.contains("panel")) {
+        e.target.classList.remove("open");
+    }
+});
 
-function startAutoSlide() {
-    stopAutoSlide();
-    const slides = document.querySelectorAll(`#ASCEND_slideshow .slides img`);
-    if (!slides.length) return;
+/* --------- Smooth, optimized slideshow ---------- */
+const slideshows = {};
+function startSlideshow(id) {
+    if (slideshows[id]) return;
 
-    currentIndex = 0;
-    slides[currentIndex].style.opacity = 1;
+    const images = Array.from(document.querySelectorAll(`#${id} img`));
+    let index = 0;
+    images[0].classList.add("active");
 
-    slideInterval = setInterval(() => {
-        slides[currentIndex].style.opacity = 0;
-        currentIndex = (currentIndex + 1) % slides.length;
-        slides[currentIndex].style.opacity = 1;
+    slideshows[id] = setInterval(() => {
+        images[index].classList.remove("active");
+        index = (index + 1) % images.length;
+        images[index].classList.add("active");
     }, 5000);
-}
-
-function stopAutoSlide() {
-    clearInterval(slideInterval);
-    slideInterval = null;
 }
 </script>
 
