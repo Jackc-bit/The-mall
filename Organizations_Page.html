@@ -3,158 +3,147 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>DYCI Organizations — Responsive</title>
-
+<title>DYCI Organizations</title>
 <style>
   :root{
-    --panel-bg: rgba(6,10,18,0.88);
     --accent: #0a66ff;
-    --gap: 14px;
+    --panel-height: 90vh;
+    --panel-radius: 24px;
+    --bg-blur: 6px;
   }
 
-  /* ---------- Page layout ---------- */
-  html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:#050816;color:#fff}
-  .page {
-    max-width:1200px;
-    margin:0 auto;
-    padding:20px;
-  }
-  h1{margin:6px 0 18px;font-size:28px;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,0.6)}
-  /* Grid of PNG buttons */
+  /* ---------- Page basics ---------- */
+  html,body{height:100%;margin:0;font-family:Arial, Helvetica, sans-serif;background:#04102a;color:#fff}
+  .page {max-width:1200px;margin:0 auto;padding:20px;}
+  h1{text-align:center;margin:6px 0 18px;font-size:28px;text-shadow:0 2px 8px rgba(0,0,0,0.6)}
+
+  /* ---------- Grid of png buttons (image-only buttons) ---------- */
   .grid {
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
-    gap:var(--gap);
+    grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+    gap:16px;
     align-items:start;
+    padding:8px;
   }
-  .btn {
-    width:100%;
-    padding-top:80%; /* square-ish area */
+
+  .imgBtn {
     position:relative;
+    width:100%;
+    padding-top:70%;               /* aspect area for each button */
     border-radius:14px;
     overflow:hidden;
     background-size:cover;
     background-position:center;
-    border:2px solid rgba(255,255,255,0.06);
-    box-shadow:0 6px 16px rgba(0,0,0,0.35);
+    border: 2px solid rgba(255,255,255,0.06);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
     cursor:pointer;
-    transition:transform .14s ease, box-shadow .14s ease;
+    transition: transform .12s ease, box-shadow .12s ease;
   }
-  .btn:active{transform:scale(.98)}
-  .btn .label {
+  .imgBtn:active{ transform: scale(.98); }
+  .imgBtn .label {
     position:absolute;
-    left:8px;right:8px;bottom:6px;
-    font-size:12px;text-align:center;
-    color: rgba(255,255,255,0.95);
-    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    bottom:8px; left:8px; right:8px;
+    font-size:12px; text-align:center; color: rgba(255,255,255,0.95);
+    text-shadow:0 2px 6px rgba(0,0,0,0.5);
     pointer-events:none;
   }
 
-  /* ---------- Reusable dynamic panel ---------- */
-  #panel {
+  /* ---------- Classic slide-up overlay + panel ---------- */
+  .overlay {
     position:fixed;
-    left:0;right:0;bottom:0;
-    height:100vh;
-    transform:translateY(100%);
-    transition:transform .36s cubic-bezier(.2,.9,.2,1);
-    display:flex;
-    align-items:flex-end;
-    justify-content:center;
-    z-index:80;
+    inset:0;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(var(--bg-blur));
+    -webkit-backdrop-filter: blur(var(--bg-blur));
+    opacity:0;
     pointer-events:none;
+    transition:opacity .28s ease;
+    z-index:80;
   }
-  #panel.open{transform:translateY(0);pointer-events:auto}
-  .panel-inner {
-    width:100%;
+  .overlay.open { opacity:1; pointer-events:auto; }
+
+  .panel {
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:-100%;
+    height:var(--panel-height);
+    margin:auto;
     max-width:1100px;
-    height:92vh;
-    margin:0 14px 14px;
-    border-radius:18px;
-    background:linear-gradient(180deg, rgba(8,10,15,0.95), rgba(8,10,15,0.98));
-    box-shadow:0 40px 80px rgba(0,0,0,0.6);
+    border-radius: var(--panel-radius) var(--panel-radius) 0 0;
+    background: linear-gradient(180deg, rgba(6,10,18,0.98), rgba(8,12,20,0.96));
+    box-shadow: 0 -18px 60px rgba(0,0,0,0.6);
     overflow:hidden;
+    transform:translateY(0);
+    transition: bottom .38s cubic-bezier(.2,.9,.2,1);
+    z-index:90;
     display:flex;
     flex-direction:column;
+    margin-left:auto;margin-right:auto;
   }
 
-  /* header area */
-  .panel-head {
+  .panel.open { bottom:0; }
+
+  .panel-header {
+    padding:14px 18px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:14px 18px;
-    gap:8px;
+    gap:10px;
     border-bottom:1px solid rgba(255,255,255,0.03);
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
   }
-  .panel-title{font-size:20px}
-  .panel-controls {display:flex; gap:10px; align-items:center}
-  .control-btn{
-    background:var(--accent); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:600;
-  }
+  .panel-title { font-size:20px; font-weight:600; color:#fff; }
+  .panel-body { padding:12px 18px; flex:1; display:flex; align-items:center; justify-content:center; }
 
-  /* content area */
-  .panel-body{
-    flex:1;
+  /* Close button at bottom */
+  .panel-footer {
+    padding:14px 18px;
+    border-top:1px solid rgba(255,255,255,0.03);
     display:flex;
-    align-items:center;
     justify-content:center;
-    padding:12px 18px 22px;
+    gap:12px;
+  }
+  .closeBtn {
+    background:var(--accent); color:#fff; border:none; padding:12px 24px; border-radius:12px; cursor:pointer; font-weight:700;
   }
 
-  /* responsive slideshow container that auto-fits */
-  .slideshow-wrap{
-    width:100%;
-    max-width:920px;
-    margin:0 auto;
+  /* ---------- Responsive slideshow container (auto-fit) ---------- */
+  .slideshow-wrap {
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+    border-radius: 12px;
+    background: #000;
+    overflow: hidden;
     display:block;
     position:relative;
-    /* default aspect (will be replaced by .portrait/.landscape JS) */
+    /* default ratio will be overwritten by orientation classes */
     aspect-ratio: 16/9;
-    max-height:85vh;
-    border-radius:12px;
-    overflow:hidden;
+    max-height: calc(var(--panel-height) - 160px);
+  }
+  .slideshow-wrap.portrait { aspect-ratio: 9/16; max-width:560px; }
+  .slideshow-wrap.landscape { aspect-ratio: 16/9; max-width:920px; }
+
+  .slides { width:100%; height:100%; position:relative; }
+  .slides img {
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover;
+    opacity:0; transition:opacity .6s ease;
     background:#000;
   }
+  .slides img.visible { opacity:1; z-index:2; }
 
-  /* portrait or landscape modifier classes */
-  .slideshow-wrap.portrait{ aspect-ratio: 9/16; max-width:560px; } /* tall narrow */
-  .slideshow-wrap.landscape{ aspect-ratio: 16/9; max-width:920px; } /* wide */
+  /* If portrait-first requested, make first image contain so it shows whole */
+  .slides.portrait img:first-child { object-fit:contain; background:#000; }
 
-  .slides{
-    width:100%; height:100%; position:relative;
-  }
-  .slides img{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;           /* default: images fill container */
-    opacity:0;
-    transition:opacity .6s ease;
-    background:#000;
-  }
-  .slides img.visible{ opacity:1; z-index:2; }
+  /* small info text inside panel */
+  .infoText { color:rgba(255,255,255,0.9); font-size:14px; text-align:center; max-width:920px; margin:10px auto 0; }
 
-  /* if portrait-first image needs to be shown fully */
-  .slides.portrait img:first-child{ object-fit:contain; background:#000; }
-
-  /* small text area below slideshow */
-  .panel-footer{
-    padding:12px 18px 22px;
-    border-top:1px solid rgba(255,255,255,0.03);
-    background: linear-gradient(0deg, rgba(255,255,255,0.01), transparent);
-    font-size:14px;
-    line-height:1.4;
-    color:rgba(255,255,255,0.9);
-  }
-
-  /* small screens adjustments */
   @media (max-width:520px){
-    .orgGrid{gap:10px}
-    .btn{padding-top:85%}
-    .panel-inner{height:95vh;margin:0 10px 10px}
-    .slideshow-wrap.portrait{max-width:92vw}
+    .imgBtn{ padding-top:82% }
+    .slideshow-wrap.portrait{ max-width:92vw; }
+    .slideshow-wrap{ max-width:92vw; }
+    .panel { height: 92vh; }
   }
 </style>
 </head>
@@ -162,34 +151,32 @@
   <div class="page">
     <h1>DYCI Organizations</h1>
 
-    <div class="grid orgGrid" id="orgGrid"></div>
+    <div class="grid" id="grid"></div>
   </div>
 
-  <!-- Reusable dynamic panel -->
-  <div id="panel" aria-hidden="true">
-    <div class="panel-inner" role="dialog" aria-modal="true" aria-label="Organization details">
-      <div class="panel-head">
-        <div class="panel-title" id="panelTitle">Organization</div>
-        <div class="panel-controls">
-          <button id="prevBtn" class="control-btn" style="display:none">Prev</button>
-          <button id="nextBtn" class="control-btn" style="display:none">Next</button>
-          <button id="closeBtn" class="control-btn">Close</button>
-        </div>
-      </div>
+  <!-- overlay + single panel -->
+  <div id="overlay" class="overlay" aria-hidden="true"></div>
 
-      <div class="panel-body" id="panelBody">
-        <!-- slideshow-wrap will be inserted here dynamically -->
+  <div id="panel" class="panel" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="panel-header">
+      <div class="panel-title" id="panelTitle">Organization</div>
+      <div>
+        <button id="panelPrev" style="display:none" class="closeBtn">Prev</button>
+        <button id="panelNext" style="display:none" class="closeBtn">Next</button>
       </div>
+    </div>
 
-      <div class="panel-footer" id="panelFooter" style="display:none"></div>
+    <div class="panel-body" id="panelBody">
+      <!-- dynamic content (slideshow or image + text) gets injected here -->
+    </div>
+
+    <div class="panel-footer">
+      <button id="panelClose" class="closeBtn">Close</button>
     </div>
   </div>
 
 <script>
-/* ============================
-   CONFIG: map org name -> png
-   Filenames must match those in your repo
-   ============================ */
+/* ========== Data: org -> png mapping (filenames must match your repo) ========== */
 const ORG_MAP = {
   "SIBOL":"Sibol.png","ARCHERY":"Archery.png","ASCEND":"Ascend.png","AVANT GARDE":"Avant_Garde.png",
   "AXIOM":"Axiom.png","COACHES":"Coaches.png","CSL":"Csl.png","DANCE TROUPE":"Dance_Troupe.png",
@@ -205,7 +192,7 @@ const ORG_MAP = {
   "TVQA":"Tvqa.png","UNICUS":"Unicus.png","USBONG":"Usbong.png","VERBUM DOMINI":"Verbum_Domini.png"
 };
 
-/* ASCEND slideshow images (exact files in your repo) */
+/* ASCEND slideshow files (exact filenames in repo) */
 const ASCEND_SLIDES = [
   "ASCEND_ORGM.png",
   "ASCEND_ORG1.JPG",
@@ -216,105 +203,110 @@ const ASCEND_SLIDES = [
   "ASCEND_ORG6.JPG"
 ];
 
-/* ============================
-   Build grid of PNG buttons
-   ============================ */
-const grid = document.getElementById('orgGrid');
-
+/* ========== Build grid of PNG buttons ========== */
+const grid = document.getElementById('grid');
 Object.entries(ORG_MAP).forEach(([name,file])=>{
   const btn = document.createElement('button');
-  btn.className = 'btn';
+  btn.className = 'imgBtn';
   btn.style.backgroundImage = `url("${file}")`;
   btn.title = name;
-  // show small label (optional)
-  const lbl = document.createElement('div');
-  lbl.className = 'label';
-  lbl.textContent = name;
-  btn.appendChild(lbl);
 
-  btn.addEventListener('click', ()=> openOrg(name));
+  const label = document.createElement('div');
+  label.className = 'label';
+  label.textContent = name;
+  btn.appendChild(label);
+
+  btn.addEventListener('click', ()=> openOrg(name) );
   grid.appendChild(btn);
 });
 
-/* ============================
-   Panel + slideshow logic
-   - Single dynamic panel, low DOM footprint
-   - Auto-detect orientation from first image natural dimensions
-   - Portrait => portrait container + first image object-fit:contain
-   - Landscape => landscape container + object-fit:cover
-   - Clean start/stop of interval
-   ============================ */
-
+/* ========== Panel & slideshow behavior ========== */
+const overlay = document.getElementById('overlay');
 const panel = document.getElementById('panel');
 const panelTitle = document.getElementById('panelTitle');
 const panelBody = document.getElementById('panelBody');
-const panelFooter = document.getElementById('panelFooter');
-const closeBtn = document.getElementById('closeBtn');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
+const panelClose = document.getElementById('panelClose');
+const panelPrev = document.getElementById('panelPrev');
+const panelNext = document.getElementById('panelNext');
 
 let slideTimer = null;
 let slideIndex = 0;
 let currentImgs = [];
-let slidesContainer = null;
+let slidesElem = null;
 
-closeBtn.addEventListener('click', closePanel);
-panel.addEventListener('click', (e)=> { if (e.target===panel) closePanel(); });
-document.addEventListener('keydown', (e)=> { if (e.key==='Escape') closePanel(); });
-
-prevBtn.addEventListener('click', ()=> changeSlide(-1));
-nextBtn.addEventListener('click', ()=> changeSlide(1));
-
-function openOrg(name){
-  panelTitle.textContent = name;
-  panelFooter.style.display = 'none';
-  panelBody.innerHTML = '';        // clear old content
-  stopSlide();
-
-  // If ASCEND: use multi-image slideshow; otherwise show single big PNG
-  if (name === "ASCEND"){
-    buildSlideshow(ASCEND_SLIDES, { portraitFirst:true });
-  } else {
-    const file = ORG_MAP[name];
-    buildSingleView(file, name);
-  }
-
-  // show panel
+/* Open and close panel helpers */
+function openPanelUI(){
+  overlay.classList.add('open');
   panel.classList.add('open');
+  overlay.setAttribute('aria-hidden','false');
   panel.setAttribute('aria-hidden','false');
 }
-
-/* build single-image view (fast) */
-function buildSingleView(file, name){
-  const wrap = document.createElement('div');
-  wrap.className = 'slideshow-wrap landscape';
-  const slides = document.createElement('div');
-  slides.className = 'slides';
-  const img = document.createElement('img');
-  img.src = file;
-  img.onload = () => {
-    // set orientation class for better fit
-    if (img.naturalHeight > img.naturalWidth) wrap.classList.replace('landscape','portrait');
-    else wrap.classList.replace('portrait','landscape');
-    img.classList.add('visible');
-  };
-  slides.appendChild(img);
-  wrap.appendChild(slides);
-  panelBody.appendChild(wrap);
-  panelFooter.style.display='block';
-  panelFooter.textContent = `Image: ${file}`;
+function closePanelUI(){
+  overlay.classList.remove('open');
+  panel.classList.remove('open');
+  overlay.setAttribute('aria-hidden','true');
+  panel.setAttribute('aria-hidden','true');
+  stopSlides();
 }
 
-/* build multi-image slideshow */
-function buildSlideshow(files, opts = {portraitFirst:false}){
-  // create container elements
+/* click outside (overlay) closes */
+overlay.addEventListener('click', closePanelUI);
+panelClose.addEventListener('click', closePanelUI);
+document.addEventListener('keydown', (e)=> { if (e.key === 'Escape') closePanelUI(); });
+
+/* Prev/Next controls, used only with ASCEND slideshow */
+panelPrev.addEventListener('click', ()=> changeSlide(-1));
+panelNext.addEventListener('click', ()=> changeSlide(1));
+
+/* Open an organization */
+function openOrg(name){
+  panelTitle.textContent = name;
+  panelBody.innerHTML = '';        // clear previous
+  panelPrev.style.display = 'none';
+  panelNext.style.display = 'none';
+  stopSlides();
+
+  if (name === "ASCEND"){
+    buildAscendSlideshow();
+  } else {
+    // simple single-image view for other orgs
+    const wrap = document.createElement('div');
+    wrap.className = 'slideshow-wrap landscape';
+    const slides = document.createElement('div');
+    slides.className = 'slides';
+    const img = document.createElement('img');
+    img.src = ORG_MAP[name] || '';
+    img.alt = name;
+    // when loaded, decide orientation to center nicely
+    img.addEventListener('load', ()=>{
+      if (img.naturalHeight > img.naturalWidth){
+        wrap.classList.replace('landscape','portrait');
+      } else {
+        wrap.classList.replace('portrait','landscape');
+      }
+      img.classList.add('visible');
+    });
+    slides.appendChild(img);
+    wrap.appendChild(slides);
+    panelBody.appendChild(wrap);
+
+    const info = document.createElement('div');
+    info.className = 'infoText';
+    info.textContent = `Information about ${name} goes here.`;
+    panelBody.appendChild(info);
+  }
+
+  openPanelUI();
+}
+
+/* Build ASCEND slideshow dynamically (only when opened) */
+function buildAscendSlideshow(){
   const wrap = document.createElement('div');
   wrap.className = 'slideshow-wrap landscape';
   const slides = document.createElement('div');
   slides.className = 'slides';
 
-  // prepare image elements but do not assume orientation yet
-  currentImgs = files.map(src=>{
+  currentImgs = ASCEND_SLIDES.map(src=>{
     const img = document.createElement('img');
     img.src = src;
     img.alt = '';
@@ -324,76 +316,72 @@ function buildSlideshow(files, opts = {portraitFirst:false}){
 
   wrap.appendChild(slides);
   panelBody.appendChild(wrap);
-  slidesContainer = slides;
+  slidesElem = slides;
 
-  // once first image loads, detect orientation and apply classes
-  currentImgs[0].addEventListener('load', function onFirstLoad(){
+  // Show controls
+  panelPrev.style.display = 'inline-block';
+  panelNext.style.display = 'inline-block';
+
+  // Wait for first image load to determine orientation and object-fit rules
+  currentImgs[0].addEventListener('load', function handler(){
     const first = currentImgs[0];
-    // determine orientation based on first image natural dims
     if (first.naturalHeight > first.naturalWidth){
+      // portrait-first behavior
       wrap.classList.remove('landscape'); wrap.classList.add('portrait');
-      slides.classList.add('portrait'); // special rule so first uses contain
-      // ensure first image fits fully
-      first.style.objectFit = 'contain';
-      // other images fill container
-      for (let i=1;i<currentImgs.length;i++) currentImgs[i].style.objectFit='cover';
+      slides.classList.add('portrait'); // first image will be object-fit:contain (via CSS rule)
+      // set object-fit for others
+      for (let i=1;i<currentImgs.length;i++) currentImgs[i].style.objectFit = 'cover';
     } else {
       // treat as landscape
       wrap.classList.remove('portrait'); wrap.classList.add('landscape');
       slides.classList.remove('portrait');
-      currentImgs.forEach(img=> img.style.objectFit='cover');
+      currentImgs.forEach(img=> img.style.objectFit = 'cover');
     }
 
-    // start slideshow after orientation is set
-    startSlide();
-    currentImgs[0].removeEventListener('load', onFirstLoad);
+    // ensure first image visible, then start interval
+    startSlides();
+    currentImgs[0].removeEventListener('load', handler);
   });
 
-  // small footer
-  panelFooter.style.display = 'block';
-  panelFooter.textContent = `Images: ${files.length} — Slides auto-play every 5s.`;
-
-  // show prev/next buttons
-  prevBtn.style.display = 'inline-block';
-  nextBtn.style.display = 'inline-block';
+  // Footer info
+  const info = document.createElement('div');
+  info.className = 'infoText';
+  info.textContent = `ASCEND gallery — ${ASCEND_SLIDES.length} images. Slideshow auto-fits and centers for your device.`;
+  panelBody.appendChild(info);
 }
 
-/* slideshow controls */
-function startSlide(){
-  stopSlide(); // reset
-  if (!slidesContainer) return;
+/* Slideshow control functions */
+function startSlides(){
+  stopSlides();
+  if (!currentImgs || currentImgs.length === 0) return;
 
-  // make first visible
   slideIndex = 0;
   currentImgs.forEach(img => img.classList.remove('visible'));
-  if (currentImgs[0]) currentImgs[0].classList.add('visible');
+  currentImgs[0].classList.add('visible');
 
   slideTimer = setInterval(()=>{
-    // fade current out
     if (currentImgs[slideIndex]) currentImgs[slideIndex].classList.remove('visible');
     slideIndex = (slideIndex + 1) % currentImgs.length;
     if (currentImgs[slideIndex]) currentImgs[slideIndex].classList.add('visible');
   }, 5000);
 }
 
-function stopSlide(){
+function stopSlides(){
   clearInterval(slideTimer);
   slideTimer = null;
-  // hide prev/next if not in multi-slide mode
-  prevBtn.style.display = 'none';
-  nextBtn.style.display = 'none';
-  slidesContainer = null;
   currentImgs = [];
+  slidesElem = null;
+  panelPrev.style.display = 'none';
+  panelNext.style.display = 'none';
 }
 
 function changeSlide(delta){
-  if (!currentImgs || currentImgs.length===0) return;
-  // manual change resets timer
-  if (slideTimer) clearInterval(slideTimer);
+  if (!currentImgs || currentImgs.length === 0) return;
+  if (slideTimer) { clearInterval(slideTimer); slideTimer = null; }
   if (currentImgs[slideIndex]) currentImgs[slideIndex].classList.remove('visible');
   slideIndex = (slideIndex + delta + currentImgs.length) % currentImgs.length;
-  currentImgs[slideIndex].classList.add('visible');
-  // restart auto after short timeout
+  if (currentImgs[slideIndex]) currentImgs[slideIndex].classList.add('visible');
+  // restart autoplay
   slideTimer = setInterval(()=>{
     if (currentImgs[slideIndex]) currentImgs[slideIndex].classList.remove('visible');
     slideIndex = (slideIndex + 1) % currentImgs.length;
@@ -401,20 +389,9 @@ function changeSlide(delta){
   }, 5000);
 }
 
-function closePanel(){
-  panel.classList.remove('open');
-  panel.setAttribute('aria-hidden','true');
-  stopSlide();
-}
-
-/* Prevent huge reflows: preload small thumbnails for buttons (progressive) */
+/* Preload small button images (lets browser cache button backgrounds quickly) */
 (function preloadButtons(){
-  const files = Object.values(ORG_MAP);
-  files.forEach(src=>{
-    const img = new Image();
-    img.src = src;
-    // no onload required — browser caches them for button backgrounds
-  });
+  Object.values(ORG_MAP).forEach(src => { const i = new Image(); i.src = src; });
 })();
 
 </script>
