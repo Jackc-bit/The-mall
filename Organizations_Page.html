@@ -3,240 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DYCI Organizations (Optimized)</title>
+<title>ASCEND Popup Slideshow</title>
 
 <style>
     body {
         margin: 0;
         font-family: Arial;
-        padding: 20px;
-        overflow-x: hidden;
-        background: url("Background.png") no-repeat center center fixed;
-        background-size: cover;
-    }
-
-    h1 {
-        margin-top: 10px;
-        font-size: 32px;
+        background: #000;
         color: white;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        text-align: center;
     }
 
-    .imgBtn {
-        width: 100%;
-        max-width: 500px;
-        display: block;
-        margin: 15px auto;
-        cursor: pointer;
-        border-radius: 14px;
-    }
-
-    .imgBtn img {
-        width: 100%;
-        border-radius: 14px;
-    }
-
-    /* PANEL (only one panel ever exists) */
-    #dynamicPanel {
+    /* Popup background */
+    .popup-bg {
         position: fixed;
-        bottom: -100vh;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: rgba(0,0,0,0.55);
-        backdrop-filter: none;
-        box-shadow: 0 -5px 20px rgba(0,0,0,0.35);
-        border-radius: 25px 25px 0 0;
-        box-sizing: border-box;
-        padding: 30px;
-        overflow-y: auto;
-        text-align: center;
-        transition: bottom 0.45s ease;
-        color: white;
-    }
-
-    .closeBtn {
-        background: #0057d8;
-        color: white;
-        padding: 15px 20px;
-        font-size: 22px;
-        border-radius: 10px;
-        margin-top: 25px;
-        display: inline-block;
-        text-decoration: none;
-    }
-
-    .backBtn {
-        background: #0057d8;
-        color: white;
-        padding: 20px;
-        font-size: 24px;
-        text-decoration: none;
-        display: block;
-        border-radius: 10px;
-        margin: 25px auto;
-        max-width: 500px;
-        text-align: center;
-    }
-
-    /* Slideshow */
-    .slideshow {
-        width: 90%;
-        max-width: 600px;
-        margin: 0 auto 20px auto;
-        position: relative;
-        height: 400px;
-        overflow: hidden;
-        border-radius: 16px;
-    }
-
-    .slides img {
-        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-        border-radius: 16px;
+        background: rgba(0,0,0,0.7);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
     }
 
+    /* Popup window */
+    .popup-box {
+        background: rgba(0,0,0,0.6);
+        padding: 15px;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 500px;
+        text-align: center;
+        backdrop-filter: blur(4px);
+    }
+
+    /* Slideshow image */
+    .popup-image {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        object-fit: contain;
+    }
+
+    /* Close button */
+    .close-btn {
+        margin-top: 10px;
+        padding: 10px 20px;
+        border: none;
+        background: #2196f3;
+        color: white;
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+    }
 </style>
 </head>
 <body>
 
-<h1>Organizations</h1>
-<a class="backBtn" onclick="window.history.back();">⬅ Back</a>
-<div id="orgButtons"></div>
+<!-- Button to open -->
+<button onclick="openAscend()">Open ASCEND</button>
 
-<!-- Only one panel will ever exist -->
-<div id="dynamicPanel"></div>
+<!-- Popup -->
+<div id="ascendPopup" class="popup-bg">
+    <div class="popup-box">
+        <img id="ascendImg" class="popup-image" src="">
+        <button class="close-btn" onclick="closeAscend()">Close</button>
+    </div>
+</div>
 
 <script>
+/* Images EXACTLY as you requested */
+const ascendImages = [
+    "ASCEND_ORGM.png",   // portrait first
+    "ASCEND_ORG1.JPG",
+    "ASCEND_ORG2.JPG",
+    "ASCEND_ORG3.JPG",
+    "ASCEND_ORG4.JPG",
+    "ASCEND_ORG5.JPG",
+    "ASCEND_ORG6.JPG"
+];
 
-/* LIST OF ORGS AND EXACT PNG FILENAMES */
-const orgImages = {
-    "ASCEND": "Ascend.png",
-    "STRINGS": "Strings_Ensemble.png",
-    "THE ANG": "The_Ang_Dycian.png",
-    "VERBUM": "Verbum_Domini.png",
-    "HIMIG": "Himig_Dycian.png",
-    "DAGALAK": "Dyci_Dagalak.png",
-    "DANCE": "Dance_Troupe.png",
-    "LIGHT": "Dyci_Light.png",
-    "UNICUS": "Unicus.png",
-    "SCSL": "Scsl.png",
-    "SENTINELS": "Sentinels.png",
-    "GLOBALIZE": "Globalize.png",
-    "ENG FACI": "English_Facilitators.png",
-    "NOVELLUS": "Dyci_Novellus.png",
-    "TVOA": "Tvqa.png",
-    "GLOBALIVE": "Globalive.png",
-    "DYCIAN LIVE": "Dycian_Live.png",
-    "TAKEOFF": "Takeoff.png",
-    "AVANT": "Avant_Garde.png",
-    "DEBATE": "Debate_Society.png",
-    "SPEAKERS": "Speakers_Society.png",
-    "PRIMES": "Dyci_Primes.png",
-    "USBONG": "Usbong.png",
-    "SIBOL": "Sibol.png",
-    "FENCING": "Fencing.png",
-    "TAEKWONDO": "Taekwondo.png",
-    "ARCHERY": "Archery.png",
-    "SEQUINTIA": "Sequentia_Studios.png",
-    "THE ANG DYCIAN": "The_Ang_Dycian.png",
-    "AXIOM": "Axiom.png",
-    "PEER FACI": "Peer_Facilitators_Circle.png",
-    "SILO": "Silo.png",
-    "GREEN GROUP": "Green_Group.png",
-    "CREATIVES TEAM": "Dyci_Creatives_Team.png",
-    "EUNOMIA": "Eunomia.png",
-    "DGITS": "Dgits.png",
-    "TYCOONS": "Societal_Tycoons.png",
-    "COACHES": "Coaches.png",
-    "ALTAR SERVERS": "Ministry_Of_Altar_Services.png",
-    "CHOIR": "Liturgical_Choir.png",
-    "SYMPHONIA": "Symphonia.png"
-};
+let ascendIndex = 0;
+let ascendTimer = null;
 
-const container = document.getElementById("orgButtons");
-const dynamicPanel = document.getElementById("dynamicPanel");
-let slideInterval = null;
-let currentIndex = 0;
+function openAscend() {
+    document.getElementById("ascendPopup").style.display = "flex";
+    ascendIndex = 0;
+    changeAscendImage();
 
-/* CREATE IMAGE BUTTONS */
-Object.keys(orgImages).forEach(name => {
-    const file = orgImages[name];
-    const id = name.replace(/ /g, "_");
-
-    const btn = document.createElement("div");
-    btn.className = "imgBtn";
-    btn.onclick = () => openPanel(name);
-    btn.innerHTML = `<img src="${file}">`;
-
-    container.appendChild(btn);
-});
-
-/* CREATE PANEL ONLY WHEN NEEDED */
-function openPanel(name) {
-    const file = orgImages[name];
-
-    stopSlideshow();
-    dynamicPanel.innerHTML = "";
-
-    if (name === "ASCEND") {
-        dynamicPanel.innerHTML = `
-            <h2>${name}</h2>
-            <div class="slideshow">
-                <div class="slides">
-                    <img src="ASCEND_ORGM.png">
-                    <img src="ASCEND_ORG1.JPG">
-                    <img src="ASCEND_ORG2.JPG">
-                    <img src="ASCEND_ORG3.JPG">
-                </div>
-            </div>
-            <a class="closeBtn" onclick="closePanel()">Close</a>
-        `;
-        startSlideshow();
-
-    } else {
-        dynamicPanel.innerHTML = `
-            <h2>${name}</h2>
-            <img src="${file}" style="width:90%; max-width:600px; border-radius:16px; margin-bottom:20px;">
-            <p>Content for ${name} goes here.</p>
-            <a class="closeBtn" onclick="closePanel()">Close</a>
-        `;
-    }
-
-    dynamicPanel.style.bottom = "0";
+    // Auto slideshow every 5 seconds
+    ascendTimer = setInterval(() => {
+        ascendIndex = (ascendIndex + 1) % ascendImages.length;
+        changeAscendImage();
+    }, 5000);
 }
 
-function closePanel() {
-    dynamicPanel.style.bottom = "-100vh";
-    stopSlideshow();
+function closeAscend() {
+    document.getElementById("ascendPopup").style.display = "none";
+    clearInterval(ascendTimer);
 }
 
-/* Slideshow Logic */
-function startSlideshow() {
-    const slides = dynamicPanel.querySelectorAll('.slides img');
-    if (!slides.length) return;
-
-    currentIndex = 0;
-    slides[0].style.opacity = 1;
-
-    slideInterval = setInterval(() => {
-        slides[currentIndex].style.opacity = 0;
-        currentIndex = (currentIndex + 1) % slides.length;
-        slides[currentIndex].style.opacity = 1;
-    }, 4000);
+function changeAscendImage() {
+    const img = document.getElementById("ascendImg");
+    img.src = ascendImages[ascendIndex];
 }
-
-function stopSlideshow() {
-    clearInterval(slideInterval);
-}
-
 </script>
+
 </body>
 </html>
