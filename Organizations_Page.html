@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DYCI Organizations</title>
+<title>DYCI Organizations (Optimized)</title>
 
 <style>
     body {
@@ -37,16 +37,15 @@
         border-radius: 14px;
     }
 
-    .panel {
+    /* PANEL (only one panel ever exists) */
+    #dynamicPanel {
         position: fixed;
         bottom: -100vh;
         left: 0;
         width: 100%;
         height: 100vh;
-        background: url("Background.png") no-repeat center center fixed;
-        background-size: cover;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        background: rgba(0,0,0,0.55);
+        backdrop-filter: none;
         box-shadow: 0 -5px 20px rgba(0,0,0,0.35);
         border-radius: 25px 25px 0 0;
         box-sizing: border-box;
@@ -54,6 +53,7 @@
         overflow-y: auto;
         text-align: center;
         transition: bottom 0.45s ease;
+        color: white;
     }
 
     .closeBtn {
@@ -80,6 +80,7 @@
         text-align: center;
     }
 
+    /* Slideshow */
     .slideshow {
         width: 90%;
         max-width: 600px;
@@ -101,6 +102,7 @@
         transition: opacity 1s ease-in-out;
         border-radius: 16px;
     }
+
 </style>
 </head>
 <body>
@@ -109,70 +111,85 @@
 <a class="backBtn" onclick="window.history.back();">⬅ Back</a>
 <div id="orgButtons"></div>
 
+<!-- Only one panel will ever exist -->
+<div id="dynamicPanel"></div>
+
 <script>
-/* EXACT ORG → PNG MAP */
-const orgData = {
-    "SIBOL": "Sibol.png",
-    "ARCHERY": "Archery.png",
+
+/* LIST OF ORGS AND EXACT PNG FILENAMES */
+const orgImages = {
     "ASCEND": "Ascend.png",
-    "AVANT GARDE": "Avant_Garde.png",
-    "AXIOM": "Axiom.png",
-    "COACHES": "Coaches.png",
-    "CSL": "Csl.png",
-    "DANCE TROUPE": "Dance_Troupe.png",
-    "DEBATE SOCIETY": "Debate_Society.png",
-    "DGITS": "Dgits.png",
-    "DYCI CREATIVE TEAM": "Dyci_Creative_Team.png",
-    "DYCI DAGALAK": "Dyci_Dagalak.png",
-    "DYCI LIGHT": "Dyci_Light.png",
-    "DYCI NOVELLUS": "Dyci_Novellus.png",
-    "DYCI PRIMES": "Dyci_Primes.png",
-    "DYCIAN LIVE": "Dycian_Live.png",
-    "ENGLISH FACILITATORS": "English_Facilitators.png",
-    "FENCING": "Fencing.png",
-    "GLOBALIVE": "Globalive.png",
-    "GREEN GROUP": "Green_Group.png",
-    "HIMIG DYCIAN": "Himig_Dycian.png",
-    "LITURGICAL CHOIR": "Liturgical_Choir.png",
-    "MINISTRY OF ALTAR SERVICES": "Ministry_Of_Altar_Services.png",
-    "PEER FACILITATORS CIRCLE": "Peer_Facilitators_Circle.png",
+    "STRINGS": "Strings_Ensemble.png",
+    "THE ANG": "The_Ang_Dycian.png",
+    "VERBUM": "Verbum_Domini.png",
+    "HIMIG": "Himig_Dycian.png",
+    "DAGALAK": "Dyci_Dagalak.png",
+    "DANCE": "Dance_Troupe.png",
+    "LIGHT": "Dyci_Light.png",
+    "UNICUS": "Unicus.png",
     "SCSL": "Scsl.png",
     "SENTINELS": "Sentinels.png",
-    "SEQUENTIA STUDIOS": "Sequentia_Studios.png",
-    "SOCIETAL TYCOONS": "Societal_Tycoons.png",
-    "SPEAKERS SOCIETY": "Speakers_Society.png",
-    "STRINGS SOCIETY": "Strings_Society.png",
-    "STRINGS ENSEMBLE": "Strings_Ensemble.png",
-    "SYMPHONIA": "Symphonia.png",
-    "TAEKWONDO": "Taekwondo.png",
+    "GLOBALIZE": "Globalize.png",
+    "ENG FACI": "English_Facilitators.png",
+    "NOVELLUS": "Dyci_Novellus.png",
+    "TVOA": "Tvqa.png",
+    "GLOBALIVE": "Globalive.png",
+    "DYCIAN LIVE": "Dycian_Live.png",
     "TAKEOFF": "Takeoff.png",
-    "THE ANG DYCIAN": "The_Ang_Dycian.png",
-    "TVQA": "Tvqa.png",
-    "UNICUS": "Unicus.png",
+    "AVANT": "Avant_Garde.png",
+    "DEBATE": "Debate_Society.png",
+    "SPEAKERS": "Speakers_Society.png",
+    "PRIMES": "Dyci_Primes.png",
     "USBONG": "Usbong.png",
-    "VERBUM DOMINI": "Verbum_Domini.png"
+    "SIBOL": "Sibol.png",
+    "FENCING": "Fencing.png",
+    "TAEKWONDO": "Taekwondo.png",
+    "ARCHERY": "Archery.png",
+    "SEQUINTIA": "Sequentia_Studios.png",
+    "THE ANG DYCIAN": "The_Ang_Dycian.png",
+    "AXIOM": "Axiom.png",
+    "PEER FACI": "Peer_Facilitators_Circle.png",
+    "SILO": "Silo.png",
+    "GREEN GROUP": "Green_Group.png",
+    "CREATIVES TEAM": "Dyci_Creatives_Team.png",
+    "EUNOMIA": "Eunomia.png",
+    "DGITS": "Dgits.png",
+    "TYCOONS": "Societal_Tycoons.png",
+    "COACHES": "Coaches.png",
+    "ALTAR SERVERS": "Ministry_Of_Altar_Services.png",
+    "CHOIR": "Liturgical_Choir.png",
+    "SYMPHONIA": "Symphonia.png"
 };
 
 const container = document.getElementById("orgButtons");
+const dynamicPanel = document.getElementById("dynamicPanel");
+let slideInterval = null;
+let currentIndex = 0;
 
-/* CREATE BUTTONS & PANELS */
-Object.entries(orgData).forEach(([name, file]) => {
+/* CREATE IMAGE BUTTONS */
+Object.keys(orgImages).forEach(name => {
+    const file = orgImages[name];
     const id = name.replace(/ /g, "_");
 
     const btn = document.createElement("div");
     btn.className = "imgBtn";
-    btn.onclick = () => openPanel(id);
+    btn.onclick = () => openPanel(name);
     btn.innerHTML = `<img src="${file}">`;
-    container.appendChild(btn);
 
-    const panel = document.createElement("div");
-    panel.className = "panel";
-    panel.id = id;
+    container.appendChild(btn);
+});
+
+/* CREATE PANEL ONLY WHEN NEEDED */
+function openPanel(name) {
+    const file = orgImages[name];
+
+    stopSlideshow();
+    dynamicPanel.innerHTML = "";
 
     if (name === "ASCEND") {
-        panel.innerHTML = `
+        dynamicPanel.innerHTML = `
             <h2>${name}</h2>
-            <div class="slideshow" id="${id}_slideshow">
+            <div class="slideshow">
                 <div class="slides">
                     <img src="ASCEND_ORGM.png">
                     <img src="ASCEND_ORG1.JPG">
@@ -180,52 +197,46 @@ Object.entries(orgData).forEach(([name, file]) => {
                     <img src="ASCEND_ORG3.JPG">
                 </div>
             </div>
-            <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
+            <a class="closeBtn" onclick="closePanel()">Close</a>
         `;
+        startSlideshow();
+
     } else {
-        panel.innerHTML = `
+        dynamicPanel.innerHTML = `
             <h2>${name}</h2>
+            <img src="${file}" style="width:90%; max-width:600px; border-radius:16px; margin-bottom:20px;">
             <p>Content for ${name} goes here.</p>
-            <a class="closeBtn" onclick="closePanel('${id}')">Close</a>
+            <a class="closeBtn" onclick="closePanel()">Close</a>
         `;
     }
 
-    document.body.appendChild(panel);
-});
-
-/* SLIDESHOW LOGIC */
-let slideInterval = null;
-let currentIndex = 0;
-
-function openPanel(id) {
-    document.getElementById(id).style.bottom = "0";
-    if (id === "ASCEND") startAutoSlide();
+    dynamicPanel.style.bottom = "0";
 }
 
-function closePanel(id) {
-    document.getElementById(id).style.bottom = "-100vh";
-    if (id === "ASCEND") stopAutoSlide();
+function closePanel() {
+    dynamicPanel.style.bottom = "-100vh";
+    stopSlideshow();
 }
 
-function startAutoSlide() {
-    stopAutoSlide();
-    const slides = document.querySelectorAll(`#ASCEND_slideshow .slides img`);
-    if (slides.length === 0) return;
+/* Slideshow Logic */
+function startSlideshow() {
+    const slides = dynamicPanel.querySelectorAll('.slides img');
+    if (!slides.length) return;
 
-    slides[currentIndex].style.opacity = 1;
+    currentIndex = 0;
+    slides[0].style.opacity = 1;
 
     slideInterval = setInterval(() => {
         slides[currentIndex].style.opacity = 0;
         currentIndex = (currentIndex + 1) % slides.length;
         slides[currentIndex].style.opacity = 1;
-    }, 5000);
+    }, 4000);
 }
 
-function stopAutoSlide() {
+function stopSlideshow() {
     clearInterval(slideInterval);
-    slideInterval = null;
 }
-</script>
 
+</script>
 </body>
 </html>
