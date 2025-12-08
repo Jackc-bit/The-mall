@@ -110,24 +110,54 @@
 <div id="orgButtons"></div>
 
 <script>
-/* ORG NAMES → IMAGE FILENAMES */
-const orgData = [
-    "ASCEND","STRINGS","THE ANG","VERBUM","HIMIG","DAGALAK","DANCE","LIGHT","UNICUS","SCSL","SENTINELS",
-    "GLOBALIZE","ENG FACI","NOVELLUS","TVOA","GLOBALIVE","DYCIAN LIVE","TAKEOFF","AVANT","DEBATE","SPEAKERS",
-    "PRIMES","USBONG","SIBOL","FENCING","TAEKWONDO","ARCHERY","SEQUINTIA","THE ANG DYCIAN","AXIOM",
-    "PEER FACI","SILO","GREEN GROUP","CREATIVES TEAM","EUNOMIA","DGITS","TYCOONS","COACHES",
-    "ALTAR SERVERS","CHOIR","SYMPHONIA"
-];
-
-function toFileName(name) {
-    return name.replace(/ /g, "_") + ".png";
-}
+/* EXACT ORG → PNG MAP */
+const orgData = {
+    "SIBOL": "Sibol.png",
+    "ARCHERY": "Archery.png",
+    "ASCEND": "Ascend.png",
+    "AVANT GARDE": "Avant_Garde.png",
+    "AXIOM": "Axiom.png",
+    "COACHES": "Coaches.png",
+    "CSL": "Csl.png",
+    "DANCE TROUPE": "Dance_Troupe.png",
+    "DEBATE SOCIETY": "Debate_Society.png",
+    "DGITS": "Dgits.png",
+    "DYCI CREATIVE TEAM": "Dyci_Creative_Team.png",
+    "DYCI DAGALAK": "Dyci_Dagalak.png",
+    "DYCI LIGHT": "Dyci_Light.png",
+    "DYCI NOVELLUS": "Dyci_Novellus.png",
+    "DYCI PRIMES": "Dyci_Primes.png",
+    "DYCIAN LIVE": "Dycian_Live.png",
+    "ENGLISH FACILITATORS": "English_Facilitators.png",
+    "FENCING": "Fencing.png",
+    "GLOBALIVE": "Globalive.png",
+    "GREEN GROUP": "Green_Group.png",
+    "HIMIG DYCIAN": "Himig_Dycian.png",
+    "LITURGICAL CHOIR": "Liturgical_Choir.png",
+    "MINISTRY OF ALTAR SERVICES": "Ministry_Of_Altar_Services.png",
+    "PEER FACILITATORS CIRCLE": "Peer_Facilitators_Circle.png",
+    "SCSL": "Scsl.png",
+    "SENTINELS": "Sentinels.png",
+    "SEQUENTIA STUDIOS": "Sequentia_Studios.png",
+    "SOCIETAL TYCOONS": "Societal_Tycoons.png",
+    "SPEAKERS SOCIETY": "Speakers_Society.png",
+    "STRINGS SOCIETY": "Strings_Society.png",
+    "STRINGS ENSEMBLE": "Strings_Ensemble.png",
+    "SYMPHONIA": "Symphonia.png",
+    "TAEKWONDO": "Taekwondo.png",
+    "TAKEOFF": "Takeoff.png",
+    "THE ANG DYCIAN": "The_Ang_Dycian.png",
+    "TVQA": "Tvqa.png",
+    "UNICUS": "Unicus.png",
+    "USBONG": "Usbong.png",
+    "VERBUM DOMINI": "Verbum_Domini.png"
+};
 
 const container = document.getElementById("orgButtons");
 
-orgData.forEach(name => {
+/* CREATE BUTTONS & PANELS */
+Object.entries(orgData).forEach(([name, file]) => {
     const id = name.replace(/ /g, "_");
-    const file = toFileName(name);
 
     const btn = document.createElement("div");
     btn.className = "imgBtn";
@@ -163,6 +193,7 @@ orgData.forEach(name => {
     document.body.appendChild(panel);
 });
 
+/* SLIDESHOW LOGIC */
 let slideInterval = null;
 let currentIndex = 0;
 
@@ -195,5 +226,6 @@ function stopAutoSlide() {
     slideInterval = null;
 }
 </script>
+
 </body>
 </html>
