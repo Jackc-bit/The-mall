@@ -1,361 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>DYCI Organizations</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organizations</title>
+
 <style>
-  :root{
-    --accent: #0a66ff;
-    --panel-height: 88vh;
-    --panel-radius: 24px;
-  }
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+    background: url("Background.png") no-repeat center center fixed;
+    background-size: cover;
+    overflow-x: hidden;
+}
 
-  html,body{height:100%;margin:0;font-family:Arial, Helvetica, sans-serif;background:#04102a;color:#fff}
-  .page {max-width:1100px;margin:0 auto;padding:18px;}
-  h1{margin:6px 0 18px;text-align:center;font-size:26px}
+/* --- ORG BUTTON GRID --- */
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding: 20px;
+}
 
-  /* grid */
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:14px; align-items:start; }
-  .card { position:relative; width:100%; padding-top:60%; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.35); background:#071227; }
-  .card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
-  .card .label { position:absolute; left:6px; right:6px; bottom:6px; font-size:11px; color:rgba(255,255,255,0.95); text-align:center; pointer-events:none; text-shadow:0 2px 6px rgba(0,0,0,0.6); }
+/* REMOVE TEXT, SHOW PNG ONLY */
+.org-btn {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 12px;
+    border: 3px solid white;
 
-  /* overlay */
-  #overlay { position:fixed; inset:0; background:rgba(0,0,0,0.55); backdrop-filter:blur(6px); opacity:0; pointer-events:none; transition:opacity .28s ease; z-index:60; }
+    background-size: cover;
+    background-position: center;
 
-  /* slide-up panel - Option A */
-  .panel {
-    position:fixed;
-    left:0; right:0; bottom:-120%;
-    height:var(--panel-height);
-    margin:auto;
-    max-width:1100px;
-    border-radius:var(--panel-radius) var(--panel-radius) 0 0;
-    background:linear-gradient(180deg, rgba(6,10,18,0.98), rgba(8,12,20,0.96));
-    box-shadow:0 -30px 80px rgba(0,0,0,0.6);
-    overflow:hidden;
-    z-index:70;
-    transition:bottom .38s cubic-bezier(.2,.9,.2,1);
-    display:flex; flex-direction:column;
-  }
-  .panel.open { bottom:0; }
-  .panel-header { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid rgba(255,255,255,0.03); }
-  .panel-title { font-size:20px; font-weight:700; }
-  .panel-body { padding:14px 18px; flex:1; overflow:auto; display:flex; align-items:flex-start; justify-content:center; flex-direction:column; gap:12px; }
+    font-size: 0;           /* hides accidental text */
+    color: transparent;     /* force-hide text */
+    text-indent: -9999px;   /* force-hide text */
+    overflow: hidden;
+}
 
-  .panel-footer { padding:12px 18px; border-top:1px solid rgba(255,255,255,0.03); display:flex; justify-content:center; gap:10px; }
-  .btn { background:var(--accent); color:#fff; border:none; padding:10px 16px; border-radius:10px; cursor:pointer; font-weight:700; }
+/* --- SLIDE-UP PANEL --- */
+.panel {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 88%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    transition: bottom 0.45s ease;
+    overflow: hidden;
+    padding: 20px;
+    box-sizing: border-box;
+}
 
-  /* slideshow container - auto-fit */
-  .slideshow-wrap { width:100%; max-width:920px; margin:0 auto; border-radius:12px; overflow:hidden; background:#000; display:block; position:relative; aspect-ratio:16/9; max-height:calc(var(--panel-height) - 160px); }
-  .slideshow-wrap.portrait { aspect-ratio:9/16; max-width:560px; }
+.panel.open {
+    bottom: 0;
+}
 
-  .slides { position:relative; width:100%; height:100%; }
-  .slides img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .6s ease; background:#000; }
-  .slides img.visible { opacity:1; z-index:2; }
-  .slides.portrait img:first-child { object-fit:contain; background:#000; }
+.close-btn {
+    width: 40px;
+    height: 5px;
+    background: white;
+    border-radius: 4px;
+    margin: 0 auto 15px auto;
+}
 
-  .info { max-width:920px; margin:0 auto; color:rgba(255,255,255,0.9); font-size:14px; text-align:center; }
+/* --- ASCEND SLIDESHOW FIX --- */
+.slideshow {
+    width: 90%;
+    max-width: 650px;
+    margin: 0 auto;
+    position: relative;
 
-  @media (max-width:520px){
-    .card{ padding-top:78% }
-    .slideshow-wrap.portrait{ max-width:92vw }
-  }
+    height: 55vh;          /* auto-adjust for device */
+    max-height: 500px;
+
+    border-radius: 20px;
+    overflow: hidden;
+    background: black;     /* prevents black screen issue */
+}
+
+.slides img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;  /* shows portrait & landscape correctly */
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity .8s ease-in-out;
+    z-index: 2;
+}
 </style>
 </head>
 <body>
-  <div class="page">
-    <h1>DYCI Organizations</h1>
-    <div id="orgGrid" class="grid" aria-live="polite"></div>
-  </div>
 
-  <div id="overlay" aria-hidden="true"></div>
+<!-- ORGANIZATION BUTTONS (TEXT REMOVED) -->
+<div class="container">
+    <div class="org-btn" style="background-image:url('Sibol.png');"></div>
+    <div class="org-btn" style="background-image:url('Archery.png');"></div>
+    <div class="org-btn" style="background-image:url('Ascend.png');" onclick="openAscend()"></div>
 
-  <!-- single dynamic panel (Option A) -->
-  <div id="panel" class="panel" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="panel-header">
-      <div id="panelTitle" class="panel-title">Organization</div>
-      <div>
-        <button id="prevBtn" class="btn" style="display:none">Prev</button>
-        <button id="nextBtn" class="btn" style="display:none">Next</button>
-      </div>
+    <div class="org-btn" style="background-image:url('Avant_Garde.png');"></div>
+    <div class="org-btn" style="background-image:url('Axiom.png');"></div>
+    <div class="org-btn" style="background-image:url('Coaches.png');"></div>
+
+    <div class="org-btn" style="background-image:url('Csl.png');"></div>
+    <div class="org-btn" style="background-image:url('Dance_Troupe.png');"></div>
+    <div class="org-btn" style="background-image:url('Debate_Society.png');"></div>
+
+    <!-- Continue placing all PNG org buttons here -->
+</div>
+
+<!-- ASCEND PAGE POPUP -->
+<div id="ascendPanel" class="panel">
+    <div class="close-btn" onclick="closeAscend()"></div>
+
+    <div id="ASCEND_slideshow" class="slideshow">
+        <div class="slides">
+            <img src="ASCEND_ORGM.png">
+            <img src="ASCEND_ORG1.JPG">
+            <img src="ASCEND_ORG2.JPG">
+            <img src="ASCEND_ORG3.JPG">
+            <img src="ASCEND_ORG4.JPG">
+            <img src="ASCEND_ORG5.JPG">
+            <img src="ASCEND_ORG6.JPG">
+        </div>
     </div>
-    <div id="panelBody" class="panel-body"></div>
-    <div class="panel-footer">
-      <button id="closeBtn" class="btn">Close</button>
-    </div>
-  </div>
+
+</div>
 
 <script>
-/* ---------- Exact filenames from your repo in the confirmed order ---------- */
-const ORG_LIST = [
-  {name:"SIBOL", file:"Sibol.png"},
-  {name:"ARCHERY", file:"Archery.png"},
-  {name:"ASCEND", file:"Ascend.png"},
-  {name:"AVANT GARDE", file:"Avant_Garde.png"},
-  {name:"AXIOM", file:"Axiom.png"},
-  {name:"COACHES", file:"Coaches.png"},
-  {name:"CSL", file:"Csl.png"},
-  {name:"DANCE TROUPE", file:"Dance_Troupe.png"},
-  {name:"DEBATE SOCIETY", file:"Debate_Society.png"},
-  {name:"DGITS", file:"Dgits.png"},
-  {name:"DYCI CREATIVES TEAM", file:"Dyci_Creatives_Team.png"},
-  {name:"DYCI DAGALAK", file:"Dyci_Dagalak.png"},
-  {name:"DYCI LIGHT", file:"Dyci_Light.png"},
-  {name:"DYCI NOVELLUS", file:"Dyci_Novellus.png"},
-  {name:"DYCI PRIMES", file:"Dyci_Primes.png"},
-  {name:"DYCIAN LIVE", file:"Dycian_Live.png"},
-  {name:"ENGLISH FACILITATORS", file:"English_Facilitators.png"},
-  {name:"FENCING", file:"Fencing.png"},
-  {name:"GLOBALIVE", file:"Globalive.png"},
-  {name:"GREEN GROUP", file:"Green_Group.png"},
-  {name:"HIMIG DYCIAN", file:"Himig_Dycian.png"},
-  {name:"LITURGICAL CHOIR", file:"Liturgical_Choir.png"},
-  {name:"MINISTRY OF ALTAR SERVICES", file:"Ministry_Of_Altar_Services.png"},
-  {name:"PEER FACILITATORS CIRCLE", file:"Peer_Facilitators_Circle.png"},
-  {name:"SCSL", file:"Scsl.png"},
-  {name:"SENTINELS", file:"Sentinels.png"},
-  {name:"SEQUENTIA STUDIOS", file:"Sequentia_Studios.png"},
-  {name:"SOCIETAL TYCOONS", file:"Societal_Tycoons.png"},
-  {name:"SPEAKERS SOCIETY", file:"Speakers_Society.png"},
-  {name:"STRINGS ENSEMBLE", file:"Strings_Ensemble.png"},
-  {name:"SYMPHONIA", file:"Symphonia.png"},
-  {name:"TAEKWONDO", file:"Taekwondo.png"},
-  {name:"TAKEOFF", file:"Takeoff.png"},
-  {name:"THE ANG DYCIAN", file:"The_Ang_Dycian.png"},
-  {name:"TVQA", file:"Tvqa.png"},
-  {name:"UNICUS", file:"Unicus.png"},
-  {name:"USBONG", file:"Usbong.png"},
-  {name:"VERBUM DOMINI", file:"Verbum_Domini.png"},
-  {name:"ROBOTICS", file:"Robotics.png"}
-];
+let slideInterval;
+let currentIndex = 0;
 
-/* ASCEND slide image files (must exist in repo) */
-const ASCEND_SLIDES = [
-  "ASCEND_ORGM.png",
-  "ASCEND_ORG1.JPG",
-  "ASCEND_ORG2.JPG",
-  "ASCEND_ORG3.JPG",
-  "ASCEND_ORG4.JPG",
-  "ASCEND_ORG5.JPG",
-  "ASCEND_ORG6.JPG"
-];
-
-/* Build grid safely */
-const grid = document.getElementById('orgGrid');
-
-ORG_LIST.forEach(item => {
-  const card = document.createElement('div');
-  card.className = 'card';
-
-  const img = document.createElement('img');
-  img.src = item.file;
-  img.alt = item.name;
-  // if an image fails to load, show a subtle fallback background color and keep JS running
-  img.onerror = () => { img.style.display = 'none'; card.style.background = '#12303c'; };
-
-  img.addEventListener('click', () => openOrg(item.name));
-
-  const label = document.createElement('div');
-  label.className = 'label';
-  label.textContent = item.name;
-
-  card.appendChild(img);
-  card.appendChild(label);
-  grid.appendChild(card);
-});
-
-/* Panel controls */
-const overlay = document.getElementById('overlay');
-const panel = document.getElementById('panel');
-const panelTitle = document.getElementById('panelTitle');
-const panelBody = document.getElementById('panelBody');
-const closeBtn = document.getElementById('closeBtn');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-
-let currentSlides = [];
-let slideTimer = null;
-let slideIndex = 0;
-
-closeBtn.addEventListener('click', closePanel);
-overlay.addEventListener('click', closePanel);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
-
-prevBtn.addEventListener('click', ()=> manualChange(-1));
-nextBtn.addEventListener('click', ()=> manualChange(1));
-
-/* Open org */
-function openOrg(name){
-  panelTitle.textContent = name;
-  panelBody.innerHTML = ''; // clear
-
-  // prevent background scroll
-  document.body.style.overflow = 'hidden';
-  overlay.style.opacity = '1';
-  overlay.style.pointerEvents = 'auto';
-
-  if (name === 'ASCEND'){
-    buildAscendPanel();
-  } else {
-    buildSimplePanel(name);
-  }
-
-  panel.classList.add('open');
-  panel.setAttribute('aria-hidden','false');
+function openAscend() {
+    document.getElementById("ascendPanel").classList.add("open");
+    startAutoSlide();
 }
 
-/* Close panel */
-function closePanel(){
-  panel.classList.remove('open');
-  panel.setAttribute('aria-hidden','true');
-
-  overlay.style.opacity = '0';
-  overlay.style.pointerEvents = 'none';
-  document.body.style.overflow = 'auto';
-
-  stopSlides();
+function closeAscend() {
+    document.getElementById("ascendPanel").classList.remove("open");
+    stopAutoSlide();
 }
 
-/* Build simple single-image panel for non-ASCEND orgs */
-function buildSimplePanel(name){
-  const entry = ORG_LIST.find(e => e.name === name);
-  const wrap = document.createElement('div');
-  wrap.className = 'slideshow-wrap landscape';
-
-  const slides = document.createElement('div');
-  slides.className = 'slides';
-
-  const img = document.createElement('img');
-  img.src = entry ? entry.file : '';
-  img.alt = name;
-  img.onload = () => {
-    // set orientation from natural size
-    if (img.naturalHeight > img.naturalWidth) wrap.classList.add('portrait');
-    else wrap.classList.add('landscape');
-    img.classList.add('visible');
-  };
-  img.onerror = () => {
-    // fallback text if image missing
-    const info = document.createElement('div');
-    info.className = 'info';
-    info.textContent = `Image for ${name} not found.`;
-    panelBody.appendChild(info);
-  };
-
-  slides.appendChild(img);
-  wrap.appendChild(slides);
-  panelBody.appendChild(wrap);
-
-  const info = document.createElement('div');
-  info.className = 'info';
-  info.textContent = `Information about ${name} goes here.`;
-  panelBody.appendChild(info);
+/* STOP SLIDESHOW */
+function stopAutoSlide() {
+    if (slideInterval) clearInterval(slideInterval);
 }
 
-/* Build ASCEND slideshow (only when opened) */
-function buildAscendPanel(){
-  // container
-  const wrap = document.createElement('div');
-  wrap.className = 'slideshow-wrap';
+/* FIXED ASCEND SLIDESHOW */
+function startAutoSlide() {
+    stopAutoSlide();
 
-  const slides = document.createElement('div');
-  slides.className = 'slides';
+    const slides = document.querySelectorAll("#ASCEND_slideshow .slides img");
+    if (slides.length === 0) return;
 
-  currentSlides = ASCEND_SLIDES.map(src => {
-    const img = document.createElement('img');
-    img.src = src;
-    img.alt = '';
-    img.style.objectFit = 'cover';
-    slides.appendChild(img);
-    return img;
-  });
+    currentIndex = 0;
 
-  wrap.appendChild(slides);
-  panelBody.appendChild(wrap);
+    slides.forEach(img => img.style.opacity = 0);
+    slides[0].style.opacity = 1;
 
-  // show controls
-  prevBtn.style.display = 'inline-block';
-  nextBtn.style.display = 'inline-block';
-
-  // once first image loads, detect orientation and set object-fit rules
-  const first = currentSlides[0];
-  const onFirstLoad = function(){
-    if (first.naturalHeight > first.naturalWidth){
-      // portrait-first
-      wrap.classList.add('portrait');
-      slides.classList.add('portrait'); // first-child will use contain via CSS rule
-      // ensure first contains, others cover
-      first.style.objectFit = 'contain';
-      for (let i=1;i<currentSlides.length;i++) currentSlides[i].style.objectFit = 'cover';
-    } else {
-      wrap.classList.remove('portrait');
-      slides.classList.remove('portrait');
-      currentSlides.forEach(img => img.style.objectFit = 'cover');
-    }
-
-    // start slideshow after orientation determined
-    startSlides();
-    first.removeEventListener('load', onFirstLoad);
-  };
-
-  // attach handler (if already loaded, call directly)
-  if (first.complete && first.naturalWidth) onFirstLoad();
-  else first.addEventListener('load', onFirstLoad);
-
-  // footer text
-  const info = document.createElement('div');
-  info.className = 'info';
-  info.textContent = `ASCEND gallery — ${ASCEND_SLIDES.length} images. Slideshow auto-fits and centers for your device.`;
-  panelBody.appendChild(info);
+    slideInterval = setInterval(() => {
+        slides[currentIndex].style.opacity = 0;
+        currentIndex = (currentIndex + 1) % slides.length;
+        slides[currentIndex].style.opacity = 1;
+    }, 4000);
 }
-
-/* slideshow controls */
-function startSlides(){
-  stopSlides();
-  if (!currentSlides || currentSlides.length === 0) return;
-  slideIndex = 0;
-  currentSlides.forEach(img => img.classList.remove('visible'));
-  if (currentSlides[0]) currentSlides[0].classList.add('visible');
-
-  slideTimer = setInterval(()=>{
-    if (currentSlides[slideIndex]) currentSlides[slideIndex].classList.remove('visible');
-    slideIndex = (slideIndex + 1) % currentSlides.length;
-    if (currentSlides[slideIndex]) currentSlides[slideIndex].classList.add('visible');
-  }, 5000);
-}
-
-function stopSlides(){
-  clearInterval(slideTimer);
-  slideTimer = null;
-  currentSlides = [];
-  prevBtn.style.display = 'none';
-  nextBtn.style.display = 'none';
-}
-
-/* manual nav resets timer */
-function manualChange(delta){
-  if (!currentSlides || currentSlides.length === 0) return;
-  if (slideTimer) { clearInterval(slideTimer); slideTimer = null; }
-  if (currentSlides[slideIndex]) currentSlides[slideIndex].classList.remove('visible');
-  slideIndex = (slideIndex + delta + currentSlides.length) % currentSlides.length;
-  if (currentSlides[slideIndex]) currentSlides[slideIndex].classList.add('visible');
-  // restart auto
-  slideTimer = setInterval(()=>{
-    if (currentSlides[slideIndex]) currentSlides[slideIndex].classList.remove('visible');
-    slideIndex = (slideIndex + 1) % currentSlides.length;
-    if (currentSlides[slideIndex]) currentSlides[slideIndex].classList.add('visible');
-  }, 5000);
-}
-
-/* Preload button images gently so grid renders quickly (won't throw if missing) */
-(function preload(){
-  ORG_LIST.forEach(item => {
-    const i = new Image();
-    i.src = item.file;
-  });
-})();
 </script>
+
 </body>
 </html>
