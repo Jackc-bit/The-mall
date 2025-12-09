@@ -4,7 +4,7 @@
 <meta charset="UTF-8">    
 <meta name="viewport" content="width=device-width, initial-scale=1.0">    
 <title>DYCI Organizations</title>    
-    
+
 <style>    
     body {    
         margin: 0;    
@@ -14,7 +14,7 @@
         background: url("Background.png") no-repeat center center fixed;    
         background-size: cover;    
     }    
-    
+
     h1 {    
         margin-top: 10px;    
         font-size: 32px;    
@@ -22,14 +22,15 @@
         text-align: center;    
         text-shadow: 2px 2px 5px rgba(0,0,0,0.5);    
     }    
-    
+
     .container {    
         display: flex;    
         flex-direction: column;    
         gap: 20px;    
         margin-top: 20px;    
     }    
-    
+
+    /* PNG BUTTONS */    
     .org-btn {    
         width: 100%;    
         max-width: 360px;    
@@ -40,7 +41,8 @@
         margin: 0 auto;    
         cursor: pointer;    
     }    
-    
+
+    /* SLIDE-UP PANELS */    
     .panel {    
         position: fixed;    
         bottom: -100vh;    
@@ -57,7 +59,7 @@
         text-align: center;    
         transition: bottom 0.45s ease;    
     }    
-    
+
     .closeBtn {    
         background: #0057d8;    
         color: white;    
@@ -66,31 +68,32 @@
         border-radius: 10px;    
         margin-top: 20px;    
         display: inline-block;    
+        text-decoration: none;    
         cursor: pointer;    
     }    
-    
-    /* UNIVERSAL SLIDESHOW */    
+
+    /* FULLY RESPONSIVE SLIDESHOW */    
     .slideshow {    
-        width: 90vw;    
-        max-width: 650px;    
-        height: calc(90vw * 1.2);    
-        max-height: 780px;    
+        width: 100%;    
+        max-width: 100%;    
+        aspect-ratio: 3 / 4;   /* AUTO adjusts to screen size */    
         margin: 20px auto;    
         border-radius: 18px;    
         position: relative;    
         overflow: hidden;    
         background: black;    
     }    
-    
+
     .slideshow img {    
         position: absolute;    
+        inset: 0;    
         width: 100%;    
         height: 100%;    
         object-fit: contain;    
         opacity: 0;    
-        transition: opacity 1s;    
+        transition: opacity 1s ease-in-out;    
     }    
-    
+
     .panelStill {    
         width: 90vw;    
         max-width: 650px;    
@@ -98,72 +101,71 @@
         border-radius: 18px;    
         display: block;    
     }    
+
 </style>    
 </head>    
-    
+
 <body>    
-    
+
 <h1>Organizations</h1>    
-    
+
 <div class="container">    
-    
+
     <div class="org-btn" style="background-image:url('Sibol.png');"></div>    
     <div class="org-btn" style="background-image:url('Archery.png');"></div>    
-    
+
     <div class="org-btn" style="background-image:url('Ascend.png');" onclick="openAscend()"></div>    
-    
+
     <div class="org-btn" style="background-image:url('Avant_Garde.png');"></div>    
     <div class="org-btn" style="background-image:url('Axiom.png');"></div>    
     <div class="org-btn" style="background-image:url('Coaches.png');"></div>    
-    
+
     <div class="org-btn" style="background-image:url('Csl.png');"></div>    
     <div class="org-btn" style="background-image:url('Dance_Troupe.png');"></div>    
-    
+
     <div class="org-btn" style="background-image:url('Debate_Society.png');" onclick="openDebate()"></div>    
-    
+
     <div class="org-btn" style="background-image:url('Dgits.png');"></div>    
     <div class="org-btn" style="background-image:url('Dyci_Creatives_Team.png');"></div>    
     <div class="org-btn" style="background-image:url('Dyci_Dagalak.png');"></div>    
-    
+
     <div class="org-btn" style="background-image:url('Dyci_Light.png');"></div>    
     <div class="org-btn" style="background-image:url('Dyci_Novellus.png');"></div>    
     <div class="org-btn" style="background-image:url('Dyci_Primes.png');"></div>    
     <div class="org-btn" style="background-image:url('Dycian_Live.png');"></div>    
     <div class="org-btn" style="background-image:url('English_Facilitators.png');"></div>    
     <div class="org-btn" style="background-image:url('Fencing.png');"></div>    
-    
+
     <div class="org-btn" style="background-image:url('Globalive.png');"></div>    
     <div class="org-btn" style="background-image:url('Green_Group.png');"></div>    
     <div class="org-btn" style="background-image:url('Himig_Dycian.png');"></div>    
     <div class="org-btn" style="background-image:url('Liturgical_Choir.png');"></div>    
     <div class="org-btn" style="background-image:url('Ministry_Of_Altar_Services.png');"></div>    
     <div class="org-btn" style="background-image:url('Peer_Facilitators_Circle.png');"></div>    
-    
+
     <div class="org-btn" style="background-image:url('Scsl.png');"></div>    
     <div class="org-btn" style="background-image:url('Sentinels.png');"></div>    
     <div class="org-btn" style="background-image:url('Sequentia_Studios.png');"></div>    
     <div class="org-btn" style="background-image:url('Societal_Tycoons.png');"></div>    
     <div class="org-btn" style="background-image:url('Speakers_Society.png');"></div>    
-    
-    <!-- Strings opens panel now -->    
+
     <div class="org-btn" style="background-image:url('Strings_Ensemble.png');" onclick="openStrings()"></div>    
-    
     <div class="org-btn" style="background-image:url('Symphonia.png');"></div>    
     <div class="org-btn" style="background-image:url('Taekwondo.png');"></div>    
     <div class="org-btn" style="background-image:url('Takeoff.png');"></div>    
     <div class="org-btn" style="background-image:url('The_Ang_Dycian.png');"></div>    
     <div class="org-btn" style="background-image:url('Tvqa.png');"></div>    
-    
+
     <div class="org-btn" style="background-image:url('Unicus.png');"></div>    
     <div class="org-btn" style="background-image:url('Usbong.png');"></div>    
     <div class="org-btn" style="background-image:url('Verbum_Domini.png');"></div>    
-    
+
 </div>    
-    
-<!-- ================= ASCEND PANEL ================= -->    
+
+<!-- ASCEND PANEL -->    
 <div id="ascendPanel" class="panel">    
     <h2>ASCEND</h2>    
-    
+
     <div class="slideshow" id="ascendSlideshow">    
         <img src="ASCEND_ORG1.JPG">    
         <img src="ASCEND_ORG2.JPG">    
@@ -172,17 +174,16 @@
         <img src="ASCEND_ORG5.JPG">    
         <img src="ASCEND_ORG6.JPG">    
     </div>    
-    
+
     <img src="ASCEND_ORGM.png" class="panelStill">    
-    
+
     <a class="closeBtn" onclick="closeAscend()">Close</a>    
 </div>    
-    
-    
-<!-- ================= STRINGS ENSEMBLE PANEL ================= -->    
+
+<!-- STRINGS PANEL -->    
 <div id="stringsPanel" class="panel">    
     <h2>Strings Ensemble</h2>    
-    
+
     <div class="slideshow" id="stringsSlideshow">    
         <img src="STRINGS_1.jpg">    
         <img src="STRINGS_2.jpeg">    
@@ -195,18 +196,17 @@
         <img src="STRINGS_10.jpg">    
         <img src="STRINGS_11.JPG">    
     </div>    
-    
+
     <img src="STRINGS_ORG.png" class="panelStill">    
     <img src="STRINGS_QR.png" class="panelStill">    
-    
+
     <a class="closeBtn" onclick="closeStrings()">Close</a>    
 </div>    
-    
-    
-<!-- ================= DEBATE PANEL ================= -->    
+
+<!-- DEBATE PANEL -->    
 <div id="debatePanel" class="panel">    
     <h2>Debate Society</h2>    
-    
+
     <div class="slideshow" id="debateSlideshow">    
         <img src="DEBATE_1.JPG">    
         <img src="DEBATE_2.JPG">    
@@ -214,105 +214,73 @@
         <img src="DEBATE_4.JPG">    
         <img src="DEBATE_5.JPG">    
     </div>    
-    
+
     <img src="DEBATE_ORG.jpg" class="panelStill">    
-    
+
     <a class="closeBtn" onclick="closeDebate()">Close</a>    
 </div>    
-    
-    
-<script>    
-    
-/* ---------------- ASCEND ---------------- */    
-let ascendIndex = 0;    
-let ascendInterval = null;    
-    
-function openAscend() {    
+
+
+<script>
+
+/* UNIVERSAL SLIDESHOW FUNCTION */
+function startSlideshow(id, intervalVarName, indexVarName) {
+
+    window[intervalVarName] && clearInterval(window[intervalVarName]);
+
+    const slides = document.querySelectorAll(`#${id} img`);
+    if (!slides.length) return;
+
+    window[indexVarName] = 0;
+
+    slides.forEach(img => img.style.opacity = 0);
+    slides[0].style.opacity = 1;
+
+    window[intervalVarName] = setInterval(() => {
+        slides[window[indexVarName]].style.opacity = 0;
+        window[indexVarName] = (window[indexVarName] + 1) % slides.length;
+        slides[window[indexVarName]].style.opacity = 1;
+    }, 3500);
+}
+
+
+/* ASCEND */
+function openAscend() {
     closeStrings();    
-    closeDebate();    
-    document.getElementById("ascendPanel").style.bottom = "0";    
-    startAscendSlideshow();    
-}    
-function closeAscend() {    
-    document.getElementById("ascendPanel").style.bottom = "-100vh";    
-    stopAscendSlideshow();    
-}    
-function startAscendSlideshow() {    
-    stopAscendSlideshow();    
-    const slides = document.querySelectorAll("#ascendSlideshow img");    
-    if (!slides.length) return;    
-    slides.forEach(img => img.style.opacity = 0);    
-    ascendIndex = 0;    
-    slides[0].style.opacity = 1;    
-    ascendInterval = setInterval(() => {    
-        slides[ascendIndex].style.opacity = 0;    
-        ascendIndex = (ascendIndex + 1) % slides.length;    
-        slides[ascendIndex].style.opacity = 1;    
-    }, 3500);    
-}    
-function stopAscendSlideshow() { clearInterval(ascendInterval); }    
-    
-    
-/* ---------------- STRINGS ---------------- */    
-let stringsIndex = 0;    
-let stringsInterval = null;    
-    
-function openStrings() {    
-    closeAscend();    
-    closeDebate();    
-    document.getElementById("stringsPanel").style.bottom = "0";    
-    startStringsSlideshow();    
-}    
-function closeStrings() {    
-    document.getElementById("stringsPanel").style.bottom = "-100vh";    
-    stopStringsSlideshow();    
-}    
-function startStringsSlideshow() {    
-    stopStringsSlideshow();    
-    const slides = document.querySelectorAll("#stringsSlideshow img");    
-    if (!slides.length) return;    
-    slides.forEach(img => img.style.opacity = 0);    
-    stringsIndex = 0;    
-    slides[0].style.opacity = 1;    
-    stringsInterval = setInterval(() => {    
-        slides[stringsIndex].style.opacity = 0;    
-        stringsIndex = (stringsIndex + 1) % slides.length;    
-        slides[stringsIndex].style.opacity = 1;    
-    }, 3500);    
-}    
-function stopStringsSlideshow() { clearInterval(stringsInterval); }    
-    
-    
-/* ---------------- DEBATE ---------------- */    
-let debateIndex = 0;    
-let debateInterval = null;    
-    
-function openDebate() {    
-    closeAscend();    
-    closeStrings();    
-    document.getElementById("debatePanel").style.bottom = "0";    
-    startDebateSlideshow();    
-}    
-function closeDebate() {    
-    document.getElementById("debatePanel").style.bottom = "-100vh";    
-    stopDebateSlideshow();    
-}    
-function startDebateSlideshow() {    
-    stopDebateSlideshow();    
-    const slides = document.querySelectorAll("#debateSlideshow img");    
-    if (!slides.length) return;    
-    slides.forEach(img => img.style.opacity = 0);    
-    debateIndex = 0;    
-    slides[0].style.opacity = 1;    
-    debateInterval = setInterval(() => {    
-        slides[debateIndex].style.opacity = 0;    
-        debateIndex = (debateIndex + 1) % slides.length;    
-        slides[debateIndex].style.opacity = 1;    
-    }, 3500);    
-}    
-function stopDebateSlideshow() { clearInterval(debateInterval); }    
-    
-</script>    
-    
-</body>    
+    closeDebate();
+    document.getElementById("ascendPanel").style.bottom = "0";
+    startSlideshow("ascendSlideshow", "ascendInterval", "ascendIndex");
+}
+function closeAscend() {
+    document.getElementById("ascendPanel").style.bottom = "-100vh";
+    clearInterval(window.ascendInterval);
+}
+
+/* STRINGS */
+function openStrings() {
+    closeAscend();
+    closeDebate();
+    document.getElementById("stringsPanel").style.bottom = "0";
+    startSlideshow("stringsSlideshow", "stringsInterval", "stringsIndex");
+}
+function closeStrings() {
+    document.getElementById("stringsPanel").style.bottom = "-100vh";
+    clearInterval(window.stringsInterval);
+}
+
+/* DEBATE */
+function openDebate() {
+    closeAscend();
+    closeStrings();
+    document.getElementById("debatePanel").style.bottom = "0";
+    startSlideshow("debateSlideshow", "debateInterval", "debateIndex");
+}
+function closeDebate() {
+    document.getElementById("debatePanel").style.bottom = "-100vh";
+    clearInterval(window.debateInterval);
+}
+
+</script>
+
+</body>
 </html>
