@@ -30,7 +30,6 @@
         margin-top: 20px;    
     }    
     
-    /* PNG BUTTONS */    
     .org-btn {    
         width: 100%;    
         max-width: 360px;    
@@ -42,7 +41,6 @@
         cursor: pointer;    
     }    
     
-    /* SLIDE-UP PANELS */    
     .panel {    
         position: fixed;    
         bottom: -100vh;    
@@ -68,11 +66,10 @@
         border-radius: 10px;    
         margin-top: 20px;    
         display: inline-block;    
-        text-decoration: none;    
         cursor: pointer;    
     }    
     
-    /* UNIVERSAL SLIDESHOW STYLE */    
+    /* UNIVERSAL SLIDESHOW */    
     .slideshow {    
         width: 90vw;    
         max-width: 650px;    
@@ -147,9 +144,10 @@
     <div class="org-btn" style="background-image:url('Sequentia_Studios.png');"></div>    
     <div class="org-btn" style="background-image:url('Societal_Tycoons.png');"></div>    
     <div class="org-btn" style="background-image:url('Speakers_Society.png');"></div>    
-    <div class="org-btn" style="background-image:url('Strings_Society.png');" onclick="openStrings()"></div>    
     
-    <div class="org-btn" style="background-image:url('Strings_Ensemble.png');"></div>    
+    <!-- Strings opens panel now -->    
+    <div class="org-btn" style="background-image:url('Strings_Ensemble.png');" onclick="openStrings()"></div>    
+    
     <div class="org-btn" style="background-image:url('Symphonia.png');"></div>    
     <div class="org-btn" style="background-image:url('Taekwondo.png');"></div>    
     <div class="org-btn" style="background-image:url('Takeoff.png');"></div>    
@@ -162,7 +160,7 @@
     
 </div>    
     
-<!-- ASCEND PANEL -->    
+<!-- ================= ASCEND PANEL ================= -->    
 <div id="ascendPanel" class="panel">    
     <h2>ASCEND</h2>    
     
@@ -181,7 +179,7 @@
 </div>    
     
     
-<!-- STRINGS ENSEMBLE PANEL -->    
+<!-- ================= STRINGS ENSEMBLE PANEL ================= -->    
 <div id="stringsPanel" class="panel">    
     <h2>Strings Ensemble</h2>    
     
@@ -205,7 +203,7 @@
 </div>    
     
     
-<!-- DEBATE SOCIETY PANEL -->    
+<!-- ================= DEBATE PANEL ================= -->    
 <div id="debatePanel" class="panel">    
     <h2>Debate Society</h2>    
     
@@ -235,31 +233,25 @@ function openAscend() {
     document.getElementById("ascendPanel").style.bottom = "0";    
     startAscendSlideshow();    
 }    
-    
 function closeAscend() {    
     document.getElementById("ascendPanel").style.bottom = "-100vh";    
     stopAscendSlideshow();    
 }    
-    
 function startAscendSlideshow() {    
     stopAscendSlideshow();    
     const slides = document.querySelectorAll("#ascendSlideshow img");    
     if (!slides.length) return;    
-    
     slides.forEach(img => img.style.opacity = 0);    
     ascendIndex = 0;    
     slides[0].style.opacity = 1;    
-    
     ascendInterval = setInterval(() => {    
         slides[ascendIndex].style.opacity = 0;    
         ascendIndex = (ascendIndex + 1) % slides.length;    
         slides[ascendIndex].style.opacity = 1;    
     }, 3500);    
 }    
+function stopAscendSlideshow() { clearInterval(ascendInterval); }    
     
-function stopAscendSlideshow() {    
-    clearInterval(ascendInterval);    
-}    
     
 /* ---------------- STRINGS ---------------- */    
 let stringsIndex = 0;    
@@ -271,31 +263,25 @@ function openStrings() {
     document.getElementById("stringsPanel").style.bottom = "0";    
     startStringsSlideshow();    
 }    
-    
 function closeStrings() {    
     document.getElementById("stringsPanel").style.bottom = "-100vh";    
     stopStringsSlideshow();    
 }    
-    
 function startStringsSlideshow() {    
     stopStringsSlideshow();    
     const slides = document.querySelectorAll("#stringsSlideshow img");    
     if (!slides.length) return;    
-    
     slides.forEach(img => img.style.opacity = 0);    
     stringsIndex = 0;    
     slides[0].style.opacity = 1;    
-    
     stringsInterval = setInterval(() => {    
         slides[stringsIndex].style.opacity = 0;    
         stringsIndex = (stringsIndex + 1) % slides.length;    
         slides[stringsIndex].style.opacity = 1;    
     }, 3500);    
 }    
+function stopStringsSlideshow() { clearInterval(stringsInterval); }    
     
-function stopStringsSlideshow() {    
-    clearInterval(stringsInterval);    
-}    
     
 /* ---------------- DEBATE ---------------- */    
 let debateIndex = 0;    
@@ -307,31 +293,24 @@ function openDebate() {
     document.getElementById("debatePanel").style.bottom = "0";    
     startDebateSlideshow();    
 }    
-    
 function closeDebate() {    
     document.getElementById("debatePanel").style.bottom = "-100vh";    
     stopDebateSlideshow();    
 }    
-    
 function startDebateSlideshow() {    
     stopDebateSlideshow();    
     const slides = document.querySelectorAll("#debateSlideshow img");    
     if (!slides.length) return;    
-    
     slides.forEach(img => img.style.opacity = 0);    
     debateIndex = 0;    
     slides[0].style.opacity = 1;    
-    
     debateInterval = setInterval(() => {    
         slides[debateIndex].style.opacity = 0;    
         debateIndex = (debateIndex + 1) % slides.length;    
         slides[debateIndex].style.opacity = 1;    
     }, 3500);    
 }    
-    
-function stopDebateSlideshow() {    
-    clearInterval(debateInterval);    
-}    
+function stopDebateSlideshow() { clearInterval(debateInterval); }    
     
 </script>    
     
