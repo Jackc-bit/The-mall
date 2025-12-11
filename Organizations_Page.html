@@ -6,11 +6,6 @@
 <title>DYCI Organizations</title>
 
 <style>
-    :root{
-        --fade-duration: 1.5s; /* crossfade duration */
-        --slide-interval: 4000; /* not used in CSS, for reference */
-    }
-
     body {
         margin: 0;
         font-family: Arial;
@@ -77,33 +72,26 @@
         cursor: pointer;
     }
 
-    /* CROSSFADE RESPONSIVE SLIDESHOW */
+    /* UNIVERSAL SLIDESHOW STYLE */
     .slideshow {
-        width: 100%;
+        width: 90vw;
         max-width: 650px;
-        aspect-ratio: 3 / 4;          /* keeps responsive height relative to width */
+        height: calc(90vw * 1.2);
+        max-height: 780px;
         margin: 20px auto;
+        border-radius: 18px;
         position: relative;
         overflow: hidden;
         background: black;
-        border-radius: 18px;
     }
 
     .slideshow img {
         position: absolute;
-        inset: 0;
         width: 100%;
         height: 100%;
         object-fit: contain;
         opacity: 0;
-        transition: opacity var(--fade-duration) ease-in-out;
-        z-index: 1;
-    }
-
-    /* active slide is visible with opacity 1 */
-    .slideshow img.active {
-        opacity: 1;
-        z-index: 2;
+        transition: opacity 1s ease-in-out;
     }
 
     .panelStill {
@@ -112,11 +100,6 @@
         margin: 20px auto;
         border-radius: 18px;
         display: block;
-    }
-
-    /* Make close button stand out on small screens */
-    @media (max-width: 420px) {
-        .closeBtn { padding: 12px 20px; font-size: 18px; }
     }
 </style>
 </head>
@@ -128,13 +111,13 @@
 <div class="container">
 
     <div class="org-btn" style="background-image:url('Sibol.png');"></div>
-    <div class="org-btn" style="background-image:url('Archery.png');"></div>
+    <div class="org-btn" style="background-image:url('Archery.png');" onclick="openArchery()"></div>
 
     <div class="org-btn" style="background-image:url('Ascend.png');" onclick="openAscend()"></div>
 
     <div class="org-btn" style="background-image:url('Avant_Garde.png');"></div>
-    <div class="org-btn" style="background-image:url('Axiom.png');"></div>
-    <div class="org-btn" style="background-image:url('Coaches.png');"></div>
+    <div class="org-btn" style="background-image:url('Axiom.png');" onclick="openAxiom()"></div>
+    <div class="org-btn" style="background-image:url('Coaches.png');" onclick="openCoaches()"></div>
 
     <div class="org-btn" style="background-image:url('Csl.png');"></div>
     <div class="org-btn" style="background-image:url('Dance_Troupe.png');"></div>
@@ -179,20 +162,21 @@
 </div>
 
 
+<!-- UNIVERSAL PANEL TEMPLATE (ASCEND / STRINGS / DEBATE / ARCHERY / AXIOM / COACHES) -->
+
 <!-- ASCEND PANEL -->
 <div id="ascendPanel" class="panel">
     <h2>ASCEND</h2>
 
     <div class="slideshow" id="ascendSlideshow">
-        <img src="ASCEND_ORG1.JPG" alt="ascend 1">
-        <img src="ASCEND_ORG2.JPG" alt="ascend 2">
-        <!-- ASCEND_ORG3.JPG removed -->
-        <img src="ASCEND_ORG4.JPG" alt="ascend 4">
-        <img src="ASCEND_ORG5.JPG" alt="ascend 5">
-        <img src="ASCEND_ORG6.JPG" alt="ascend 6">
+        <img src="ASCEND_ORG1.JPG">
+        <img src="ASCEND_ORG2.JPG">
+        <img src="ASCEND_ORG4.JPG">
+        <img src="ASCEND_ORG5.JPG">
+        <img src="ASCEND_ORG6.JPG">
     </div>
 
-    <img src="ASCEND_ORGM.png" class="panelStill" alt="Ascend org">
+    <img src="ASCEND_ORGM.png" class="panelStill">
 
     <a class="closeBtn" onclick="closeAscend()">Close</a>
 </div>
@@ -203,20 +187,20 @@
     <h2>Strings Ensemble</h2>
 
     <div class="slideshow" id="stringsSlideshow">
-        <img src="STRINGS_1.jpg" alt="strings 1">
-        <img src="STRINGS_2.jpeg" alt="strings 2">
-        <img src="STRINGS_3.jpeg" alt="strings 3">
-        <img src="STRINGS_4.jpeg" alt="strings 4">
-        <img src="STRINGS_5.jpeg" alt="strings 5">
-        <img src="STRINGS_7.JPG" alt="strings 7">
-        <img src="STRINGS_8.JPG" alt="strings 8">
-        <img src="STRINGS_9.JPG" alt="strings 9">
-        <img src="STRINGS_10.jpg" alt="strings 10">
-        <img src="STRINGS_11.JPG" alt="strings 11">
+        <img src="STRINGS_1.jpg">
+        <img src="STRINGS_2.jpeg">
+        <img src="STRINGS_3.jpeg">
+        <img src="STRINGS_4.jpeg">
+        <img src="STRINGS_5.jpeg">
+        <img src="STRINGS_7.JPG">
+        <img src="STRINGS_8.JPG">
+        <img src="STRINGS_9.JPG">
+        <img src="STRINGS_10.jpg">
+        <img src="STRINGS_11.JPG">
     </div>
 
-    <img src="STRINGS_ORG.png" class="panelStill" alt="Strings org">
-    <img src="STRINGS_QR.png" class="panelStill" alt="Strings qr">
+    <img src="STRINGS_ORG.png" class="panelStill">
+    <img src="STRINGS_QR.png" class="panelStill">
 
     <a class="closeBtn" onclick="closeStrings()">Close</a>
 </div>
@@ -227,122 +211,135 @@
     <h2>Debate Society</h2>
 
     <div class="slideshow" id="debateSlideshow">
-        <img src="DEBATE_1.JPG" alt="debate 1">
-        <img src="DEBATE_2.JPG" alt="debate 2">
-        <img src="DEBATE_3.JPG" alt="debate 3">
-        <img src="DEBATE_4.JPG" alt="debate 4">
-        <img src="DEBATE_5.JPG" alt="debate 5">
+        <img src="DEBATE_1.JPG">
+        <img src="DEBATE_2.JPG">
+        <img src="DEBATE_3.JPG">
+        <img src="DEBATE_4.JPG">
+        <img src="DEBATE_5.JPG">
     </div>
 
-    <img src="DEBATE_ORG.jpg" class="panelStill" alt="Debate org">
+    <img src="DEBATE_ORG.jpg" class="panelStill">
 
     <a class="closeBtn" onclick="closeDebate()">Close</a>
 </div>
 
 
+<!-- ARCHERY PANEL -->
+<div id="archeryPanel" class="panel">
+    <h2>Archery</h2>
+
+    <div class="slideshow" id="archerySlideshow">
+        <img src="ARCHERY1.JPG">
+        <img src="ARCHERY2.JPG">
+        <img src="ARCHERY3.JPG">
+        <img src="ARCHERY4.JPG">
+        <img src="ARCHERY5.JPG">
+    </div>
+
+    <img src="ARCHERYM.png" class="panelStill">
+
+    <a class="closeBtn" onclick="closeArchery()">Close</a>
+</div>
+
+
+<!-- AXIOM PANEL -->
+<div id="axiomPanel" class="panel">
+    <h2>Axiom</h2>
+
+    <div class="slideshow" id="axiomSlideshow">
+        <img src="AXIOM1.JPG">
+        <img src="AXIOM2.JPG">
+    </div>
+
+    <img src="AXIOMM.png" class="panelStill">
+    <img src="AXIOMQR.jpg" class="panelStill">
+
+    <a class="closeBtn" onclick="closeAxiom()">Close</a>
+</div>
+
+
+<!-- COACHES PANEL -->
+<div id="coachesPanel" class="panel">
+    <h2>Coaches</h2>
+
+    <div class="slideshow" id="coachesSlideshow">
+        <img src="COACHES1.JPG">
+        <img src="COACHES2.JPG">
+    </div>
+
+    <img src="COACHESM.png" class="panelStill">
+    <img src="COACHESQR.jpg" class="panelStill">
+
+    <a class="closeBtn" onclick="closeCoaches()">Close</a>
+</div>
+
+
 <script>
-/* Timing: crossfade duration is 1.5s, show each slide for 4s total */
-const SLIDE_INTERVAL_MS = 4000; // 4 seconds per slide
-const FADE_DURATION_MS = 1500;  // 1.5s crossfade
 
-/* Helper to start crossfading slideshow */
-function startCrossfadeSlideshow(slideshowId, intervalVarName, indexVarName) {
-    // clear previous interval if exists
-    if (window[intervalVarName]) {
-        clearInterval(window[intervalVarName]);
-        window[intervalVarName] = null;
-    }
+/* UNIVERSAL SLIDESHOW FUNCTION */
+function startSlideshow(id, tracker) {
+    clearInterval(tracker.interval);
 
-    const slides = document.querySelectorAll(`#${slideshowId} img`);
+    const slides = document.querySelectorAll(`#${id} img`);
     if (!slides.length) return;
 
-    // ensure all slides are ready (opacity 0)
-    slides.forEach(img => img.classList.remove('active'));
-    // show first
-    window[indexVarName] = 0;
-    slides[0].classList.add('active');
+    slides.forEach(s => s.style.opacity = 0);
+    tracker.index = 0;
+    slides[0].style.opacity = 1;
 
-    // start interval
-    window[intervalVarName] = setInterval(() => {
-        const current = window[indexVarName];
-        const next = (current + 1) % slides.length;
-
-        // add active to next (it will fade in)
-        slides[next].classList.add('active');
-
-        // remove active from current (it will fade out)
-        slides[current].classList.remove('active');
-
-        window[indexVarName] = next;
-    }, SLIDE_INTERVAL_MS);
+    tracker.interval = setInterval(() => {
+        slides[tracker.index].style.opacity = 0;
+        tracker.index = (tracker.index + 1) % slides.length;
+        slides[tracker.index].style.opacity = 1;
+    }, 3500);
 }
 
-/* Helper to stop slideshow */
-function stopSlideshow(intervalVarName) {
-    if (window[intervalVarName]) {
-        clearInterval(window[intervalVarName]);
-        window[intervalVarName] = null;
-    }
+function stopSlideshow(tracker) {
+    clearInterval(tracker.interval);
 }
 
-/* ---------------- ASCEND ---------------- */
-let ascendIndex = 0;
-let ascendInterval = null;
+/* PANEL RESOURCES */
+let ascend = { index: 0, interval: null };
+let strings = { index: 0, interval: null };
+let debate = { index: 0, interval: null };
+let archery = { index: 0, interval: null };
+let axiom = { index: 0, interval: null };
+let coaches = { index: 0, interval: null };
 
-function openAscend() {
-    closeStrings();
-    closeDebate();
-    document.getElementById("ascendPanel").style.bottom = "0";
-    startCrossfadeSlideshow("ascendSlideshow", "ascendInterval", "ascendIndex");
-}
-
-function closeAscend() {
-    document.getElementById("ascendPanel").style.bottom = "-100vh";
-    stopSlideshow("ascendInterval");
-}
-
-/* ---------------- STRINGS ---------------- */
-let stringsIndex = 0;
-let stringsInterval = null;
-
-function openStrings() {
-    closeAscend();
-    closeDebate();
-    document.getElementById("stringsPanel").style.bottom = "0";
-    startCrossfadeSlideshow("stringsSlideshow", "stringsInterval", "stringsIndex");
-}
-
-function closeStrings() {
-    document.getElementById("stringsPanel").style.bottom = "-100vh";
-    stopSlideshow("stringsInterval");
-}
-
-/* ---------------- DEBATE ---------------- */
-let debateIndex = 0;
-let debateInterval = null;
-
-function openDebate() {
+/* CLOSE ALL PANELS */
+function closeAll() {
     closeAscend();
     closeStrings();
-    document.getElementById("debatePanel").style.bottom = "0";
-    startCrossfadeSlideshow("debateSlideshow", "debateInterval", "debateIndex");
+    closeDebate();
+    closeArchery();
+    closeAxiom();
+    closeCoaches();
 }
 
-function closeDebate() {
-    document.getElementById("debatePanel").style.bottom = "-100vh";
-    stopSlideshow("debateInterval");
-}
+/* ASCEND */
+function openAscend() { closeAll(); document.getElementById("ascendPanel").style.bottom = "0"; startSlideshow("ascendSlideshow", ascend); }
+function closeAscend() { document.getElementById("ascendPanel").style.bottom = "-100vh"; stopSlideshow(ascend); }
 
-/* Extra: stop slideshows if user navigates away (optional, polite) */
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        stopSlideshow('ascendInterval');
-        stopSlideshow('stringsInterval');
-        stopSlideshow('debateInterval');
-    } else {
-        // do nothing — slideshows will restart when panel opens
-    }
-});
+/* STRINGS */
+function openStrings() { closeAll(); document.getElementById("stringsPanel").style.bottom = "0"; startSlideshow("stringsSlideshow", strings); }
+function closeStrings() { document.getElementById("stringsPanel").style.bottom = "-100vh"; stopSlideshow(strings); }
+
+/* DEBATE */
+function openDebate() { closeAll(); document.getElementById("debatePanel").style.bottom = "0"; startSlideshow("debateSlideshow", debate); }
+function closeDebate() { document.getElementById("debatePanel").style.bottom = "-100vh"; stopSlideshow(debate); }
+
+/* ARCHERY */
+function openArchery() { closeAll(); document.getElementById("archeryPanel").style.bottom = "0"; startSlideshow("archerySlideshow", archery); }
+function closeArchery() { document.getElementById("archeryPanel").style.bottom = "-100vh"; stopSlideshow(archery); }
+
+/* AXIOM */
+function openAxiom() { closeAll(); document.getElementById("axiomPanel").style.bottom = "0"; startSlideshow("axiomSlideshow", axiom); }
+function closeAxiom() { document.getElementById("axiomPanel").style.bottom = "-100vh"; stopSlideshow(axiom); }
+
+/* COACHES */
+function openCoaches() { closeAll(); document.getElementById("coachesPanel").style.bottom = "0"; startSlideshow("coachesSlideshow", coaches); }
+function closeCoaches() { document.getElementById("coachesPanel").style.bottom = "-100vh"; stopSlideshow(coaches); }
+
 </script>
 
 </body>
