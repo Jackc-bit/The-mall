@@ -6,6 +6,11 @@
 <title>DYCI Organizations</title>
 
 <style>
+    :root{
+        --fade-duration: 1.5s; /* crossfade duration */
+        --slide-interval: 4000; /* 4s per slide */
+    }
+
     body {
         margin: 0;
         font-family: Arial;
@@ -70,7 +75,7 @@
         cursor: pointer;
     }
 
-    /* 🔥 FIXED RESPONSIVE SLIDESHOW — EXACT SAME BEHAVIOR AS ASCEND */
+    /* RESPONSIVE SLIDESHOW — same method used for ASCEND */
     .slideshow {
         width: 100%;
         max-width: 650px;
@@ -81,11 +86,12 @@
         background: black;
     }
 
+    /* creates an auto height based on width (keeps ratio) */
     .slideshow::before {
         content: "";
         display: block;
         width: 100%;
-        padding-top: 70%; /* auto height based on width */
+        padding-top: 70%; /* controls height; tweak if you want taller/shorter */
     }
 
     .slideshow img {
@@ -95,7 +101,7 @@
         height: 100%;
         object-fit: contain;
         opacity: 0;
-        transition: opacity 1s ease-in-out;
+        transition: opacity var(--fade-duration) ease-in-out;
     }
 
     .panelStill {
@@ -104,6 +110,11 @@
         margin: 20px auto;
         border-radius: 18px;
         display: block;
+    }
+
+    /* small screens */
+    @media (max-width: 420px) {
+        .closeBtn { padding: 12px 20px; font-size: 18px; }
     }
 </style>
 </head>
@@ -115,21 +126,26 @@
 <div class="container">
 
     <div class="org-btn" style="background-image:url('Sibol.png');"></div>
+
+    <!-- Archery button (already present earlier) -->
     <div class="org-btn" style="background-image:url('Archery.png');" onclick="openArchery()"></div>
 
     <div class="org-btn" style="background-image:url('Ascend.png');" onclick="openAscend()"></div>
 
     <div class="org-btn" style="background-image:url('Avant_Garde.png');"></div>
-    <div class="org-btn" style="background-image:url('Axiom.png');" onclick="openAxiom()"></div>
+
+    <!-- Dyci Creatives button with click handler -->
+    <div class="org-btn" style="background-image:url('Dyci_Creatives_Team.png');" onclick="openCreatives()"></div>
+
+    <!-- Coaches button with click handler -->
     <div class="org-btn" style="background-image:url('Coaches.png');" onclick="openCoaches()"></div>
 
     <div class="org-btn" style="background-image:url('Csl.png');"></div>
-    <div class="org-btn" style="background-image:url('Dance_Troupe.png');"></div>
+    <div class="org-btn" style="background-image:url('Dance_Troupe.png');" onclick="openDanceTroupe()"></div>
 
     <div class="org-btn" style="background-image:url('Debate_Society.png');" onclick="openDebate()"></div>
 
     <div class="org-btn" style="background-image:url('Dgits.png');"></div>
-    <div class="org-btn" style="background-image:url('Dyci_Creatives_Team.png');"></div>
     <div class="org-btn" style="background-image:url('Dyci_Dagalak.png');"></div>
 
     <div class="org-btn" style="background-image:url('Dyci_Light.png');"></div>
@@ -165,178 +181,249 @@
 
 </div>
 
-<!-- PANELS START HERE -->
+<!-- PANELS -->
 
 <!-- ASCEND PANEL -->
 <div id="ascendPanel" class="panel">
     <h2>ASCEND</h2>
 
     <div class="slideshow" id="ascendSlideshow">
-        <img src="ASCEND_ORG1.JPG">
-        <img src="ASCEND_ORG2.JPG">
-        <img src="ASCEND_ORG4.JPG">
-        <img src="ASCEND_ORG5.JPG">
-        <img src="ASCEND_ORG6.JPG">
+        <img src="ASCEND_ORG1.JPG" alt="">
+        <img src="ASCEND_ORG2.JPG" alt="">
+        <img src="ASCEND_ORG4.JPG" alt="">
+        <img src="ASCEND_ORG5.JPG" alt="">
+        <img src="ASCEND_ORG6.JPG" alt="">
     </div>
 
-    <img src="ASCEND_ORGM.png" class="panelStill">
+    <img src="ASCEND_ORGM.png" class="panelStill" alt="Ascend">
 
     <a class="closeBtn" onclick="closeAscend()">Close</a>
 </div>
-
 
 <!-- STRINGS PANEL -->
 <div id="stringsPanel" class="panel">
     <h2>Strings Ensemble</h2>
 
     <div class="slideshow" id="stringsSlideshow">
-        <img src="STRINGS_1.jpg">
-        <img src="STRINGS_2.jpeg">
-        <img src="STRINGS_3.jpeg">
-        <img src="STRINGS_4.jpeg">
-        <img src="STRINGS_5.jpeg">
-        <img src="STRINGS_7.JPG">
-        <img src="STRINGS_8.JPG">
-        <img src="STRINGS_9.JPG">
-        <img src="STRINGS_10.jpg">
-        <img src="STRINGS_11.JPG">
+        <img src="STRINGS_1.jpg" alt="">
+        <img src="STRINGS_2.jpeg" alt="">
+        <img src="STRINGS_3.jpeg" alt="">
+        <img src="STRINGS_4.jpeg" alt="">
+        <img src="STRINGS_5.jpeg" alt="">
+        <img src="STRINGS_7.JPG" alt="">
+        <img src="STRINGS_8.JPG" alt="">
+        <img src="STRINGS_9.JPG" alt="">
+        <img src="STRINGS_10.jpg" alt="">
+        <img src="STRINGS_11.JPG" alt="">
     </div>
 
-    <img src="STRINGS_ORG.png" class="panelStill">
-    <img src="STRINGS_QR.png" class="panelStill">
+    <img src="STRINGS_ORG.png" class="panelStill" alt="Strings org">
+    <img src="STRINGS_QR.png" class="panelStill" alt="Strings qr">
 
     <a class="closeBtn" onclick="closeStrings()">Close</a>
 </div>
-
 
 <!-- DEBATE PANEL -->
 <div id="debatePanel" class="panel">
     <h2>Debate Society</h2>
 
     <div class="slideshow" id="debateSlideshow">
-        <img src="DEBATE_1.JPG">
-        <img src="DEBATE_2.JPG">
-        <img src="DEBATE_3.JPG">
-        <img src="DEBATE_4.JPG">
-        <img src="DEBATE_5.JPG">
+        <img src="DEBATE_1.JPG" alt="">
+        <img src="DEBATE_2.JPG" alt="">
+        <img src="DEBATE_3.JPG" alt="">
+        <img src="DEBATE_4.JPG" alt="">
+        <img src="DEBATE_5.JPG" alt="">
     </div>
 
-    <img src="DEBATE_ORG.jpg" class="panelStill">
+    <img src="DEBATE_ORG.jpg" class="panelStill" alt="Debate org">
 
     <a class="closeBtn" onclick="closeDebate()">Close</a>
 </div>
-
 
 <!-- ARCHERY PANEL -->
 <div id="archeryPanel" class="panel">
     <h2>Archery</h2>
 
     <div class="slideshow" id="archerySlideshow">
-        <img src="ARCHERY1.JPG">
-        <img src="ARCHERY2.JPG">
-        <img src="ARCHERY3.JPG">
-        <img src="ARCHERY4.JPG">
-        <img src="ARCHERY5.JPG">
+        <img src="ARCHERY1.JPG" alt="">
+        <img src="ARCHERY2.JPG" alt="">
+        <img src="ARCHERY3.JPG" alt="">
+        <img src="ARCHERY4.JPG" alt="">
+        <img src="ARCHERY5.JPG" alt="">
     </div>
 
-    <img src="ARCHERYM.png" class="panelStill">
+    <img src="ARCHERYM.png" class="panelStill" alt="Archery org">
 
     <a class="closeBtn" onclick="closeArchery()">Close</a>
 </div>
-
 
 <!-- AXIOM PANEL -->
 <div id="axiomPanel" class="panel">
     <h2>Axiom</h2>
 
     <div class="slideshow" id="axiomSlideshow">
-        <img src="AXIOM1.JPG">
-        <img src="AXIOM2.JPG">
+        <img src="AXIOM1.JPG" alt="">
+        <img src="AXIOM2.JPG" alt="">
     </div>
 
-    <img src="AXIOMM.png" class="panelStill">
-    <img src="AXIOMQR.jpg" class="panelStill">
+    <img src="AXIOMM.png" class="panelStill" alt="Axiom org">
+    <img src="AXIOMQR.jpg" class="panelStill" alt="Axiom qr">
 
     <a class="closeBtn" onclick="closeAxiom()">Close</a>
 </div>
-
 
 <!-- COACHES PANEL -->
 <div id="coachesPanel" class="panel">
     <h2>Coaches</h2>
 
     <div class="slideshow" id="coachesSlideshow">
-        <img src="COACHES1.JPG">
-        <img src="COACHES2.JPG">
+        <img src="COACHES1.JPG" alt="">
+        <img src="COACHES2.JPG" alt="">
     </div>
 
-    <img src="COACHESM.png" class="panelStill">
-    <img src="COACHESQR.jpg" class="panelStill">
+    <img src="COACHESM.png" class="panelStill" alt="Coaches org">
+    <img src="COACHESQR.jpg" class="panelStill" alt="Coaches qr">
 
     <a class="closeBtn" onclick="closeCoaches()">Close</a>
 </div>
 
+<!-- DANCE TROUPE PANEL -->
+<div id="danceTroupePanel" class="panel">
+    <h2>Dance Troupe</h2>
+
+    <div class="slideshow" id="danceTroupeSlideshow">
+        <!-- Natural order 1 → 6 as requested -->
+        <img src="DANCETROUPE1.JPG" alt="">
+        <img src="DANCETROUPE2.JPG" alt="">
+        <img src="DANCETROUPE3.JPG" alt="">
+        <img src="DANCETROUPE4.JPG" alt="">
+        <img src="DANCETROUPE5.jpg" alt="">
+        <img src="DANCETROUPE6.JPG" alt="">
+    </div>
+
+    <img src="DANCETROUPEM.png" class="panelStill" alt="Dance Troupe org">
+    <img src="DANCETROUPEQR.jpg" class="panelStill" alt="Dance Troupe qr">
+
+    <a class="closeBtn" onclick="closeDanceTroupe()">Close</a>
+</div>
+
+<!-- CREATIVES PANEL -->
+<div id="creativesPanel" class="panel">
+    <h2>Dyci Creatives</h2>
+
+    <div class="slideshow" id="creativesSlideshow">
+        <!-- using provided images (kept original ordering except corrected filename) -->
+        <img src="CREATIVES1.JPG" alt="">
+        <img src="CREATIVES2.JPG" alt="">
+        <img src="CREATIVES4.JPG" alt="">
+        <img src="CREATIVES5.JPG" alt="">
+    </div>
+
+    <img src="CREATIVESM.png" class="panelStill" alt="Creatives org">
+    <img src="CREATIVESQR.PNG" class="panelStill" alt="Creatives qr">
+
+    <a class="closeBtn" onclick="closeCreatives()">Close</a>
+</div>
 
 <script>
+/* slide interval and fade are controlled here (4s per slide, 1.5s fade via CSS) */
+const SLIDE_MS = 4000;
 
-/* UNIVERSAL SLIDESHOW FUNCTION */
+/* generic start/stop that uses CSS opacity transitions */
 function startSlideshow(id, tracker) {
-    clearInterval(tracker.interval);
+    // clear any previous interval
+    if (tracker.interval) {
+        clearInterval(tracker.interval);
+        tracker.interval = null;
+    }
 
     const slides = document.querySelectorAll(`#${id} img`);
     if (!slides.length) return;
 
+    // ensure all hidden
     slides.forEach(s => s.style.opacity = 0);
+
     tracker.index = 0;
     slides[0].style.opacity = 1;
 
     tracker.interval = setInterval(() => {
-        slides[tracker.index].style.opacity = 0;
-        tracker.index = (tracker.index + 1) % slides.length;
-        slides[tracker.index].style.opacity = 1;
-    }, 3500);
+        const cur = tracker.index;
+        const next = (cur + 1) % slides.length;
+
+        // fade out current, fade in next
+        slides[cur].style.opacity = 0;
+        slides[next].style.opacity = 1;
+
+        tracker.index = next;
+    }, SLIDE_MS);
 }
 
 function stopSlideshow(tracker) {
-    clearInterval(tracker.interval);
+    if (tracker.interval) {
+        clearInterval(tracker.interval);
+        tracker.interval = null;
+    }
 }
 
-/* PANEL RESOURCES */
+/* trackers for each panel */
 let ascend = { index: 0, interval: null };
 let strings = { index: 0, interval: null };
 let debate = { index: 0, interval: null };
 let archery = { index: 0, interval: null };
 let axiom = { index: 0, interval: null };
 let coaches = { index: 0, interval: null };
+let danceTroupe = { index: 0, interval: null };
+let creatives = { index: 0, interval: null };
 
+/* close all helper */
 function closeAll() {
-    closeAscend();
-    closeStrings();
-    closeDebate();
-    closeArchery();
-    closeAxiom();
-    closeCoaches();
+    closeAscend(); closeStrings(); closeDebate();
+    closeArchery(); closeAxiom(); closeCoaches();
+    closeDanceTroupe(); closeCreatives();
 }
 
-/* OPEN/CLOSE PANEL FUNCTIONS */
+/* open/close functions for each panel (they stop other slideshows) */
+
+/* ASCEND */
 function openAscend() { closeAll(); document.getElementById("ascendPanel").style.bottom = "0"; startSlideshow("ascendSlideshow", ascend); }
 function closeAscend() { document.getElementById("ascendPanel").style.bottom = "-100vh"; stopSlideshow(ascend); }
 
+/* STRINGS */
 function openStrings() { closeAll(); document.getElementById("stringsPanel").style.bottom = "0"; startSlideshow("stringsSlideshow", strings); }
 function closeStrings() { document.getElementById("stringsPanel").style.bottom = "-100vh"; stopSlideshow(strings); }
 
+/* DEBATE */
 function openDebate() { closeAll(); document.getElementById("debatePanel").style.bottom = "0"; startSlideshow("debateSlideshow", debate); }
 function closeDebate() { document.getElementById("debatePanel").style.bottom = "-100vh"; stopSlideshow(debate); }
 
+/* ARCHERY */
 function openArchery() { closeAll(); document.getElementById("archeryPanel").style.bottom = "0"; startSlideshow("archerySlideshow", archery); }
 function closeArchery() { document.getElementById("archeryPanel").style.bottom = "-100vh"; stopSlideshow(archery); }
 
+/* AXIOM */
 function openAxiom() { closeAll(); document.getElementById("axiomPanel").style.bottom = "0"; startSlideshow("axiomSlideshow", axiom); }
 function closeAxiom() { document.getElementById("axiomPanel").style.bottom = "-100vh"; stopSlideshow(axiom); }
 
+/* COACHES */
 function openCoaches() { closeAll(); document.getElementById("coachesPanel").style.bottom = "0"; startSlideshow("coachesSlideshow", coaches); }
 function closeCoaches() { document.getElementById("coachesPanel").style.bottom = "-100vh"; stopSlideshow(coaches); }
 
+/* DANCE TROUPE */
+function openDanceTroupe() { closeAll(); document.getElementById("danceTroupePanel").style.bottom = "0"; startSlideshow("danceTroupeSlideshow", danceTroupe); }
+function closeDanceTroupe() { document.getElementById("danceTroupePanel").style.bottom = "-100vh"; stopSlideshow(danceTroupe); }
+
+/* CREATIVES */
+function openCreatives() { closeAll(); document.getElementById("creativesPanel").style.bottom = "0"; startSlideshow("creativesSlideshow", creatives); }
+function closeCreatives() { document.getElementById("creativesPanel").style.bottom = "-100vh"; stopSlideshow(creatives); }
+
+/* polite behaviour: stop slideshows if tab hidden */
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        stopSlideshow(ascend); stopSlideshow(strings); stopSlideshow(debate);
+        stopSlideshow(archery); stopSlideshow(axiom); stopSlideshow(coaches);
+        stopSlideshow(danceTroupe); stopSlideshow(creatives);
+    }
+});
 </script>
 
 </body>
