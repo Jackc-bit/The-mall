@@ -128,11 +128,11 @@ body {
 
     <div class="org-btn" style="background-image:url('Debate_Society.png')" onclick="openDebate()"></div>
 
-    <div class="org-btn" style="background-image:url('Dgits.png')"></div>
+    <div class="org-btn" style="background-image:url('Dgits.png')" onclick="openDgits()"></div>
 
-    <div class="org-btn" style="background-image:url('Dyci_Dagalak.png')"></div>
+    <div class="org-btn" style="background-image:url('Dyci_Dagalak.png')" onclick="openDagalak()"></div>
 
-    <div class="org-btn" style="background-image:url('Dyci_Light.png')"></div>
+    <div class="org-btn" style="background-image:url('Dyci_Light.png')" onclick="openLight()"></div>
 
     <div class="org-btn" style="background-image:url('Dyci_Novellus.png')"></div>
 
@@ -186,17 +186,15 @@ body {
 
 </div>
 
-
-<!-- ------------------------------------------------ -->
-<!-- -------------------- PANELS -------------------- -->
-<!-- ------------------------------------------------ -->
-
+<!-- ---------------------------------------------- -->
+<!-- ------------------ PANELS -------------------- -->
+<!-- ---------------------------------------------- -->
 
 <!-- ASCEND PANEL -->
 <div id="ascendPanel" class="panel">
     <h2>ASCEND</h2>
 
-    <div class="slideshow" id="ascendSlideshow">
+    <div class="slideshow">
         <img src="ASCEND_ORG1.JPG">
         <img src="ASCEND_ORG2.JPG">
         <img src="ASCEND_ORG4.JPG">
@@ -208,13 +206,11 @@ body {
     <a class="closeBtn" onclick="closeAscend()">Close</a>
 </div>
 
-
-
 <!-- STRINGS PANEL -->
 <div id="stringsPanel" class="panel">
     <h2>Strings Ensemble</h2>
 
-    <div class="slideshow" id="stringsSlideshow">
+    <div class="slideshow">
         <img src="STRINGS_1.jpg">
         <img src="STRINGS_2.jpeg">
         <img src="STRINGS_3.jpeg">
@@ -233,13 +229,11 @@ body {
     <a class="closeBtn" onclick="closeStrings()">Close</a>
 </div>
 
-
-
 <!-- DEBATE PANEL -->
 <div id="debatePanel" class="panel">
     <h2>Debate Society</h2>
 
-    <div class="slideshow" id="debateSlideshow">
+    <div class="slideshow">
         <img src="DEBATE_1.JPG">
         <img src="DEBATE_2.JPG">
         <img src="DEBATE_3.JPG">
@@ -251,13 +245,11 @@ body {
     <a class="closeBtn" onclick="closeDebate()">Close</a>
 </div>
 
-
-
 <!-- ARCHERY PANEL -->
 <div id="archeryPanel" class="panel">
     <h2>Archery</h2>
 
-    <div class="slideshow" id="archerySlideshow">
+    <div class="slideshow">
         <img src="ARCHERY1.JPG">
         <img src="ARCHERY2.JPG">
         <img src="ARCHERY3.JPG">
@@ -269,30 +261,28 @@ body {
     <a class="closeBtn" onclick="closeArchery()">Close</a>
 </div>
 
+<!-- CREATIVES PANEL -->
+<div id="creativesPanel" class="panel">
+    <h2>Dyci Creatives</h2>
 
-
-<!-- AXIOM PANEL -->
-<div id="axiomPanel" class="panel">
-    <h2>Axiom</h2>
-
-    <div class="slideshow" id="axiomSlideshow">
-        <img src="AXIOM1.JPG">
-        <img src="AXIOM2.JPG">
+    <div class="slideshow">
+        <img src="CREATIVES1.JPG">
+        <img src="CREATIVES2.JPG">
+        <img src="CREATIVES4.JPG">
+        <img src="CREATIVES5.JPG">
     </div>
 
-    <img src="AXIOMM.png" class="panelStill">
-    <img src="AXIOMQR.jpg" class="panelStill">
+    <img src="CREATIVESM.png" class="panelStill">
+    <img src="CREATIVESQR.PNG" class="panelStill">
 
-    <a class="closeBtn" onclick="closeAxiom()">Close</a>
+    <a class="closeBtn" onclick="closeCreatives()">Close</a>
 </div>
-
-
 
 <!-- COACHES PANEL -->
 <div id="coachesPanel" class="panel">
     <h2>Coaches</h2>
 
-    <div class="slideshow" id="coachesSlideshow">
+    <div class="slideshow">
         <img src="COACHES1.JPG">
         <img src="COACHES2.JPG">
     </div>
@@ -303,13 +293,11 @@ body {
     <a class="closeBtn" onclick="closeCoaches()">Close</a>
 </div>
 
-
-
 <!-- DANCE TROUPE PANEL -->
 <div id="danceTroupePanel" class="panel">
     <h2>Dance Troupe</h2>
 
-    <div class="slideshow" id="danceTroupeSlideshow">
+    <div class="slideshow">
         <img src="DANCETROUPE1.JPG">
         <img src="DANCETROUPE2.JPG">
         <img src="DANCETROUPE3.JPG">
@@ -324,40 +312,11 @@ body {
     <a class="closeBtn" onclick="closeDanceTroupe()">Close</a>
 </div>
 
-
-
-<!-- CREATIVES PANEL -->
-<div id="creativesPanel" class="panel">
-    <h2>Dyci Creatives</h2>
-
-    <div class="slideshow" id="creativesSlideshow">
-        <img src="CREATIVES1.JPG">
-        <img src="CREATIVES2.JPG">
-        <img src="CREATIVES4.JPG">
-        <img src="CREATIVES5.JPG">
-    </div>
-
-    <img src="CREATIVESM.png" class="panelStill">
-    <img src="CREATIVESQR.PNG" class="panelStill">
-
-    <a class="closeBtn" onclick="closeCreatives()">Close</a>
-</div>
-
-
-
-<!-- ------------------------------------------------ -->
-<!-- NEW PANELS ADDED BELOW  
-     DAGALAK  
-     DGITS  
-     LIGHT -->
-<!-- ------------------------------------------------ -->
-
-
 <!-- DAGALAK PANEL -->
 <div id="dagalakPanel" class="panel">
     <h2>Dagalak</h2>
 
-    <div class="slideshow" id="dagalakSlideshow">
+    <div class="slideshow">
         <img src="DAGALAK1.JPG">
         <img src="DAGALAK2.JPG">
         <img src="DAGALAK3.JPG">
@@ -375,13 +334,11 @@ body {
     <a class="closeBtn" onclick="closeDagalak()">Close</a>
 </div>
 
-
-
 <!-- DGITS PANEL -->
 <div id="dgitsPanel" class="panel">
     <h2>DGITS</h2>
 
-    <div class="slideshow" id="dgitsSlideshow">
+    <div class="slideshow">
         <img src="DGITS1.jpg">
         <img src="DIGITS2.JPG">
         <img src="DGITS3.JPG">
@@ -394,13 +351,11 @@ body {
     <a class="closeBtn" onclick="closeDgits()">Close</a>
 </div>
 
-
-
 <!-- LIGHT PANEL -->
 <div id="lightPanel" class="panel">
     <h2>DYCI Light</h2>
 
-    <div class="slideshow" id="lightSlideshow">
+    <div class="slideshow">
         <img src="LIGHT1.JPG">
         <img src="LIGHT2.JPG">
         <img src="LIGHT3.JPG">
@@ -414,48 +369,78 @@ body {
     <a class="closeBtn" onclick="closeLight()">Close</a>
 </div>
 
+<!-- EMPTY PANELS FOR OTHER PNG BUTTONS -->
+<div id="sibolPanel" class="panel"><h2>Sibol</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('sibolPanel')">Close</a></div>
+<div id="avant_gardePanel" class="panel"><h2>Avant Garde</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('avant_gardePanel')">Close</a></div>
+<div id="cslPanel" class="panel"><h2>CSL</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('cslPanel')">Close</a></div>
+<div id="novellusPanel" class="panel"><h2>Novellus</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('novellusPanel')">Close</a></div>
+<div id="primesPanel" class="panel"><h2>Primes</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('primesPanel')">Close</a></div>
+<div id="livePanel" class="panel"><h2>Dycian Live</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('livePanel')">Close</a></div>
+<div id="englishPanel" class="panel"><h2>English Facilitators</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('englishPanel')">Close</a></div>
+<div id="fencingPanel" class="panel"><h2>Fencing</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('fencingPanel')">Close</a></div>
+<div id="globalivePanel" class="panel"><h2>Globalive</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('globalivePanel')">Close</a></div>
+<div id="greenPanel" class="panel"><h2>Green Group</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('greenPanel')">Close</a></div>
+<div id="himigPanel" class="panel"><h2>Himig Dycian</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('himigPanel')">Close</a></div>
+<div id="liturgicalPanel" class="panel"><h2>Liturgical Choir</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('liturgicalPanel')">Close</a></div>
+<div id="moasPanel" class="panel"><h2>Ministry of Altar Services</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('moasPanel')">Close</a></div>
+<div id="peerPanel" class="panel"><h2>Peer Facilitators</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('peerPanel')">Close</a></div>
+<div id="scslPanel" class="panel"><h2>SCSL</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('scslPanel')">Close</a></div>
+<div id="sentinelsPanel" class="panel"><h2>Sentinels</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('sentinelsPanel')">Close</a></div>
+<div id="sequentiaPanel" class="panel"><h2>Sequentia Studios</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('sequentiaPanel')">Close</a></div>
+<div id="tycoonsPanel" class="panel"><h2>Societal Tycoons</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('tycoonsPanel')">Close</a></div>
+<div id="speakersPanel" class="panel"><h2>Speakers Society</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('speakersPanel')">Close</a></div>
+<div id="symphoniaPanel" class="panel"><h2>Symphonia</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('symphoniaPanel')">Close</a></div>
+<div id="taekwondoPanel" class="panel"><h2>Taekwondo</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('taekwondoPanel')">Close</a></div>
+<div id="takeoffPanel" class="panel"><h2>Takeoff</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('takeoffPanel')">Close</a></div>
+<div id="angPanel" class="panel"><h2>The Ang Dycian</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('angPanel')">Close</a></div>
+<div id="tvqaPanel" class="panel"><h2>TVQA</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('tvqaPanel')">Close</a></div>
+<div id="unicusPanel" class="panel"><h2>Unicus</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('unicusPanel')">Close</a></div>
+<div id="usbongPanel" class="panel"><h2>Usbong</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('usbongPanel')">Close</a></div>
+<div id="verbumPanel" class="panel"><h2>Verbum Domini</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('verbumPanel')">Close</a></div>
 
-<!-- JAVASCRIPT WILL COME IN PART 3 -->
+<!-- ---------------------------------------------- -->
+<!-- ---------------- JAVASCRIPT ------------------ -->
+<!-- ---------------------------------------------- -->
+
 <script>
-    /* ================================
-   PANEL OPEN / CLOSE FUNCTION
-================================ */
 function openPanel(id) {
     document.getElementById(id).style.bottom = "0";
-    startSlideshow(id);
 }
 
 function closePanel(id) {
     document.getElementById(id).style.bottom = "-100%";
-    stopSlideshow(id);
 }
 
-/* ================================
-   SLIDESHOW SYSTEM (AUTO + FADE)
-================================ */
-let slideIntervals = {};
+function openAscend() { openPanel('ascendPanel'); }
+function closeAscend() { closePanel('ascendPanel'); }
 
-function startSlideshow(panelId) {
-    const panel = document.getElementById(panelId);
-    const slides = panel.querySelectorAll(".slide");
+function openStrings() { openPanel('stringsPanel'); }
+function closeStrings() { closePanel('stringsPanel'); }
 
-    if (slides.length === 0) return;
+function openDebate() { openPanel('debatePanel'); }
+function closeDebate() { closePanel('debatePanel'); }
 
-    let index = 0;
+function openArchery() { openPanel('archeryPanel'); }
+function closeArchery() { closePanel('archeryPanel'); }
 
-    slides.forEach(s => s.style.display = "none");
-    slides[0].style.display = "block";
+function openCreatives() { openPanel('creativesPanel'); }
+function closeCreatives() { closePanel('creativesPanel'); }
 
-    slideIntervals[panelId] = setInterval(() => {
-        slides[index].style.display = "none";
-        index = (index + 1) % slides.length;
-        slides[index].style.display = "block";
-    }, 3500);
-}
+function openCoaches() { openPanel('coachesPanel'); }
+function closeCoaches() { closePanel('coachesPanel'); }
 
-function stopSlideshow(panelId) {
-    clearInterval(slideIntervals[panelId]);
-}
+function openDanceTroupe() { openPanel('danceTroupePanel'); }
+function closeDanceTroupe() { closePanel('danceTroupePanel'); }
+
+function openDagalak() { openPanel('dagalakPanel'); }
+function closeDagalak() { closePanel('dagalakPanel'); }
+
+function openDgits() { openPanel('dgitsPanel'); }
+function closeDgits() { closePanel('dgitsPanel'); }
+
+function openLight() { openPanel('lightPanel'); }
+function closeLight() { closePanel('lightPanel'); }
+
 </script>
 
 </body>
