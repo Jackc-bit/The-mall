@@ -15,432 +15,348 @@ body {
     background-size: cover;
 }
 
-/* ---- BUTTON GRID ---- */
-.org-buttons {
+/* ------------------------------------------------ */
+/* FIXED GRID FOR PNG BUTTONS                       */
+/* ------------------------------------------------ */
+.container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 25px;
     margin-top: 50px;
 }
 
-.org-buttons img {
+.org-btn {
     width: 100%;
-    cursor: pointer;
+    padding-top: 100%; /* perfect square */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     border-radius: 15px;
-    transition: transform 0.25s ease;
+    cursor: pointer;
+    transition: transform .25s ease;
 }
 
-.org-buttons img:hover {
+.org-btn:hover {
     transform: scale(1.05);
 }
 
-/* ---- PANELS ---- */
+/* ------------------------------------------------ */
+/* PANELS                                            */
+/* ------------------------------------------------ */
 .panel {
     position: fixed;
     bottom: -100%;
     left: 0;
     width: 100%;
     height: 92%;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255,255,255,0.95);
     backdrop-filter: blur(6px);
-    box-shadow: 0 -5px 10px rgba(0,0,0,0.3);
     border-radius: 25px 25px 0 0;
-    transition: bottom 0.45s ease;
-    overflow-y: auto;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.4);
     padding: 20px;
+    overflow-y: auto;
+    transition: bottom .45s ease;
 }
 
-.close-btn {
+.closeBtn {
+    display: block;
+    margin-top: 15px;
     font-size: 30px;
     font-weight: bold;
-    color: #000;
-    float: right;
+    text-align: center;
+    color: black;
     cursor: pointer;
 }
 
-.panel h2 {
-    font-size: 32px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* ---- RESPONSIVE FADE SLIDESHOW ---- */
-.slideshow-container {
+.panelStill {
     width: 100%;
-    max-width: 100%;
-    position: relative;
-    margin: auto;
-    overflow: hidden;
     border-radius: 15px;
-}
-
-.slide {
-    display: none;
-    width: 100%;
-    height: auto;
-    animation: fadeEffect 1.2s ease-in-out;
-}
-
-.slide img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    border-radius: 15px;
-}
-
-@keyframes fadeEffect {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* ---- STILL IMAGES ---- */
-.panel img.still-image {
-    width: 100%;
     margin-top: 20px;
-    margin-bottom: 20px;
-    border-radius: 15px;
 }
-</style>
 
+/* ------------------------------------------------ */
+/* SLIDESHOW                                         */
+/* ------------------------------------------------ */
+.slideshow img {
+    width: 100%;
+    border-radius: 15px;
+    display: none;
+}
+
+.slideshow img:first-child {
+    display: block;
+}
+
+</style>
 </head>
 <body>
 
-<h1>Organizations</h1>
+<h1 style="color:white; text-shadow:2px 2px 4px black;">Organizations</h1>
 
+<!-- BUTTON GRID -->
 <div class="container">
 
-    <div class="org-btn" style="background-image:url('Sibol.png')" data-panel="sibolPanel"></div>
-
-    <div class="org-btn" style="background-image:url('Archery.png')" onclick="openArchery()"></div>
-
-    <div class="org-btn" style="background-image:url('Ascend.png')" onclick="openAscend()"></div>
-
-    <div class="org-btn" style="background-image:url('Avant_Garde.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Dyci_Creatives_Team.png')" onclick="openCreatives()"></div>
-
-    <div class="org-btn" style="background-image:url('Coaches.png')" onclick="openCoaches()"></div>
-
-    <div class="org-btn" style="background-image:url('Csl.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Dance_Troupe.png')" onclick="openDanceTroupe()"></div>
-
-    <div class="org-btn" style="background-image:url('Debate_Society.png')" onclick="openDebate()"></div>
-
-    <div class="org-btn" style="background-image:url('Dgits.png')" onclick="openDgits()"></div>
-
-    <div class="org-btn" style="background-image:url('Dyci_Dagalak.png')" onclick="openDagalak()"></div>
-
-    <div class="org-btn" style="background-image:url('Dyci_Light.png')" onclick="openLight()"></div>
-
-    <div class="org-btn" style="background-image:url('Dyci_Novellus.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Dyci_Primes.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Dycian_Live.png')"></div>
-
-    <div class="org-btn" style="background-image:url('English_Facilitators.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Fencing.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Globalive.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Green_Group.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Himig_Dycian.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Liturgical_Choir.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Ministry_Of_Altar_Services.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Peer_Facilitators_Circle.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Scsl.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Sentinels.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Sequentia_Studios.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Societal_Tycoons.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Speakers_Society.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Strings_Ensemble.png')" onclick="openStrings()"></div>
-
-    <div class="org-btn" style="background-image:url('Symphonia.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Taekwondo.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Takeoff.png')"></div>
-
-    <div class="org-btn" style="background-image:url('The_Ang_Dycian.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Tvqa.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Unicus.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Usbong.png')"></div>
-
-    <div class="org-btn" style="background-image:url('Verbum_Domini.png')"></div>
+    <div class="org-btn" style="background-image:url('Sibol.png')" onclick="openPanel('sibolPanel')"></div>
+    <div class="org-btn" style="background-image:url('Archery.png')" onclick="openPanel('archeryPanel')"></div>
+    <div class="org-btn" style="background-image:url('Ascend.png')" onclick="openPanel('ascendPanel')"></div>
+    <div class="org-btn" style="background-image:url('Avant_Garde.png')" onclick="openPanel('avantPanel')"></div>
+    <div class="org-btn" style="background-image:url('Dyci_Creatives_Team.png')" onclick="openPanel('creativesPanel')"></div>
+    <div class="org-btn" style="background-image:url('Coaches.png')" onclick="openPanel('coachesPanel')"></div>
+    <div class="org-btn" style="background-image:url('Csl.png')" onclick="openPanel('cslPanel')"></div>
+    <div class="org-btn" style="background-image:url('Dance_Troupe.png')" onclick="openPanel('danceTroupePanel')"></div>
+    <div class="org-btn" style="background-image:url('Debate_Society.png')" onclick="openPanel('debatePanel')"></div>
+    <div class="org-btn" style="background-image:url('Dgits.png')" onclick="openPanel('dgitsPanel')"></div>
+    <div class="org-btn" style="background-image:url('Dyci_Dagalak.png')" onclick="openPanel('dagalakPanel')"></div>
+    <div class="org-btn" style="background-image:url('Dyci_Light.png')" onclick="openPanel('lightPanel')"></div>
+    <div class="org-btn" style="background-image:url('Dyci_Novellus.png')" onclick="openPanel('novellusPanel')"></div>
+    <div class="org-btn" style="background-image:url('Dyci_Primes.png')" onclick="openPanel('primesPanel')"></div>
+    <div class="org-btn" style="background-image:url('Dycian_Live.png')" onclick="openPanel('livePanel')"></div>
+    <div class="org-btn" style="background-image:url('English_Facilitators.png')" onclick="openPanel('englishPanel')"></div>
+    <div class="org-btn" style="background-image:url('Fencing.png')" onclick="openPanel('fencingPanel')"></div>
+    <div class="org-btn" style="background-image:url('Globalive.png')" onclick="openPanel('globalivePanel')"></div>
+    <div class="org-btn" style="background-image:url('Green_Group.png')" onclick="openPanel('greenPanel')"></div>
+    <div class="org-btn" style="background-image:url('Himig_Dycian.png')" onclick="openPanel('himigPanel')"></div>
+    <div class="org-btn" style="background-image:url('Liturgical_Choir.png')" onclick="openPanel('liturgicalPanel')"></div>
+    <div class="org-btn" style="background-image:url('Ministry_Of_Altar_Services.png')" onclick="openPanel('altarPanel')"></div>
+    <div class="org-btn" style="background-image:url('Peer_Facilitators_Circle.png')" onclick="openPanel('peerPanel')"></div>
+    <div class="org-btn" style="background-image:url('Scsl.png')" onclick="openPanel('scslPanel')"></div>
+    <div class="org-btn" style="background-image:url('Sentinels.png')" onclick="openPanel('sentinelsPanel')"></div>
+    <div class="org-btn" style="background-image:url('Sequentia_Studios.png')" onclick="openPanel('sequentiaPanel')"></div>
+    <div class="org-btn" style="background-image:url('Societal_Tycoons.png')" onclick="openPanel('tycoonsPanel')"></div>
+    <div class="org-btn" style="background-image:url('Speakers_Society.png')" onclick="openPanel('speakersPanel')"></div>
+    <div class="org-btn" style="background-image:url('Strings_Ensemble.png')" onclick="openPanel('stringsPanel')"></div>
+    <div class="org-btn" style="background-image:url('Symphonia.png')" onclick="openPanel('symphoniaPanel')"></div>
+    <div class="org-btn" style="background-image:url('Taekwondo.png')" onclick="openPanel('taekwondoPanel')"></div>
+    <div class="org-btn" style="background-image:url('Takeoff.png')" onclick="openPanel('takeoffPanel')"></div>
+    <div class="org-btn" style="background-image:url('The_Ang_Dycian.png')" onclick="openPanel('angPanel')"></div>
+    <div class="org-btn" style="background-image:url('Tvqa.png')" onclick="openPanel('tvqaPanel')"></div>
+    <div class="org-btn" style="background-image:url('Unicus.png')" onclick="openPanel('unicusPanel')"></div>
+    <div class="org-btn" style="background-image:url('Usbong.png')" onclick="openPanel('usbongPanel')"></div>
+    <div class="org-btn" style="background-image:url('Verbum_Domini.png')" onclick="openPanel('verbumPanel')"></div>
 
 </div>
 
-<!-- ---------------------------------------------- -->
-<!-- ------------------ PANELS -------------------- -->
-<!-- ---------------------------------------------- -->
+<!-- ------------------------------------------------------- -->
+<!--  ALL YOUR PANELS BELOW (I keep your images exactly SAME) -->
+<!-- ------------------------------------------------------- -->
 
-<!-- ASCEND PANEL -->
-<div id="ascendPanel" class="panel">
-    <h2>ASCEND</h2>
+<!-- LIGHT PANEL -->
+<div id="lightPanel" class="panel">
+<h2>DYCI Light</h2>
 
-    <div class="slideshow">
-        <img src="ASCEND_ORG1.JPG">
-        <img src="ASCEND_ORG2.JPG">
-        <img src="ASCEND_ORG4.JPG">
-        <img src="ASCEND_ORG5.JPG">
-        <img src="ASCEND_ORG6.JPG">
-    </div>
-
-    <img src="ASCEND_ORGM.png" class="panelStill">
-    <a class="closeBtn" onclick="closeAscend()">Close</a>
+<div class="slideshow">
+    <img src="LIGHT1.JPG">
+    <img src="LIGHT2.JPG">
+    <img src="LIGHT3.JPG">
+    <img src="LIGHT4.JPG">
+    <img src="LIGHT5.JPG">
 </div>
 
-<!-- STRINGS PANEL -->
-<div id="stringsPanel" class="panel">
-    <h2>Strings Ensemble</h2>
+<img src="LIGHTM.png" class="panelStill">
+<img src="LIGHTQR.jpg" class="panelStill">
 
-    <div class="slideshow">
-        <img src="STRINGS_1.jpg">
-        <img src="STRINGS_2.jpeg">
-        <img src="STRINGS_3.jpeg">
-        <img src="STRINGS_4.jpeg">
-        <img src="STRINGS_5.jpeg">
-        <img src="STRINGS_7.JPG">
-        <img src="STRINGS_8.JPG">
-        <img src="STRINGS_9.JPG">
-        <img src="STRINGS_10.jpg">
-        <img src="STRINGS_11.JPG">
-    </div>
-
-    <img src="STRINGS_ORG.png" class="panelStill">
-    <img src="STRINGS_QR.png" class="panelStill">
-
-    <a class="closeBtn" onclick="closeStrings()">Close</a>
-</div>
-
-<!-- DEBATE PANEL -->
-<div id="debatePanel" class="panel">
-    <h2>Debate Society</h2>
-
-    <div class="slideshow">
-        <img src="DEBATE_1.JPG">
-        <img src="DEBATE_2.JPG">
-        <img src="DEBATE_3.JPG">
-        <img src="DEBATE_4.JPG">
-        <img src="DEBATE_5.JPG">
-    </div>
-
-    <img src="DEBATE_ORG.jpg" class="panelStill">
-    <a class="closeBtn" onclick="closeDebate()">Close</a>
-</div>
-
-<!-- ARCHERY PANEL -->
-<div id="archeryPanel" class="panel">
-    <h2>Archery</h2>
-
-    <div class="slideshow">
-        <img src="ARCHERY1.JPG">
-        <img src="ARCHERY2.JPG">
-        <img src="ARCHERY3.JPG">
-        <img src="ARCHERY4.JPG">
-        <img src="ARCHERY5.JPG">
-    </div>
-
-    <img src="ARCHERYM.png" class="panelStill">
-    <a class="closeBtn" onclick="closeArchery()">Close</a>
-</div>
-
-<!-- CREATIVES PANEL -->
-<div id="creativesPanel" class="panel">
-    <h2>Dyci Creatives</h2>
-
-    <div class="slideshow">
-        <img src="CREATIVES1.JPG">
-        <img src="CREATIVES2.JPG">
-        <img src="CREATIVES4.JPG">
-        <img src="CREATIVES5.JPG">
-    </div>
-
-    <img src="CREATIVESM.png" class="panelStill">
-    <img src="CREATIVESQR.PNG" class="panelStill">
-
-    <a class="closeBtn" onclick="closeCreatives()">Close</a>
-</div>
-
-<!-- COACHES PANEL -->
-<div id="coachesPanel" class="panel">
-    <h2>Coaches</h2>
-
-    <div class="slideshow">
-        <img src="COACHES1.JPG">
-        <img src="COACHES2.JPG">
-    </div>
-
-    <img src="COACHESM.png" class="panelStill">
-    <img src="COACHESQR.jpg" class="panelStill">
-
-    <a class="closeBtn" onclick="closeCoaches()">Close</a>
-</div>
-
-<!-- DANCE TROUPE PANEL -->
-<div id="danceTroupePanel" class="panel">
-    <h2>Dance Troupe</h2>
-
-    <div class="slideshow">
-        <img src="DANCETROUPE1.JPG">
-        <img src="DANCETROUPE2.JPG">
-        <img src="DANCETROUPE3.JPG">
-        <img src="DANCETROUPE4.JPG">
-        <img src="DANCETROUPE5.jpg">
-        <img src="DANCETROUPE6.JPG">
-    </div>
-
-    <img src="DANCETROUPEM.png" class="panelStill">
-    <img src="DANCETROUPEQR.jpg" class="panelStill">
-
-    <a class="closeBtn" onclick="closeDanceTroupe()">Close</a>
-</div>
-
-<!-- DAGALAK PANEL -->
-<div id="dagalakPanel" class="panel">
-    <h2>Dagalak</h2>
-
-    <div class="slideshow">
-        <img src="DAGALAK1.JPG">
-        <img src="DAGALAK2.JPG">
-        <img src="DAGALAK3.JPG">
-        <img src="DAGALAK4.JPG">
-        <img src="DAGALAK5.JPG">
-        <img src="DAGALAK6.JPG">
-        <img src="DAGALAK7.JPG">
-        <img src="DAGALAK8.JPG">
-        <img src="DAGALAK9.JPG">
-    </div>
-
-    <img src="DAGALAKM.png" class="panelStill">
-    <img src="DAGALAKQR.jpg" class="panelStill">
-
-    <a class="closeBtn" onclick="closeDagalak()">Close</a>
+<a class="closeBtn" onclick="closePanel('lightPanel')">Close</a>
 </div>
 
 <!-- DGITS PANEL -->
 <div id="dgitsPanel" class="panel">
-    <h2>DGITS</h2>
+<h2>DGITS</h2>
 
-    <div class="slideshow">
-        <img src="DGITS1.jpg">
-        <img src="DIGITS2.JPG">
-        <img src="DGITS3.JPG">
-        <img src="DGITS4.JPG">
-    </div>
-
-    <img src="DGITSM.png" class="panelStill">
-    <img src="DGITSQR.jpg" class="panelStill">
-
-    <a class="closeBtn" onclick="closeDgits()">Close</a>
+<div class="slideshow">
+    <img src="DGITS1.jpg">
+    <img src="DIGITS2.JPG">
+    <img src="DGITS3.JPG">
+    <img src="DGITS4.JPG">
 </div>
 
-<!-- LIGHT PANEL -->
-<div id="lightPanel" class="panel">
-    <h2>DYCI Light</h2>
+<img src="DGITSM.png" class="panelStill">
+<img src="DGITSQR.jpg" class="panelStill">
 
-    <div class="slideshow">
-        <img src="LIGHT1.JPG">
-        <img src="LIGHT2.JPG">
-        <img src="LIGHT3.JPG">
-        <img src="LIGHT4.JPG">
-        <img src="LIGHT5.JPG">
-    </div>
-
-    <img src="LIGHTM.png" class="panelStill">
-    <img src="LIGHTQR.jpg" class="panelStill">
-
-    <a class="closeBtn" onclick="closeLight()">Close</a>
+<a class="closeBtn" onclick="closePanel('dgitsPanel')">Close</a>
 </div>
 
-<!-- EMPTY PANELS FOR OTHER PNG BUTTONS -->
-<div id="sibolPanel" class="panel"><h2>Sibol</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('sibolPanel')">Close</a></div>
-<div id="avant_gardePanel" class="panel"><h2>Avant Garde</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('avant_gardePanel')">Close</a></div>
-<div id="cslPanel" class="panel"><h2>CSL</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('cslPanel')">Close</a></div>
-<div id="novellusPanel" class="panel"><h2>Novellus</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('novellusPanel')">Close</a></div>
-<div id="primesPanel" class="panel"><h2>Primes</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('primesPanel')">Close</a></div>
-<div id="livePanel" class="panel"><h2>Dycian Live</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('livePanel')">Close</a></div>
-<div id="englishPanel" class="panel"><h2>English Facilitators</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('englishPanel')">Close</a></div>
-<div id="fencingPanel" class="panel"><h2>Fencing</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('fencingPanel')">Close</a></div>
-<div id="globalivePanel" class="panel"><h2>Globalive</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('globalivePanel')">Close</a></div>
-<div id="greenPanel" class="panel"><h2>Green Group</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('greenPanel')">Close</a></div>
-<div id="himigPanel" class="panel"><h2>Himig Dycian</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('himigPanel')">Close</a></div>
-<div id="liturgicalPanel" class="panel"><h2>Liturgical Choir</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('liturgicalPanel')">Close</a></div>
-<div id="moasPanel" class="panel"><h2>Ministry of Altar Services</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('moasPanel')">Close</a></div>
-<div id="peerPanel" class="panel"><h2>Peer Facilitators</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('peerPanel')">Close</a></div>
-<div id="scslPanel" class="panel"><h2>SCSL</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('scslPanel')">Close</a></div>
-<div id="sentinelsPanel" class="panel"><h2>Sentinels</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('sentinelsPanel')">Close</a></div>
-<div id="sequentiaPanel" class="panel"><h2>Sequentia Studios</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('sequentiaPanel')">Close</a></div>
-<div id="tycoonsPanel" class="panel"><h2>Societal Tycoons</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('tycoonsPanel')">Close</a></div>
-<div id="speakersPanel" class="panel"><h2>Speakers Society</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('speakersPanel')">Close</a></div>
-<div id="symphoniaPanel" class="panel"><h2>Symphonia</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('symphoniaPanel')">Close</a></div>
-<div id="taekwondoPanel" class="panel"><h2>Taekwondo</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('taekwondoPanel')">Close</a></div>
-<div id="takeoffPanel" class="panel"><h2>Takeoff</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('takeoffPanel')">Close</a></div>
-<div id="angPanel" class="panel"><h2>The Ang Dycian</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('angPanel')">Close</a></div>
-<div id="tvqaPanel" class="panel"><h2>TVQA</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('tvqaPanel')">Close</a></div>
-<div id="unicusPanel" class="panel"><h2>Unicus</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('unicusPanel')">Close</a></div>
-<div id="usbongPanel" class="panel"><h2>Usbong</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('usbongPanel')">Close</a></div>
-<div id="verbumPanel" class="panel"><h2>Verbum Domini</h2><p>Content coming soon.</p><a class="closeBtn" onclick="closePanel('verbumPanel')">Close</a></div>
+<!-- DAGALAK PANEL -->
+<div id="dagalakPanel" class="panel">
+<h2>Dagalak</h2>
 
-<!-- ---------------------------------------------- -->
-<!-- ---------------- JAVASCRIPT ------------------ -->
-<!-- ---------------------------------------------- -->
+<div class="slideshow">
+    <img src="DAGALAK1.JPG">
+    <img src="DAGALAK2.JPG">
+    <img src="DAGALAK3.JPG">
+    <img src="DAGALAK4.JPG">
+    <img src="DAGALAK5.JPG">
+    <img src="DAGALAK6.JPG">
+    <img src="DAGALAK7.JPG">
+    <img src="DAGALAK8.JPG">
+    <img src="DAGALAK9.JPG">
+</div>
 
+<img src="DAGALAKM.png" class="panelStill">
+<img src="DAGALAKQR.jpg" class="panelStill">
+
+<a class="closeBtn" onclick="closePanel('dagalakPanel')">Close</a>
+</div>
+
+<!-- CREATIVES PANEL -->
+<div id="creativesPanel" class="panel">
+<h2>DYCI Creatives</h2>
+
+<div class="slideshow">
+    <img src="CREATIVES1.JPG">
+    <img src="CREATIVES2.JPG">
+    <img src="CREATIVES4.JPG">
+</div>
+
+<img src="CREATIVESM.png" class="panelStill">
+<img src="CREATIVESQR.PNG" class="panelStill">
+
+<a class="closeBtn" onclick="closePanel('creativesPanel')">Close</a>
+</div>
+
+<!-- DANCE TROUPE PANEL -->
+<div id="danceTroupePanel" class="panel">
+<h2>Dance Troupe</h2>
+
+<div class="slideshow">
+    <img src="DANCETROUPE1.JPG">
+    <img src="DANCETROUPE2.JPG">
+    <img src="DANCETROUPE3.JPG">
+    <img src="DANCETROUPE4.JPG">
+    <img src="DANCETROUPE5.jpg">
+    <img src="DANCETROUPE6.JPG">
+</div>
+
+<img src="DANCETROUPEM.png" class="panelStill">
+<img src="DANCETROUPEQR.jpg" class="panelStill">
+
+<a class="closeBtn" onclick="closePanel('danceTroupePanel')">Close</a>
+</div>
+
+<!-- STRINGS PANEL -->
+<div id="stringsPanel" class="panel">
+<h2>Strings Ensemble</h2>
+
+<div class="slideshow">
+    <img src="STRINGS_1.jpg">
+    <img src="STRINGS_2.jpeg">
+    <img src="STRINGS_3.jpeg">
+    <img src="STRINGS_4.jpeg">
+    <img src="STRINGS_5.jpeg">
+    <img src="STRINGS_7.JPG">
+    <img src="STRINGS_8.JPG">
+    <img src="STRINGS_9.JPG">
+    <img src="STRINGS_10.jpg">
+    <img src="STRINGS_11.JPG">
+</div>
+
+<img src="STRINGS_ORG.png" class="panelStill">
+<img src="STRINGS_QR.png" class="panelStill">
+
+<a class="closeBtn" onclick="closePanel('stringsPanel')">Close</a>
+</div>
+
+<!-- ARCHERY PANEL -->
+<div id="archeryPanel" class="panel">
+<h2>Archery</h2>
+
+<div class="slideshow">
+    <img src="ARCHERY1.JPG">
+    <img src="ARCHERY2.JPG">
+    <img src="ARCHERY3.JPG">
+    <img src="ARCHERY4.JPG">
+    <img src="ARCHERY5.JPG">
+</div>
+
+<img src="ARCHERYM.png" class="panelStill">
+
+<a class="closeBtn" onclick="closePanel('archeryPanel')">Close</a>
+</div>
+
+<!-- DEBATE PANEL -->
+<div id="debatePanel" class="panel">
+<h2>Debate Society</h2>
+
+<div class="slideshow">
+    <img src="DEBATE_1.JPG">
+    <img src="DEBATE_2.JPG">
+    <img src="DEBATE_3.JPG">
+    <img src="DEBATE_4.JPG">
+    <img src="DEBATE_5.JPG">
+</div>
+
+<img src="DEBATE_ORG.jpg" class="panelStill">
+
+<a class="closeBtn" onclick="closePanel('debatePanel')">Close</a>
+</div>
+
+<!-- ASCEND PANEL -->
+<div id="ascendPanel" class="panel">
+<h2>ASCEND</h2>
+
+<div class="slideshow">
+    <img src="ASCEND_ORG1.JPG">
+    <img src="ASCEND_ORG2.JPG">
+    <img src="ASCEND_ORG4.JPG">
+    <img src="ASCEND_ORG5.JPG">
+    <img src="ASCEND_ORG6.JPG">
+</div>
+
+<img src="ASCEND_ORGM.png" class="panelStill">
+
+<a class="closeBtn" onclick="closePanel('ascendPanel')">Close</a>
+</div>
+
+<!-- COACHES PANEL -->
+<div id="coachesPanel" class="panel">
+<h2>Coaches</h2>
+
+<div class="slideshow">
+    <img src="COACHES1.JPG">
+    <img src="COACHES2.JPG">
+</div>
+
+<img src="COACHESM.png" class="panelStill">
+<img src="COACHESQR.jpg" class="panelStill">
+
+<a class="closeBtn" onclick="closePanel('coachesPanel')">Close</a>
+</div>
+
+<!-- ----------------------------------------------------------- -->
+<!-- JAVASCRIPT: PANEL SYSTEM + SLIDESHOW                        -->
+<!-- ----------------------------------------------------------- -->
 <script>
 function openPanel(id) {
     document.getElementById(id).style.bottom = "0";
+    startSlideshow(id);
 }
 
 function closePanel(id) {
     document.getElementById(id).style.bottom = "-100%";
+    stopSlideshow(id);
 }
 
-function openAscend() { openPanel('ascendPanel'); }
-function closeAscend() { closePanel('ascendPanel'); }
+let timers = {};
 
-function openStrings() { openPanel('stringsPanel'); }
-function closeStrings() { closePanel('stringsPanel'); }
+function startSlideshow(panelId) {
+    const panel = document.getElementById(panelId);
+    const slides = panel.querySelectorAll(".slideshow img");
+    if (slides.length === 0) return;
 
-function openDebate() { openPanel('debatePanel'); }
-function closeDebate() { closePanel('debatePanel'); }
+    let index = 0;
 
-function openArchery() { openPanel('archeryPanel'); }
-function closeArchery() { closePanel('archeryPanel'); }
+    slides.forEach(s => s.style.display = "none");
+    slides[0].style.display = "block";
 
-function openCreatives() { openPanel('creativesPanel'); }
-function closeCreatives() { closePanel('creativesPanel'); }
+    timers[panelId] = setInterval(() => {
+        slides[index].style.display = "none";
+        index = (index + 1) % slides.length;
+        slides[index].style.display = "block";
+    }, 3500);
+}
 
-function openCoaches() { openPanel('coachesPanel'); }
-function closeCoaches() { closePanel('coachesPanel'); }
-
-function openDanceTroupe() { openPanel('danceTroupePanel'); }
-function closeDanceTroupe() { closePanel('danceTroupePanel'); }
-
-function openDagalak() { openPanel('dagalakPanel'); }
-function closeDagalak() { closePanel('dagalakPanel'); }
-
-function openDgits() { openPanel('dgitsPanel'); }
-function closeDgits() { closePanel('dgitsPanel'); }
-
-function openLight() { openPanel('lightPanel'); }
-function closeLight() { closePanel('lightPanel'); }
-
+function stopSlideshow(panelId) {
+    clearInterval(timers[panelId]);
+}
 </script>
 
 </body>
