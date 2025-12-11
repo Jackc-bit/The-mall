@@ -30,7 +30,6 @@
         margin-top: 20px;
     }
 
-    /* PNG BUTTONS */
     .org-btn {
         width: 100%;
         max-width: 360px;
@@ -42,7 +41,6 @@
         cursor: pointer;
     }
 
-    /* SLIDE-UP PANELS */
     .panel {
         position: fixed;
         bottom: -100vh;
@@ -72,21 +70,27 @@
         cursor: pointer;
     }
 
-    /* UNIVERSAL SLIDESHOW STYLE */
+    /* 🔥 FIXED RESPONSIVE SLIDESHOW — EXACT SAME BEHAVIOR AS ASCEND */
     .slideshow {
-        width: 90vw;
+        width: 100%;
         max-width: 650px;
-        height: calc(90vw * 1.2);
-        max-height: 780px;
         margin: 20px auto;
-        border-radius: 18px;
         position: relative;
+        border-radius: 18px;
         overflow: hidden;
         background: black;
     }
 
+    .slideshow::before {
+        content: "";
+        display: block;
+        width: 100%;
+        padding-top: 70%; /* auto height based on width */
+    }
+
     .slideshow img {
         position: absolute;
+        inset: 0;
         width: 100%;
         height: 100%;
         object-fit: contain;
@@ -95,7 +99,7 @@
     }
 
     .panelStill {
-        width: 90vw;
+        width: 100%;
         max-width: 650px;
         margin: 20px auto;
         border-radius: 18px;
@@ -161,8 +165,7 @@
 
 </div>
 
-
-<!-- UNIVERSAL PANEL TEMPLATE (ASCEND / STRINGS / DEBATE / ARCHERY / AXIOM / COACHES) -->
+<!-- PANELS START HERE -->
 
 <!-- ASCEND PANEL -->
 <div id="ascendPanel" class="panel">
@@ -306,7 +309,6 @@ let archery = { index: 0, interval: null };
 let axiom = { index: 0, interval: null };
 let coaches = { index: 0, interval: null };
 
-/* CLOSE ALL PANELS */
 function closeAll() {
     closeAscend();
     closeStrings();
@@ -316,27 +318,22 @@ function closeAll() {
     closeCoaches();
 }
 
-/* ASCEND */
+/* OPEN/CLOSE PANEL FUNCTIONS */
 function openAscend() { closeAll(); document.getElementById("ascendPanel").style.bottom = "0"; startSlideshow("ascendSlideshow", ascend); }
 function closeAscend() { document.getElementById("ascendPanel").style.bottom = "-100vh"; stopSlideshow(ascend); }
 
-/* STRINGS */
 function openStrings() { closeAll(); document.getElementById("stringsPanel").style.bottom = "0"; startSlideshow("stringsSlideshow", strings); }
 function closeStrings() { document.getElementById("stringsPanel").style.bottom = "-100vh"; stopSlideshow(strings); }
 
-/* DEBATE */
 function openDebate() { closeAll(); document.getElementById("debatePanel").style.bottom = "0"; startSlideshow("debateSlideshow", debate); }
 function closeDebate() { document.getElementById("debatePanel").style.bottom = "-100vh"; stopSlideshow(debate); }
 
-/* ARCHERY */
 function openArchery() { closeAll(); document.getElementById("archeryPanel").style.bottom = "0"; startSlideshow("archerySlideshow", archery); }
 function closeArchery() { document.getElementById("archeryPanel").style.bottom = "-100vh"; stopSlideshow(archery); }
 
-/* AXIOM */
 function openAxiom() { closeAll(); document.getElementById("axiomPanel").style.bottom = "0"; startSlideshow("axiomSlideshow", axiom); }
 function closeAxiom() { document.getElementById("axiomPanel").style.bottom = "-100vh"; stopSlideshow(axiom); }
 
-/* COACHES */
 function openCoaches() { closeAll(); document.getElementById("coachesPanel").style.bottom = "0"; startSlideshow("coachesSlideshow", coaches); }
 function closeCoaches() { document.getElementById("coachesPanel").style.bottom = "-100vh"; stopSlideshow(coaches); }
 
