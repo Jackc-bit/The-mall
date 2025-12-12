@@ -6,96 +6,146 @@
 <title>DYCI Organizations</title>
 
 <style>
+:root{
+  --fade-duration: 2s;    /* fade time */
+  --slide-interval: 5000; /* 5s between slides */
+}
+
+/* basic */
 body {
     margin: 0;
-    font-family: Arial;
-    padding: 20px;
-    overflow-x: hidden;
+    font-family: Arial, Helvetica, sans-serif;
     background: url("Background.png") no-repeat center center fixed;
     background-size: cover;
+    color: #111;
+    padding: 18px;
 }
 
-/* ------------------------------------------------ */
-/* FIXED GRID FOR PNG BUTTONS                       */
-/* ------------------------------------------------ */
+/* header */
+h1 {
+  text-align: center;
+  color: white;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  margin: 6px 0 18px 0;
+}
+
+/* grid of PNG buttons */
 .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 25px;
-    margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto 30px auto;
+  padding: 0 12px;
+}
+.org-btn{
+  width:100%;
+  padding-top:28%; /* controls button shape — tweak if needed */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: transform .16s ease, box-shadow .16s ease;
+  background-color: transparent;
+}
+.org-btn:hover{ transform: translateY(-4px); box-shadow: 0 10px 22px rgba(0,0,0,0.32); }
+
+/* panel base */
+.panel{
+  position: fixed;
+  left:0;
+  bottom:-100vh;
+  width:100%;
+  height:100vh;
+  background: rgba(0,0,0,0.55);
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  transition: bottom .45s ease;
+  z-index:9999;
+  padding-top:22px;
+  box-sizing:border-box;
+}
+.panel .inner{
+  background: linear-gradient(180deg,#ffffff,#fafafa);
+  width:96%;
+  max-width:980px;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  max-height:88vh;
+  overflow:auto;
 }
 
-.org-btn {
-    width: 100%;
-    padding-top: 100%; /* perfect square */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: transform .25s ease;
+/* slideshow container (scales like Ascend) */
+.slideshow-container{
+  position:relative;
+  width:100%;
+  max-width:900px;
+  margin:8px auto;
+  border-radius:12px;
+  overflow:hidden;
+  background:#000;
+}
+/* aspect ratio box for scaling */
+.slideshow-container::before{
+  content:"";
+  display:block;
+  width:100%;
+  padding-top:62%;
 }
 
-.org-btn:hover {
-    transform: scale(1.05);
+/* slides absolute and fade */
+.slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition: opacity var(--fade-duration) ease-in-out;
+}
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+.slide.active{ opacity:1; }
+
+/* still images below slideshow */
+.still-image{
+  width:100%;
+  max-width:900px;
+  display:block;
+  margin:12px auto;
+  border-radius:12px;
 }
 
-/* ------------------------------------------------ */
-/* PANELS                                            */
-/* ------------------------------------------------ */
-.panel {
-    position: fixed;
-    bottom: -100%;
-    left: 0;
-    width: 100%;
-    height: 92%;
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(6px);
-    border-radius: 25px 25px 0 0;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.4);
-    padding: 20px;
-    overflow-y: auto;
-    transition: bottom .45s ease;
+/* close button */
+.closeBtn{
+  display:inline-block;
+  margin-top:16px;
+  padding:10px 18px;
+  background:#0057d8;
+  color:#fff;
+  border-radius:8px;
+  cursor:pointer;
+  text-align:center;
 }
 
-.closeBtn {
-    display: block;
-    margin-top: 15px;
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-    color: black;
-    cursor: pointer;
+/* responsive tweak */
+@media (max-width:720px){
+  .org-btn{ padding-top:34%; }
+  .slideshow-container::before{ padding-top:72%; }
+  .panel .inner{ padding:12px; }
 }
-
-.panelStill {
-    width: 100%;
-    border-radius: 15px;
-    margin-top: 20px;
-}
-
-/* ------------------------------------------------ */
-/* SLIDESHOW                                         */
-/* ------------------------------------------------ */
-.slideshow img {
-    width: 100%;
-    border-radius: 15px;
-    display: none;
-}
-
-.slideshow img:first-child {
-    display: block;
-}
-
 </style>
 </head>
 <body>
-
-<h1 style="color:white; text-shadow:2px 2px 4px black;">Organizations</h1>
+<h1>DYCI Organizations</h1>
 
 <!-- BUTTON GRID -->
 <div class="container">
-
     <div class="org-btn" style="background-image:url('Sibol.png')" onclick="openPanel('sibolPanel')"></div>
     <div class="org-btn" style="background-image:url('Archery.png')" onclick="openPanel('archeryPanel')"></div>
     <div class="org-btn" style="background-image:url('Ascend.png')" onclick="openPanel('ascendPanel')"></div>
@@ -133,231 +183,627 @@ body {
     <div class="org-btn" style="background-image:url('Unicus.png')" onclick="openPanel('unicusPanel')"></div>
     <div class="org-btn" style="background-image:url('Usbong.png')" onclick="openPanel('usbongPanel')"></div>
     <div class="org-btn" style="background-image:url('Verbum_Domini.png')" onclick="openPanel('verbumPanel')"></div>
-
 </div>
 
-<!-- ------------------------------------------------------- -->
-<!--  ALL YOUR PANELS BELOW (I keep your images exactly SAME) -->
-<!-- ------------------------------------------------------- -->
+<!-- PANELS START (Part 1) -->
 
-<!-- LIGHT PANEL -->
-<div id="lightPanel" class="panel">
-<h2>DYCI Light</h2>
-
-<div class="slideshow">
-    <img src="LIGHT1.JPG">
-    <img src="LIGHT2.JPG">
-    <img src="LIGHT3.JPG">
-    <img src="LIGHT4.JPG">
-    <img src="LIGHT5.JPG">
-</div>
-
-<img src="LIGHTM.png" class="panelStill">
-<img src="LIGHTQR.jpg" class="panelStill">
-
-<a class="closeBtn" onclick="closePanel('lightPanel')">Close</a>
-</div>
-
-<!-- DGITS PANEL -->
-<div id="dgitsPanel" class="panel">
-<h2>DGITS</h2>
-
-<div class="slideshow">
-    <img src="DGITS1.jpg">
-    <img src="DIGITS2.JPG">
-    <img src="DGITS3.JPG">
-    <img src="DGITS4.JPG">
-</div>
-
-<img src="DGITSM.png" class="panelStill">
-<img src="DGITSQR.jpg" class="panelStill">
-
-<a class="closeBtn" onclick="closePanel('dgitsPanel')">Close</a>
-</div>
-
-<!-- DAGALAK PANEL -->
-<div id="dagalakPanel" class="panel">
-<h2>Dagalak</h2>
-
-<div class="slideshow">
-    <img src="DAGALAK1.JPG">
-    <img src="DAGALAK2.JPG">
-    <img src="DAGALAK3.JPG">
-    <img src="DAGALAK4.JPG">
-    <img src="DAGALAK5.JPG">
-    <img src="DAGALAK6.JPG">
-    <img src="DAGALAK7.JPG">
-    <img src="DAGALAK8.JPG">
-    <img src="DAGALAK9.JPG">
-</div>
-
-<img src="DAGALAKM.png" class="panelStill">
-<img src="DAGALAKQR.jpg" class="panelStill">
-
-<a class="closeBtn" onclick="closePanel('dagalakPanel')">Close</a>
-</div>
-
-<!-- CREATIVES PANEL -->
-<div id="creativesPanel" class="panel">
-<h2>DYCI Creatives</h2>
-
-<div class="slideshow">
-    <img src="CREATIVES1.JPG">
-    <img src="CREATIVES2.JPG">
-    <img src="CREATIVES4.JPG">
-</div>
-
-<img src="CREATIVESM.png" class="panelStill">
-<img src="CREATIVESQR.PNG" class="panelStill">
-
-<a class="closeBtn" onclick="closePanel('creativesPanel')">Close</a>
-</div>
-
-<!-- DANCE TROUPE PANEL -->
-<div id="danceTroupePanel" class="panel">
-<h2>Dance Troupe</h2>
-
-<div class="slideshow">
-    <img src="DANCETROUPE1.JPG">
-    <img src="DANCETROUPE2.JPG">
-    <img src="DANCETROUPE3.JPG">
-    <img src="DANCETROUPE4.JPG">
-    <img src="DANCETROUPE5.jpg">
-    <img src="DANCETROUPE6.JPG">
-</div>
-
-<img src="DANCETROUPEM.png" class="panelStill">
-<img src="DANCETROUPEQR.jpg" class="panelStill">
-
-<a class="closeBtn" onclick="closePanel('danceTroupePanel')">Close</a>
+<!-- ASCEND PANEL -->
+<div id="ascendPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Ascend</h2>
+    <div class="slideshow-container" id="ascendPanel_slideshow">
+      <div class="slide"><img src="ASCEND_ORG1.JPG" alt=""></div>
+      <div class="slide"><img src="ASCEND_ORG2.JPG" alt=""></div>
+      <div class="slide"><img src="ASCEND_ORG4.JPG" alt=""></div>
+      <div class="slide"><img src="ASCEND_ORG5.JPG" alt=""></div>
+      <div class="slide"><img src="ASCEND_ORG6.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="ASCEND_ORGM.png" alt="">
+    <div class="closeBtn" onclick="closePanel('ascendPanel')">Close</div>
+  </div>
 </div>
 
 <!-- STRINGS PANEL -->
-<div id="stringsPanel" class="panel">
-<h2>Strings Ensemble</h2>
-
-<div class="slideshow">
-    <img src="STRINGS_1.jpg">
-    <img src="STRINGS_2.jpeg">
-    <img src="STRINGS_3.jpeg">
-    <img src="STRINGS_4.jpeg">
-    <img src="STRINGS_5.jpeg">
-    <img src="STRINGS_7.JPG">
-    <img src="STRINGS_8.JPG">
-    <img src="STRINGS_9.JPG">
-    <img src="STRINGS_10.jpg">
-    <img src="STRINGS_11.JPG">
-</div>
-
-<img src="STRINGS_ORG.png" class="panelStill">
-<img src="STRINGS_QR.png" class="panelStill">
-
-<a class="closeBtn" onclick="closePanel('stringsPanel')">Close</a>
-</div>
-
-<!-- ARCHERY PANEL -->
-<div id="archeryPanel" class="panel">
-<h2>Archery</h2>
-
-<div class="slideshow">
-    <img src="ARCHERY1.JPG">
-    <img src="ARCHERY2.JPG">
-    <img src="ARCHERY3.JPG">
-    <img src="ARCHERY4.JPG">
-    <img src="ARCHERY5.JPG">
-</div>
-
-<img src="ARCHERYM.png" class="panelStill">
-
-<a class="closeBtn" onclick="closePanel('archeryPanel')">Close</a>
+<div id="stringsPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Strings Ensemble</h2>
+    <div class="slideshow-container" id="stringsPanel_slideshow">
+      <div class="slide"><img src="STRINGS_1.jpg" alt=""></div>
+      <div class="slide"><img src="STRINGS_2.jpeg" alt=""></div>
+      <div class="slide"><img src="STRINGS_3.jpeg" alt=""></div>
+      <div class="slide"><img src="STRINGS_4.jpeg" alt=""></div>
+      <div class="slide"><img src="STRINGS_5.jpeg" alt=""></div>
+      <div class="slide"><img src="STRINGS_7.JPG" alt=""></div>
+      <div class="slide"><img src="STRINGS_8.JPG" alt=""></div>
+      <div class="slide"><img src="STRINGS_9.JPG" alt=""></div>
+      <div class="slide"><img src="STRINGS_10.jpg" alt=""></div>
+      <div class="slide"><img src="STRINGS_11.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="STRINGS_ORG.png" alt="">
+    <img class="still-image" src="STRINGS_QR.png" alt="">
+    <div class="closeBtn" onclick="closePanel('stringsPanel')">Close</div>
+  </div>
 </div>
 
 <!-- DEBATE PANEL -->
-<div id="debatePanel" class="panel">
-<h2>Debate Society</h2>
-
-<div class="slideshow">
-    <img src="DEBATE_1.JPG">
-    <img src="DEBATE_2.JPG">
-    <img src="DEBATE_3.JPG">
-    <img src="DEBATE_4.JPG">
-    <img src="DEBATE_5.JPG">
+<div id="debatePanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Debate Society</h2>
+    <div class="slideshow-container" id="debatePanel_slideshow">
+      <div class="slide"><img src="DEBATE_1.JPG" alt=""></div>
+      <div class="slide"><img src="DEBATE_2.JPG" alt=""></div>
+      <div class="slide"><img src="DEBATE_3.JPG" alt=""></div>
+      <div class="slide"><img src="DEBATE_4.JPG" alt=""></div>
+      <div class="slide"><img src="DEBATE_5.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="DEBATE_ORG.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('debatePanel')">Close</div>
+  </div>
 </div>
 
-<img src="DEBATE_ORG.jpg" class="panelStill">
-
-<a class="closeBtn" onclick="closePanel('debatePanel')">Close</a>
+<!-- ARCHERY PANEL -->
+<div id="archeryPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Archery</h2>
+    <div class="slideshow-container" id="archeryPanel_slideshow">
+      <div class="slide"><img src="ARCHERY1.JPG" alt=""></div>
+      <div class="slide"><img src="ARCHERY2.JPG" alt=""></div>
+      <div class="slide"><img src="ARCHERY3.JPG" alt=""></div>
+      <div class="slide"><img src="ARCHERY4.JPG" alt=""></div>
+      <div class="slide"><img src="ARCHERY5.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="ARCHERYM.png" alt="">
+    <div class="closeBtn" onclick="closePanel('archeryPanel')">Close</div>
+  </div>
 </div>
 
-<!-- ASCEND PANEL -->
-<div id="ascendPanel" class="panel">
-<h2>ASCEND</h2>
-
-<div class="slideshow">
-    <img src="ASCEND_ORG1.JPG">
-    <img src="ASCEND_ORG2.JPG">
-    <img src="ASCEND_ORG4.JPG">
-    <img src="ASCEND_ORG5.JPG">
-    <img src="ASCEND_ORG6.JPG">
-</div>
-
-<img src="ASCEND_ORGM.png" class="panelStill">
-
-<a class="closeBtn" onclick="closePanel('ascendPanel')">Close</a>
+<!-- CREATIVES PANEL -->
+<div id="creativesPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Dyci Creatives</h2>
+    <div class="slideshow-container" id="creativesPanel_slideshow">
+      <div class="slide"><img src="CREATIVES1.JPG" alt=""></div>
+      <div class="slide"><img src="CREATIVES2.JPG" alt=""></div>
+      <div class="slide"><img src="CREATIVES4.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="CREATIVESM.png" alt="">
+    <img class="still-image" src="CREATIVESQR.PNG" alt="">
+    <div class="closeBtn" onclick="closePanel('creativesPanel')">Close</div>
+  </div>
 </div>
 
 <!-- COACHES PANEL -->
-<div id="coachesPanel" class="panel">
-<h2>Coaches</h2>
-
-<div class="slideshow">
-    <img src="COACHES1.JPG">
-    <img src="COACHES2.JPG">
+<div id="coachesPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Coaches</h2>
+    <div class="slideshow-container" id="coachesPanel_slideshow">
+      <div class="slide"><img src="COACHES1.JPG" alt=""></div>
+      <div class="slide"><img src="COACHES2.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="COACHESM.png" alt="">
+    <img class="still-image" src="COACHESQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('coachesPanel')">Close</div>
+  </div>
 </div>
 
-<img src="COACHESM.png" class="panelStill">
-<img src="COACHESQR.jpg" class="panelStill">
-
-<a class="closeBtn" onclick="closePanel('coachesPanel')">Close</a>
+<!-- DANCE TROUPE PANEL -->
+<div id="danceTroupePanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Dance Troupe</h2>
+    <div class="slideshow-container" id="danceTroupePanel_slideshow">
+      <div class="slide"><img src="DANCETROUPE1.JPG" alt=""></div>
+      <div class="slide"><img src="DANCETROUPE2.JPG" alt=""></div>
+      <div class="slide"><img src="DANCETROUPE3.JPG" alt=""></div>
+      <div class="slide"><img src="DANCETROUPE4.JPG" alt=""></div>
+      <div class="slide"><img src="DANCETROUPE5.jpg" alt=""></div>
+      <div class="slide"><img src="DANCETROUPE6.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="DANCETROUPEM.png" alt="">
+    <img class="still-image" src="DANCETROUPEQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('danceTroupePanel')">Close</div>
+  </div>
 </div>
 
-<!-- ----------------------------------------------------------- -->
-<!-- JAVASCRIPT: PANEL SYSTEM + SLIDESHOW                        -->
-<!-- ----------------------------------------------------------- -->
+<!-- End of Part 1 panels -->
+
+    <!-- Part 2 continues panels -->
+
+<!-- DGITS PANEL -->
+<div id="dgitsPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>DGITS</h2>
+    <div class="slideshow-container" id="dgitsPanel_slideshow">
+      <div class="slide"><img src="DGITS1.jpg" alt=""></div>
+      <div class="slide"><img src="DIGITS2.JPG" alt=""></div>
+      <div class="slide"><img src="DGITS3.JPG" alt=""></div>
+      <div class="slide"><img src="DGITS4.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="DGITSM.png" alt="">
+    <img class="still-image" src="DGITSQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('dgitsPanel')">Close</div>
+  </div>
+</div>
+
+<!-- DAGALAK PANEL -->
+<div id="dagalakPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Dagalak</h2>
+    <div class="slideshow-container" id="dagalakPanel_slideshow">
+      <div class="slide"><img src="DAGALAK1.JPG" alt=""></div>
+      <div class="slide"><img src="DAGALAK2.JPG" alt=""></div>
+      <div class="slide"><img src="DAGALAK3.JPG" alt=""></div>
+      <div class="slide"><img src="DAGALAK4.JPG" alt=""></div>
+      <div class="slide"><img src="DAGALAK5.JPG" alt=""></div>
+      <div class="slide"><img src="DAGALAK6.JPG" alt=""></div>
+      <div class="slide"><img src="DAGALAK7.JPG" alt=""></div>
+      <div class="slide"><img src="DAGALAK8.JPG" alt=""></div>
+      <div class="slide"><img src="DAGALAK9.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="DAGALAKM.png" alt="">
+    <img class="still-image" src="DAGALAKQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('dagalakPanel')">Close</div>
+  </div>
+</div>
+
+<!-- LIGHT PANEL -->
+<div id="lightPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>DYCI Light</h2>
+    <div class="slideshow-container" id="lightPanel_slideshow">
+      <div class="slide"><img src="LIGHT1.JPG" alt=""></div>
+      <div class="slide"><img src="LIGHT2.JPG" alt=""></div>
+      <div class="slide"><img src="LIGHT3.JPG" alt=""></div>
+      <div class="slide"><img src="LIGHT4.JPG" alt=""></div>
+      <div class="slide"><img src="LIGHT5.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="LIGHTM.png" alt="">
+    <img class="still-image" src="LIGHTQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('lightPanel')">Close</div>
+  </div>
+</div>
+
+<!-- NOVELLUS PANEL -->
+<div id="novellusPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Novellus</h2>
+    <div class="slideshow-container" id="novellusPanel_slideshow">
+      <div class="slide"><img src="NOVELLUS3.JPG" alt=""></div>
+      <div class="slide"><img src="NOVELLUS1.JPG" alt=""></div>
+      <div class="slide"><img src="NOVELLUS2.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="NOVELLUSM.png" alt="">
+    <div class="closeBtn" onclick="closePanel('novellusPanel')">Close</div>
+  </div>
+</div>
+
+<!-- PRIMES PANEL -->
+<div id="primesPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Primes</h2>
+    <div class="slideshow-container" id="primesPanel_slideshow">
+      <div class="slide"><img src="PRIMES6.jpg" alt=""></div>
+      <div class="slide"><img src="PRIMES5.JPG" alt=""></div>
+      <div class="slide"><img src="PRIMES4.JPG" alt=""></div>
+      <div class="slide"><img src="PRIMES3.JPG" alt=""></div>
+      <div class="slide"><img src="PRIMES2.JPG" alt=""></div>
+      <div class="slide"><img src="PRIMES1.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="PRIMESM.png" alt="">
+    <div class="closeBtn" onclick="closePanel('primesPanel')">Close</div>
+  </div>
+</div>
+
+<!-- LIVE PANEL -->
+<div id="livePanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Dycian Live</h2>
+    <div class="slideshow-container" id="livePanel_slideshow">
+      <div class="slide"><img src="DYCIANLIVE3.jpg" alt=""></div>
+      <div class="slide"><img src="DYCIANLIVE2.jpg" alt=""></div>
+      <div class="slide"><img src="DYCIANLIVE1.jpg" alt=""></div>
+    </div>
+    <img class="still-image" src="DYCIANLIVEM.png" alt="">
+    <div class="closeBtn" onclick="closePanel('livePanel')">Close</div>
+  </div>
+</div>
+
+<!-- VERBUM DOMINI PANEL -->
+<div id="verbumPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Verbum Domini</h2>
+    <div class="slideshow-container" id="verbumPanel_slideshow">
+      <div class="slide"><img src="VERBUMDOMINI5.JPG" alt=""></div>
+      <div class="slide"><img src="VERBUMDOMINI4.JPG" alt=""></div>
+      <div class="slide"><img src="VERBUMDOMINI3.JPG" alt=""></div>
+      <div class="slide"><img src="VERUBUMDOMINI2.JPG" alt=""></div> <!-- preserved name -->
+      <div class="slide"><img src="VERBUMDOMINI1.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="VERBUMDOMINIM.png" alt="">
+    <img class="still-image" src="VERBUMDOMINIQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('verbumPanel')">Close</div>
+  </div>
+</div>
+
+<!-- UNICUS PANEL -->
+<div id="unicusPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Unicus</h2>
+    <div class="slideshow-container" id="unicusPanel_slideshow">
+      <div class="slide"><img src="UNICUS5.JPG" alt=""></div>
+      <div class="slide"><img src="UNICUS4.JPG" alt=""></div>
+      <div class="slide"><img src="UNICUS3.JPG" alt=""></div>
+      <div class="slide"><img src="UNICUS2.JPG" alt=""></div>
+      <div class="slide"><img src="UNICUS1.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="UNICUSM.png" alt="">
+    <img class="still-image" src="UNICUSQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('unicusPanel')">Close</div>
+  </div>
+</div>
+
+<!-- SPEAKERS SOCIETY PANEL -->
+<div id="speakersPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Speakers Society</h2>
+    <div class="slideshow-container" id="speakersPanel_slideshow">
+      <div class="slide"><img src="SPEAKERSSOCIETY5.JPG" alt=""></div>
+      <div class="slide"><img src="SPEAKERSSOCIETY4.JPG" alt=""></div>
+      <div class="slide"><img src="SPEAKERSSOCIETY3.JPG" alt=""></div>
+      <div class="slide"><img src="SPEAKERSSOCIETY2.JPG" alt=""></div>
+      <div class="slide"><img src="SPEAKERSSOCIETY1.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="SPEAKERSSOCIETYM.png" alt="">
+    <div class="closeBtn" onclick="closePanel('speakersPanel')">Close</div>
+  </div>
+</div>
+
+<!-- TYCOONS PANEL -->
+<div id="tycoonsPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Societal Tycoons</h2>
+    <div class="slideshow-container" id="tycoonsPanel_slideshow">
+      <div class="slide"><img src="SOCIETALTYCOONS4.JPG" alt=""></div>
+      <div class="slide"><img src="SOCIETALTYCOONS1.JPG" alt=""></div>
+      <div class="slide"><img src="SOCIETALTYCOONS2.JPG" alt=""></div>
+      <div class="slide"><img src="SOCIETALTYCOONS3.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="SOCIETALTYCOONSM.png" alt="">
+    <img class="still-image" src="SOCIETALTYCOONSQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('tycoonsPanel')">Close</div>
+  </div>
+</div>
+
+<!-- PEER PANEL -->
+<div id="peerPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Peer Facilitators Circle</h2>
+    <div class="slideshow-container" id="peerPanel_slideshow">
+      <div class="slide"><img src="PEERFACILITATOR4.jpg" alt=""></div>
+      <div class="slide"><img src="PEERFACILITATOR3.jpg" alt=""></div>
+      <div class="slide"><img src="PEERFACILITATOR1.jpg" alt=""></div>
+      <div class="slide"><img src="PEERFACILITATOR2.jpg" alt=""></div>
+    </div>
+    <img class="still-image" src="PEERFACILITATORM.png" alt="">
+    <img class="still-image" src="PEERFACILITATORQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('peerPanel')">Close</div>
+  </div>
+</div>
+
+    <!-- Part 3: remaining panels -->
+
+<!-- USBONG PANEL -->
+<div id="usbongPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Usbong</h2>
+    <div class="slideshow-container" id="usbongPanel_slideshow">
+      <div class="slide"><img src="USBONG3.JPG" alt=""></div>
+      <div class="slide"><img src="USBONG2.jpg" alt=""></div>
+      <div class="slide"><img src="USBONG1.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="USBONGM.png" alt="">
+    <div class="closeBtn" onclick="closePanel('usbongPanel')">Close</div>
+  </div>
+</div>
+
+<!-- TVQA PANEL -->
+<div id="tvqaPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>TVQA</h2>
+    <div class="slideshow-container" id="tvqaPanel_slideshow">
+      <div class="slide"><img src="TVOA4.jpg" alt=""></div>
+      <div class="slide"><img src="TVOA1.JPG" alt=""></div>
+      <div class="slide"><img src="TVOA3.jpg" alt=""></div>
+      <div class="slide"><img src="TVOA2.jpg" alt=""></div>
+    </div>
+    <img class="still-image" src="TVOAM.png" alt="">
+    <div class="closeBtn" onclick="closePanel('tvqaPanel')">Close</div>
+  </div>
+</div>
+
+<!-- THE ANG DYCAN PANEL -->
+<div id="angPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>The Ang Dycian</h2>
+    <div class="slideshow-container" id="angPanel_slideshow">
+      <div class="slide"><img src="THEANGDYCIAN4.JPG" alt=""></div>
+      <div class="slide"><img src="THEANGDYCIAN3.JPG" alt=""></div>
+      <div class="slide"><img src="THEANGDYCIAN2.JPG" alt=""></div>
+      <div class="slide"><img src="THEANGDYCIAN1.jpg" alt=""></div>
+    </div>
+    <img class="still-image" src="THEANGDYCIANM.png" alt="">
+    <img class="still-image" src="THEANGDYCIANQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('angPanel')">Close</div>
+  </div>
+</div>
+
+<!-- TAKEOFF PANEL -->
+<div id="takeoffPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Takeoff</h2>
+    <div class="slideshow-container" id="takeoffPanel_slideshow">
+      <div class="slide"><img src="TAKEOFF2.jpg" alt=""></div>
+      <div class="slide"><img src="TAKEOFF1.jpg" alt=""></div>
+    </div>
+    <img class="still-image" src="TAKEOFFM.png" alt="">
+    <div class="closeBtn" onclick="closePanel('takeoffPanel')">Close</div>
+  </div>
+</div>
+
+<!-- TAEKWONDO PANEL -->
+<div id="taekwondoPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Taekwondo</h2>
+    <div class="slideshow-container" id="taekwondoPanel_slideshow">
+      <div class="slide"><img src="TAEKWONDO4.JPG" alt=""></div>
+      <div class="slide"><img src="TAEKWONDO3.JPG" alt=""></div>
+      <div class="slide"><img src="TAEKWONDO2.JPG" alt=""></div>
+      <div class="slide"><img src="TAEKWONDO1.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="TAEKWONDOM.png" alt="">
+    <div class="closeBtn" onclick="closePanel('taekwondoPanel')">Close</div>
+  </div>
+</div>
+
+<!-- SYMPHONIA PANEL -->
+<div id="symphoniaPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Symphonia</h2>
+    <div class="slideshow-container" id="symphoniaPanel_slideshow">
+      <div class="slide"><img src="SYMPHONIA3.JPG" alt=""></div>
+      <div class="slide"><img src="SYMPHONIA2.JPG" alt=""></div>
+      <div class="slide"><img src="SYMPHONIA1.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="SYMPHONIAM.png" alt="">
+    <img class="still-image" src="SYMPHONIAQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('symphoniaPanel')">Close</div>
+  </div>
+</div>
+
+<!-- SIBOL PANEL -->
+<div id="sibolPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Sibol</h2>
+    <div class="slideshow-container" id="sibolPanel_slideshow">
+      <div class="slide"><img src="SIBOL5.JPG" alt=""></div>
+      <div class="slide"><img src="SIBOL4.JPG" alt=""></div>
+      <div class="slide"><img src="SIBOL3.JPG" alt=""></div>
+      <div class="slide"><img src="SIBOL2.JPG" alt=""></div>
+      <div class="slide"><img src="SIBOL1.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="SIBOLM.png" alt="">
+    <img class="still-image" src="SIBOLQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('sibolPanel')">Close</div>
+  </div>
+</div>
+
+<!-- SEQUENTIA PANEL -->
+<div id="sequentiaPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Sequentia Studios</h2>
+    <div class="slideshow-container" id="sequentiaPanel_slideshow">
+      <div class="slide"><img src="SEQUENTIA4.jpg" alt=""></div>
+      <div class="slide"><img src="SEQUENTIA3.jpg" alt=""></div>
+      <div class="slide"><img src="SEQUENTIA2.jpg" alt=""></div>
+      <div class="slide"><img src="SEQUENTIA1.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="SEQUENTIAM.png" alt="">
+    <img class="still-image" src="SEQUENTIAQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('sequentiaPanel')">Close</div>
+  </div>
+</div>
+
+<!-- SCSL PANEL -->
+<div id="scslPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>SCSL</h2>
+    <div class="slideshow-container" id="scslPanel_slideshow">
+      <div class="slide"><img src="SCSL4.JPG" alt=""></div>
+      <div class="slide"><img src="SCSL3.JPG" alt=""></div>
+      <div class="slide"><img src="SCSL2.JPG" alt=""></div>
+      <div class="slide"><img src="SCSL1.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="SCSLM.png" alt="">
+    <img class="still-image" src="SCSLQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('scslPanel')">Close</div>
+  </div>
+</div>
+
+<!-- ALTAR PANEL -->
+<div id="altarPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Ministry of Altar Services</h2>
+    <div class="slideshow-container" id="altarPanel_slideshow">
+      <div class="slide"><img src="ALTAR4.JPG" alt=""></div>
+      <div class="slide"><img src="ALTAR3.JPG" alt=""></div>
+      <div class="slide"><img src="ALTAR2.JPG" alt=""></div>
+      <div class="slide"><img src="ALTAR1.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="ALTARM.png" alt="">
+    <img class="still-image" src="ALTARQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('altarPanel')">Close</div>
+  </div>
+</div>
+
+<!-- LCHOIR PANEL -->
+<div id="liturgicalPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Liturgical Choir</h2>
+    <div class="slideshow-container" id="liturgicalPanel_slideshow">
+      <div class="slide"><img src="LCHOIR5.JPG" alt=""></div>
+      <div class="slide"><img src="LCHOIR4.jpg" alt=""></div>
+      <div class="slide"><img src="LCHOIR3.JPG" alt=""></div>
+      <div class="slide"><img src="LCHOIR2.JPG" alt=""></div>
+      <div class="slide"><img src="LCHOIR1.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="LCHOIRM.png" alt="">
+    <img class="still-image" src="LCHOIRQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('liturgicalPanel')">Close</div>
+  </div>
+</div>
+
+<!-- HIMIG PANEL -->
+<div id="himigPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Himig Dycian</h2>
+    <div class="slideshow-container" id="himigPanel_slideshow">
+      <div class="slide"><img src="HIMIGDYCIAN10.JPG" alt=""></div>
+      <div class="slide"><img src="HIMIGDYCIAN9.JPG" alt=""></div>
+      <div class="slide"><img src="HIMIGDYCIAN8.JPG" alt=""></div>
+      <div class="slide"><img src="HIMIGDYCIAN7.JPG" alt=""></div>
+      <div class="slide"><img src="HIMIGDYCIAN6.JPG" alt=""></div>
+      <div class="slide"><img src="HIMIGDYCIAN5.jpg" alt=""></div>
+      <div class="slide"><img src="HIMIGDYCIAN4.JPG" alt=""></div>
+      <div class="slide"><img src="HIMIGDYCIAN3.JPG" alt=""></div>
+      <div class="slide"><img src="HIMIGDYCIAN2.JPG" alt=""></div>
+      <div class="slide"><img src="HIMIGDYCIAN1.JPG" alt=""></div>
+    </div>
+    <img class="still-image" src="HIMIGDYCIANM.png" alt="">
+    <img class="still-image" src="HIMIGDYCIANQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('himigPanel')">Close</div>
+  </div>
+</div>
+
+<!-- GREEN PANEL -->
+<div id="greenPanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Green Group</h2>
+    <div class="slideshow-container" id="greenPanel_slideshow">
+      <div class="slide"><img src="GREENGROUP5.JPG" alt=""></div>
+      <div class="slide"><img src="GREENGROUP4.JPG" alt=""></div>
+      <div class="slide"><img src="GREENGROUP3.JPG" alt=""></div>
+      <div class="slide"><img src="GREENGROUP2.JPG" alt=""></div>
+      <div class="slide"><img src="GREENGROUP1.jpg" alt=""></div>
+    </div>
+    <img class="still-image" src="GREENGROUPM.png" alt="">
+    <img class="still-image" src="GREENGROUPQR.jpg" alt="">
+    <div class="closeBtn" onclick="closePanel('greenPanel')">Close</div>
+  </div>
+</div>
+
+<!-- GLOBALIVE PANEL -->
+<div id="globalivePanel" class="panel" aria-hidden="true">
+  <div class="inner">
+    <h2>Globalive</h2>
+    <div class="slideshow-container" id="globalivePanel_slideshow">
+      <div class="slide"><img src="GLOBALIVE3.jpg" alt=""></div>
+      <div class="slide"><img src="GLOBALIVE2.jpg" alt=""></div>
+      <div class="slide"><img src="GLOBALIVE1.jpg" alt=""></div>
+    </div>
+    <img class="still-image" src="GLOBALIVEM.png" alt="">
+    <div class="closeBtn" onclick="closePanel('globalivePanel')">Close</div>
+  </div>
+</div>
+
+<!-- End of all panels -->
+
+<!-- JAVASCRIPT: slideshow engine and panel open/close -->
 <script>
-function openPanel(id) {
-    document.getElementById(id).style.bottom = "0";
-    startSlideshow(id);
+/* helpers */
+function closeAllPanelsExcept(exceptId){
+  document.querySelectorAll('.panel').forEach(p=>{
+    if(p.id !== exceptId){
+      p.style.bottom='-100vh';
+      stopSlideshow(p.id);
+    }
+  });
 }
 
-function closePanel(id) {
-    document.getElementById(id).style.bottom = "-100%";
-    stopSlideshow(id);
+function openPanel(id){
+  closeAllPanelsExcept(id);
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.style.bottom='0';
+  startSlideshow(id);
 }
 
-let timers = {};
-
-function startSlideshow(panelId) {
-    const panel = document.getElementById(panelId);
-    const slides = panel.querySelectorAll(".slideshow img");
-    if (slides.length === 0) return;
-
-    let index = 0;
-
-    slides.forEach(s => s.style.display = "none");
-    slides[0].style.display = "block";
-
-    timers[panelId] = setInterval(() => {
-        slides[index].style.display = "none";
-        index = (index + 1) % slides.length;
-        slides[index].style.display = "block";
-    }, 3500);
+function closePanel(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.style.bottom='-100vh';
+  stopSlideshow(id);
 }
 
-function stopSlideshow(panelId) {
-    clearInterval(timers[panelId]);
+/* slideshow management */
+const slideTimers = {}; // panelId -> timer id
+const slideIndexes = {}; // panelId -> current index
+
+function startSlideshow(panelId){
+  const panel = document.getElementById(panelId);
+  if(!panel) return;
+  const container = panel.querySelector('.slideshow-container');
+  if(!container) return;
+  const slides = Array.from(container.querySelectorAll('.slide'));
+  if(!slides.length) return;
+
+  // ensure slides are reset
+  slides.forEach(s=> s.classList.remove('active'));
+  slideIndexes[panelId] = 0;
+  slides[0].classList.add('active');
+
+  // clear existing timer
+  if(slideTimers[panelId]) clearInterval(slideTimers[panelId]);
+
+  slideTimers[panelId] = setInterval(()=>{
+    const idx = slideIndexes[panelId];
+    slides[idx].classList.remove('active');
+    const next = (idx+1) % slides.length;
+    slides[next].classList.add('active');
+    slideIndexes[panelId] = next;
+  }, parseInt(getComputedStyle(document.documentElement).getPropertyValue('--slide-interval')) || 5000);
 }
+
+function stopSlideshow(panelId){
+  if(slideTimers[panelId]){
+    clearInterval(slideTimers[panelId]);
+    slideTimers[panelId] = null;
+  }
+}
+
+/* Pause when tab hidden */
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden){
+    for(const k in slideTimers){
+      if(slideTimers[k]) clearInterval(slideTimers[k]);
+      slideTimers[k] = null;
+    }
+  } else {
+    // restart any visible panel slideshow
+    document.querySelectorAll('.panel').forEach(p=>{
+      if(p.style.bottom === '0px' || p.style.bottom === '0') startSlideshow(p.id);
+    });
+  }
+});
+
+/* close panels with Escape */
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape'){
+    document.querySelectorAll('.panel').forEach(p=>{
+      p.style.bottom='-100vh';
+      stopSlideshow(p.id);
+    });
+  }
+});
 </script>
 
 </body>
-</html>
+    </html>
