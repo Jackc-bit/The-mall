@@ -9,13 +9,26 @@
     body {
         margin: 0;
         font-family: Arial;
-        background: #f2f2f2;
+        background: url("background.jpg") no-repeat center center fixed;
+        background-size: cover;
         text-align: center;
         padding: 20px;
     }
+
     h1 {
         margin-top: 20px;
+        color: white;
+        text-shadow: 0 0 5px rgba(0,0,0,0.5);
     }
+
+    .map-image {
+        width: 100%;
+        max-width: 900px;
+        margin: 20px auto;
+        border-radius: 12px;
+        box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    }
+
     a {
         display: block;
         background: white;
@@ -27,6 +40,11 @@
         color: black;
         box-shadow: 0 0 8px rgba(0,0,0,0.15);
     }
+
+    .back-btn {
+        background: #0057d8;
+        color: white;
+    }
 </style>
 </head>
 
@@ -34,6 +52,11 @@
 
 <h1>Campus Map</h1>
 
+<!-- Vicinity map images -->
+<img src="VICINITY_MAP.jpg" alt="Vicinity Map 1" class="map-image">
+<img src="VICINITY_MAP2.jpg" alt="Vicinity Map 2" class="map-image">
+
+<!-- Buttons below the images -->
 <a href="chmt-building.jpg">CHMT BUILDING</a>
 <a href="dmdy.jpg">DMDY</a>
 <a href="facilities-faculties.html">Facilities and Faculties</a>
@@ -43,7 +66,7 @@
 <a href="raise.jpg">RAISE</a>
 <a href="sofia.html">SOFIA</a>
 
-<a href="index.html" style="background:#0057d8;color:white;">⬅ Back</a>
+<a href="index.html" class="back-btn">⬅ BACK</a>
 
 </body>
 </html>
