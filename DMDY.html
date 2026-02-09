@@ -26,6 +26,27 @@
         margin-top: 20px;
     }
 
+    .lab-btn {
+        display: inline-block;
+        background: #28a745;
+        color: white;
+        padding: 15px 30px;
+        margin-top: 25px;
+        font-size: 20px;
+        border-radius: 10px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    video {
+        width: 100%;
+        max-width: 900px;
+        margin-top: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 12px rgba(0,0,0,0.3);
+        display: none;
+    }
+
     .back-btn {
         display: inline-block;
         background: #0057d8;
@@ -37,6 +58,14 @@
         text-decoration: none;
     }
 </style>
+
+<script>
+function playLabVideo() {
+    const video = document.getElementById("primeLabVideo");
+    video.style.display = "block";
+    video.play();
+}
+</script>
 </head>
 
 <body>
@@ -44,6 +73,17 @@
 <h1>DMDY</h1>
 
 <img src="dmdy.png" alt="DMDY Map">
+
+<!-- Prime / Creatives Lab Button -->
+<div class="lab-btn" onclick="playLabVideo()">
+🎬 Prime / Creatives Laboratory
+</div>
+
+<!-- Video Player -->
+<video id="primeLabVideo" controls>
+    <source src="Prime_Lab.mov" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
 
 <a href="map.html" class="back-btn">⬅ BACK</a>
 
