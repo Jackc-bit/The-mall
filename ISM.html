@@ -44,7 +44,7 @@
         background: #0057d8;
         color: white;
         padding: 18px;
-        margin: 30px auto;
+        margin: 20px auto;
         font-size: 20px;
         font-weight: bold;
         border-radius: 12px;
@@ -53,6 +53,8 @@
         max-width: 300px;
         box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         transition: transform 0.15s ease, box-shadow 0.15s ease;
+        border: none;
+        cursor: pointer;
     }
 
     .btn:hover {
@@ -63,6 +65,18 @@
     .btn:active {
         transform: translateY(1px);
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    #videoContainer {
+        display: none;
+        margin-top: 20px;
+    }
+
+    video {
+        width: 90%;
+        max-width: 800px;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
     }
 </style>
 </head>
@@ -83,8 +97,25 @@
     </p>
 </div>
 
+<!-- ISM & FMH Button -->
+<button class="btn" onclick="showVideo()">▶ ISM & FMH</button>
+
+<!-- Video Container -->
+<div id="videoContainer">
+    <video controls autoplay>
+        <source src="ISM_402_FMH.mov" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
 <!-- Back Button -->
 <a href="map.html" class="btn">⬅ BACK TO MAP</a>
+
+<script>
+function showVideo() {
+    document.getElementById("videoContainer").style.display = "block";
+}
+</script>
 
 </body>
 </html>
