@@ -23,7 +23,7 @@
         border-radius: 10px;
         box-shadow: 0 0 8px rgba(0,0,0,0.2);
     }
-    a {
+    a, button {
         display: inline-block;
         background:#0057d8;
         color:white;
@@ -32,6 +32,16 @@
         font-size: 18px;
         border-radius: 10px;
         text-decoration: none;
+        border: none;
+        cursor: pointer;
+    }
+    video {
+        width: 100%;
+        max-width: 800px;
+        margin-top: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.2);
+        display: none;
     }
 </style>
 </head>
@@ -43,7 +53,27 @@
 <img src="sofia-1st-floor.jpg" alt="Sofia 1st Floor Map">
 
 <br>
+
+<button onclick="playVideo()">Himig Dycian</button>
+
+<br>
+
+<video id="himigVideo" controls>
+    <source src="Himig_Dycian.mov" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<br>
+
 <a href="sofia.html">⬅ Back</a>
+
+<script>
+function playVideo() {
+    var video = document.getElementById("himigVideo");
+    video.style.display = "block";
+    video.play();
+}
+</script>
 
 </body>
 </html>
