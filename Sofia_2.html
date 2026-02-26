@@ -16,22 +16,25 @@
     h1 {
         margin-top: 20px;
     }
-    img {
+    .btn {
+        display: inline-block;
+        background:#0057d8;
+        color:white;
+        padding: 15px 30px;
+        margin-top: 20px;
+        font-size: 18px;
+        border-radius: 10px;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+    }
+    video {
         width: 100%;
         max-width: 800px;
         margin-top: 20px;
         border-radius: 10px;
         box-shadow: 0 0 8px rgba(0,0,0,0.2);
-    }
-    a {
-        display: inline-block;
-        background:#0057d8;
-        color:white;
-        padding: 15px 30px;
-        margin-top: 30px;
-        font-size: 18px;
-        border-radius: 10px;
-        text-decoration: none;
+        display: none;
     }
 </style>
 </head>
@@ -40,10 +43,26 @@
 
 <h1>Sofia Building - 2nd Floor</h1>
 
-<img src="sofia-2nd-floor.jpg" alt="Sofia 2nd Floor Map">
+<button class="btn" onclick="playVideo()">Spark Lab</button>
 
 <br>
-<a href="sofia.html">⬅ Back</a>
+
+<video id="sparkVideo" controls>
+    <source src="SparkLab.mov" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<br>
+
+<a href="sofia.html" class="btn">⬅ Back</a>
+
+<script>
+function playVideo() {
+    var video = document.getElementById("sparkVideo");
+    video.style.display = "block";
+    video.play();
+}
+</script>
 
 </body>
 </html>
