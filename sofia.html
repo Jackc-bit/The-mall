@@ -31,6 +31,13 @@
         background:#0057d8;
         color:white;
         cursor: pointer;
+        border: none;
+        width: 100%;
+        padding: 20px;
+        margin-top: 15px;
+        font-size: 24px;
+        border-radius: 10px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.15);
     }
 </style>
 </head>
@@ -42,7 +49,8 @@
 <a href="Sofia_1.html">1st Floor</a>
 <a href="Sofia_2.html">2nd Floor</a>
 
-<a class="back-btn" onclick="history.back()">⬅ Back</a>
+<button class="back-btn" onclick="goBack()">⬅ Back</button>
 
-</body>
-</html>
+<script>
+function goBack() {
+    if (history.length
