@@ -21,7 +21,7 @@
         background:#0057d8;
         color:white;
         padding: 15px 30px;
-        margin-top: 20px;
+        margin: 10px;
         font-size: 18px;
         border-radius: 10px;
         text-decoration: none;
@@ -43,7 +43,8 @@
 
 <h1>Sofia Building - 2nd Floor</h1>
 
-<button class="btn" onclick="playVideo()">Spark Lab</button>
+<button class="btn" onclick="playSpark()">Spark Lab</button>
+<button class="btn" onclick="playMissions()">Missions Office</button>
 
 <br>
 
@@ -52,15 +53,36 @@
     Your browser does not support the video tag.
 </video>
 
+<video id="missionsVideo" controls>
+    <source src="MISSIONS_Office.mov" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
 <br>
 
 <a href="sofia.html" class="btn">⬅ Back</a>
 
 <script>
-function playVideo() {
-    var video = document.getElementById("sparkVideo");
-    video.style.display = "block";
-    video.play();
+function playSpark() {
+    var spark = document.getElementById("sparkVideo");
+    var missions = document.getElementById("missionsVideo");
+
+    missions.pause();
+    missions.style.display = "none";
+
+    spark.style.display = "block";
+    spark.play();
+}
+
+function playMissions() {
+    var spark = document.getElementById("sparkVideo");
+    var missions = document.getElementById("missionsVideo");
+
+    spark.pause();
+    spark.style.display = "none";
+
+    missions.style.display = "block";
+    missions.play();
 }
 </script>
 
