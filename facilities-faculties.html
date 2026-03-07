@@ -52,6 +52,13 @@
         box-shadow: 0 0 12px rgba(0,0,0,0.4);
     }
 </style>
+    <script>
+window.onload = function() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {});
+    }
+};
+    </script>
 </head>
 
 <body>
