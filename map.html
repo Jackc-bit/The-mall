@@ -62,6 +62,25 @@
         color: white;
     }
 </style>
+
+<script>
+function enterFullscreen() {
+    if (!document.fullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } 
+        else if (document.documentElement.webkitRequestFullscreen) {
+            document.documentElement.webkitRequestFullscreen();
+        } 
+        else if (document.documentElement.msRequestFullscreen) {
+            document.documentElement.msRequestFullscreen();
+        }
+    }
+}
+
+window.onload = enterFullscreen;
+</script>
+
 </head>
 
 <body>
