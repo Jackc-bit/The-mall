@@ -10,6 +10,13 @@
   button { margin-top:30px; font-size:26px; padding:20px; border:none; background:white;
            border-radius:14px; box-shadow:0 0 10px rgba(0,0,0,0.15); }
 </style>
+  <script>
+window.onload = function() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {});
+    }
+};
+  </script>
 </head>
 <body>
 
