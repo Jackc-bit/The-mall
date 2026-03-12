@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start Page</title>
 
 <style>
 body {
@@ -19,19 +21,24 @@ body {
     position: absolute;
     left: 50%;
     top: 55%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     width: 550px;
     height: auto;
     cursor: pointer;
 }
 </style>
 
-
 </head>
 
 <body>
 
 <img src="Start.png" class="start-button-img" onclick="startSite()">
+
+<script>
+function startSite() {
+    window.location.href = "map.html";
+}
+</script>
 
 </body>
 </html>
