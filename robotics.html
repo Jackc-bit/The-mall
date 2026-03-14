@@ -2,24 +2,64 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DYCI Robotics</title>
+
 <style>
-  body { margin:0; font-family:Arial; background:#f2f2f2; }
-  header { background:#0057d8; color:white; padding:20px; text-align:center; font-size:30px; }
-  .content { padding:20px; font-size:24px; }
-  button { margin-top:30px; font-size:26px; padding:20px; border:none; background:white;
-           border-radius:14px; box-shadow:0 0 10px rgba(0,0,0,0.15); }
+body{
+    margin:0;
+    font-family:Arial;
+    padding:20px;
+    overflow-x:hidden;
+
+    background:url("Background.png") no-repeat center center fixed;
+    background-size:cover;
+    min-height:100vh;
+
+    text-align:center;
+}
+
+h1{
+    color:white;
+    text-shadow:2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Image layout */
+.imageColumn{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+}
+
+.imageColumn img{
+    width:100%;
+    max-width:700px;
+}
+
+.backBtn{
+    background:#0057d8;
+    color:white;
+    padding:20px;
+    font-size:22px;
+    text-decoration:none;
+    display:block;
+    border-radius:10px;
+    margin:30px auto;
+    max-width:500px;
+}
 </style>
 </head>
+
 <body>
 
-<header>Robotics</header>
+<h1>DYCI Robotics</h1>
 
-<div class="content">
-  Information Coming Soon
-  <br><br>
-  <button onclick="location.href='about.html'">← Back</button>
+<div class="imageColumn">
+<img src="Robotics.png">
 </div>
+
+<a href="about-menu.html" class="backBtn">⬅ Back</a>
 
 </body>
 </html>
