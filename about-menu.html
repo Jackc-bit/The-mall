@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About DYCI – Slide-Up Panels</title>
+<title>About DYCI</title>
 
 <style>
 body {
@@ -38,33 +38,6 @@ h1 {
     filter: brightness(85%);
 }
 
-.panel {
-    position: fixed;
-    bottom: -100vh;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(255,255,255,0.97);
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.35);
-    border-radius: 25px 25px 0 0;
-    box-sizing: border-box;
-    padding: 30px;
-    overflow-y: auto;
-    text-align: center;
-    transition: bottom 0.45s ease;
-}
-
-.closeBtn {
-    background: #0057d8;
-    color: white;
-    padding: 15px 20px;
-    font-size: 22px;
-    border-radius: 10px;
-    margin-top: 25px;
-    display: inline-block;
-    text-decoration: none;
-}
-
 .backBtn {
     background: #0057d8;
     color: white;
@@ -79,14 +52,17 @@ h1 {
 }
 </style>
 </head>
+
 <body>
 
 <h1>About DYCI</h1>
 
 <!-- Robotics -->
-<img src="Robotics.png" class="imgBtn" onclick="openPanel('roboticsPanel')">
+<a href="Robotics.html">
+<img src="Robotics.png" class="imgBtn">
+</a>
 
-<!-- History (NOW GOES TO NEW PAGE) -->
+<!-- History -->
 <a href="History.html">
 <img src="History.png" class="imgBtn">
 </a>
@@ -96,43 +72,8 @@ h1 {
 <img src="Organizations.png" class="imgBtn">
 </a>
 
-<!-- Back button -->
+<!-- Back -->
 <a href="index.html" class="backBtn">⬅ Back</a>
-
-<!-- ROBOTICS PANEL -->
-<div class="panel" id="roboticsPanel">
-<div>
-<h2>Robotics</h2>
-<p>Information about Robotics goes here.</p>
-<a class="closeBtn" onclick="closePanel('roboticsPanel')">Close</a>
-</div>
-</div>
-
-<script>
-function openPanel(id){
-document.getElementById(id).style.bottom="0";
-}
-
-function closePanel(id){
-document.getElementById(id).style.bottom="-100vh";
-}
-
-let startY=0;
-
-document.addEventListener("touchstart",e=>{
-startY=e.touches[0].clientY;
-});
-
-document.addEventListener("touchend",e=>{
-let diff=e.changedTouches[0].clientY-startY;
-
-if(diff>80){
-document.querySelectorAll(".panel").forEach(p=>{
-p.style.bottom="-100vh";
-});
-}
-});
-</script>
 
 </body>
 </html>
