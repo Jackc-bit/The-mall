@@ -29,37 +29,22 @@
         box-shadow: 0 0 12px rgba(0,0,0,0.4);
     }
 
-    /* BUTTON STYLE */
-    .btn {
+    /* PNG BUTTON STYLE */
+    .btn-img {
         display: block;
-        background: white;
-        padding: 18px;
-        margin: 15px auto;
-        font-size: 22px;
-        font-weight: bold;
-        border-radius: 12px;
-        text-decoration: none;
-        color: black;
         width: 90%;
         max-width: 400px;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        margin: 15px auto;
         cursor: pointer;
+        transition: transform 0.15s ease;
     }
 
-    .btn:hover {
+    .btn-img:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 18px rgba(0,0,0,0.25);
     }
 
-    .btn:active {
+    .btn-img:active {
         transform: translateY(1px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    .back-btn {
-        background: #0057d8;
-        color: white;
     }
 </style>
 
@@ -91,18 +76,18 @@ window.onload = enterFullscreen;
 <img src="VICINITY_MAP.jpg" alt="Vicinity Map 1" class="map-image">
 <img src="VICINITY_MAP2.jpg" alt="Vicinity Map 2" class="map-image">
 
-<!-- BUILDING BUTTONS -->
-<a href="CHMT.html" class="btn">CHMT BUILDING</a>
-<a href="DMDY.html" class="btn">DMDY</a>
-<a href="facilities-faculties.html" class="btn">Facilities and Faculties</a>
-<a href="ISM.html" class="btn">ISM</a>
-<a href="mar.jpg" class="btn">MAR</a>
-<a href="mcl.html" class="btn">MCL</a>
-<a href="RAISE.html" class="btn">RAISE</a>
-<a href="sofia.html" class="btn">SOFIA</a>
+<!-- BUILDING BUTTON PNGs -->
+<a href="CHMT.html"><img src="CHMT_BU.png" class="btn-img"></a>
+<a href="DMDY.html"><img src="DMDY_BU.png" class="btn-img"></a>
+<a href="facilities-faculties.html"><img src="FACI_BU.png" class="btn-img"></a>
+<a href="ISM.html"><img src="ISM_BU.png" class="btn-img"></a>
+<a href="mar.jpg"><img src="MAR_BU.png" class="btn-img"></a>
+<a href="mcl.html"><img src="MCL_BU.png" class="btn-img"></a>
+<a href="RAISE.html"><img src="RAISE_BU.png" class="btn-img"></a>
+<a href="sofia.html"><img src="SOFIA_BU.png" class="btn-img"></a>
 
 <!-- BACK BUTTON -->
-<a href="index.html" class="btn back-btn">⬅ BACK</a>
+<a href="index.html"><img src="BACK.png" class="btn-img"></a>
 
 </body>
 </html>
