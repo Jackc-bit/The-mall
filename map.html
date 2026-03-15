@@ -46,6 +46,31 @@
     .btn-img:active {
         transform: translateY(1px);
     }
+
+    /* CUSTOM BACK BUTTON */
+    .back-btn {
+        display: block;
+        width: 200px;
+        margin: 30px auto;
+        padding: 12px;
+        font-size: 18px;
+        font-weight: bold;
+        background: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.45);
+    }
+
+    .back-btn:active {
+        transform: translateY(1px);
+    }
 </style>
 
 <script>
@@ -61,6 +86,10 @@ function enterFullscreen() {
             document.documentElement.msRequestFullscreen();
         }
     }
+}
+
+function goBack() {
+    window.history.back();
 }
 
 window.onload = enterFullscreen;
@@ -86,8 +115,8 @@ window.onload = enterFullscreen;
 <a href="RAISE.html"><img src="RAISE_BU.png" class="btn-img"></a>
 <a href="sofia.html"><img src="Sofia_BU.jpeg" class="btn-img"></a>
 
-<!-- BACK BUTTON -->
-<a href="index.html"><img src="BACK.png" class="btn-img"></a>
+<!-- CUSTOM BACK BUTTON -->
+<button class="back-btn" onclick="goBack()">Back</button>
 
 </body>
 </html>
