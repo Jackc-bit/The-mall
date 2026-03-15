@@ -1,122 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campus Map</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kiosk Interface</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: url("Background.png") no-repeat center center fixed;
-        background-size: cover;
-        text-align: center;
-        padding: 20px;
-    }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url("Background.png") no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    user-select: none;
+    overflow: hidden;
+}
 
-    h1 {
-        margin-top: 20px;
-        color: white;
-        text-shadow: 0 0 5px rgba(0,0,0,0.6);
-    }
+.buttons {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
 
-    .map-image {
-        width: 100%;
-        max-width: 900px;
-        margin: 20px auto;
-        border-radius: 12px;
-        box-shadow: 0 0 12px rgba(0,0,0,0.4);
-    }
+.img-button {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 14px;
+    transition: 0.15s;
+}
 
-    /* PNG BUTTON STYLE */
-    .btn-img {
-        display: block;
-        width: 90%;
-        max-width: 400px;
-        margin: 15px auto;
-        cursor: pointer;
-        transition: transform 0.15s ease;
-    }
+.img-button:active {
+    transform: scale(0.97);
+    filter: brightness(85%);
+}
 
-    .btn-img:hover {
-        transform: translateY(-2px);
-    }
-
-    .btn-img:active {
-        transform: translateY(1px);
-    }
-
-    /* CUSTOM BACK BUTTON */
-    .back-btn {
-        display: block;
-        width: 200px;
-        margin: 30px auto;
-        padding: 12px;
-        font-size: 18px;
-        font-weight: bold;
-        background: white;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .back-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 14px rgba(0,0,0,0.45);
-    }
-
-    .back-btn:active {
-        transform: translateY(1px);
-    }
+a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
 </style>
-
-<script>
-function enterFullscreen() {
-    if (!document.fullscreenElement) {
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
-        } 
-        else if (document.documentElement.webkitRequestFullscreen) {
-            document.documentElement.webkitRequestFullscreen();
-        } 
-        else if (document.documentElement.msRequestFullscreen) {
-            document.documentElement.msRequestFullscreen();
-        }
-    }
-}
-
-function goBack() {
-    window.history.back();
-}
-
-window.onload = enterFullscreen;
-</script>
-
 </head>
 
 <body>
 
-<h1>Campus Map</h1>
+<div class="buttons">
 
-<!-- Vicinity map images -->
-<img src="VICINITY_MAP.jpg" alt="Vicinity Map 1" class="map-image">
-<img src="VICINITY_MAP2.jpg" alt="Vicinity Map 2" class="map-image">
+<a href="map.html">
+<img src="Campus_Map.png" class="img-button">
+</a>
 
-<!-- BUILDING BUTTON PNGs -->
-<a href="CHMT.html"><img src="CHMT_BU.png" class="btn-img"></a>
-<a href="DMDY.html"><img src="DMDY_BU.png" class="btn-img"></a>
-<a href="facilities-faculties.html"><img src="FACI_BU.png" class="btn-img"></a>
-<a href="ISM.html"><img src="ISM_BU.png" class="btn-img"></a>
-<a href="mar.jpg"><img src="MAR_BU.png" class="btn-img"></a>
-<a href="mcl.html"><img src="MCL_BU.png" class="btn-img"></a>
-<a href="RAISE.html"><img src="RAISE_BU.png" class="btn-img"></a>
-<a href="sofia.html"><img src="Sofia_BU.jpeg" class="btn-img"></a>
+<a href="staff.html">
+<img src="Faculty_Directory.png" class="img-button">
+</a>
 
-<!-- CUSTOM BACK BUTTON -->
-<button class="back-btn" onclick="goBack()">Back</button>
+<a href="documents.html">
+<img src="Documents_Processing.png" class="img-button">
+</a>
+
+<a href="about-menu.html">
+<img src="About_Dyci.png" class="img-button">
+</a>
+
+</div>
 
 </body>
 </html>
