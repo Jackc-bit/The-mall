@@ -6,47 +6,61 @@
 <title>Sofia Building</title>
 
 <style>
-body {
-    margin: 0;
+
+body{
+    margin:0;
     font-family: Arial;
-    text-align: center;
-    padding: 20px;
-    background: url("Background.png") no-repeat center center fixed;
-    background-size: cover;
+    text-align:center;
+    padding:20px;
+
+    /* Background same as other page */
+    background:url("Background.png") no-repeat center center fixed;
+    background-size:cover;
 }
 
-h1 {
-    margin-top: 20px;
-    color: white;
+h1{
+    margin-top:20px;
+    color:white;
 }
 
-/* Image buttons */
+/* Floor image buttons */
+
 .floor-btn img{
-    width: 90%;
-    max-width: 500px;
-    margin: 15px 0;
-    cursor: pointer;
-    transition: transform 0.15s ease;
+    width:90%;
+    max-width:500px;
+    margin:15px 0;
+    cursor:pointer;
+    transition:transform 0.15s ease;
 }
 
 .floor-btn img:hover{
-    transform: scale(1.03);
+    transform:scale(1.03);
 }
 
 /* Back button */
-.back-btn {
+
+.back-btn{
     background:#0057d8;
     color:white;
-    cursor: pointer;
-    border: none;
-    width: 90%;
-    max-width: 500px;
-    padding: 20px;
-    margin-top: 15px;
-    font-size: 24px;
-    border-radius: 10px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.15);
+    cursor:pointer;
+    border:none;
+
+    width:90%;
+    max-width:500px;
+
+    padding:20px;
+    margin-top:15px;
+
+    font-size:24px;
+
+    border-radius:10px;
+    box-shadow:0 0 8px rgba(0,0,0,0.15);
 }
+
+.back-btn:hover{
+    background:#0042a8;
+}
+
 </style>
 </head>
 
@@ -54,21 +68,20 @@ h1 {
 
 <h1>Sofia Building</h1>
 
+<!-- 1st Floor -->
 <a href="Sofia_1.html" class="floor-btn">
-    <img src="Sofia_BU1.png" alt="Sofia 1st Floor">
+<img src="Sofia_BU1.png" alt="Sofia 1st Floor">
 </a>
 
+<!-- 2nd Floor -->
 <a href="Sofia_2.html" class="floor-btn">
-    <img src="Sofia_BU2.png" alt="Sofia 2nd Floor">
+<img src="Sofia_BU2.png" alt="Sofia 2nd Floor">
 </a>
 
-<button class="back-btn" onclick="goBack()">⬅ Back</button>
-
-<script>
-function goBack() {
-    window.history.back();
-}
-</script>
+<!-- Back Button -->
+<a href="map.html">
+<button class="back-btn">⬅ Back</button>
+</a>
 
 </body>
 </html>
