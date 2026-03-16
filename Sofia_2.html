@@ -6,36 +6,45 @@
 <title>Sofia Building - 2nd Floor</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial;
-        background: #f2f2f2;
-        text-align: center;
-        padding: 20px;
-    }
-    h1 {
-        margin-top: 20px;
-    }
-    .btn {
-        display: inline-block;
-        background:#0057d8;
-        color:white;
-        padding: 15px 30px;
-        margin: 10px;
-        font-size: 18px;
-        border-radius: 10px;
-        text-decoration: none;
-        cursor: pointer;
-        border: none;
-    }
-    video {
-        width: 100%;
-        max-width: 800px;
-        margin-top: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 8px rgba(0,0,0,0.2);
-        display: none;
-    }
+
+body{
+    margin:0;
+    font-family:Arial;
+    text-align:center;
+    padding:20px;
+
+    /* Background image */
+    background:url("Background.png") no-repeat center center fixed;
+    background-size:cover;
+}
+
+h1{
+    margin-top:20px;
+    color:white;
+}
+
+.btn{
+    display:inline-block;
+    background:#0057d8;
+    color:white;
+    padding:15px 30px;
+    margin:10px;
+    font-size:18px;
+    border-radius:10px;
+    text-decoration:none;
+    cursor:pointer;
+    border:none;
+}
+
+video{
+    width:100%;
+    max-width:800px;
+    margin-top:20px;
+    border-radius:10px;
+    box-shadow:0 0 8px rgba(0,0,0,0.2);
+    display:none;
+}
+
 </style>
 </head>
 
@@ -49,13 +58,13 @@
 <br>
 
 <video id="sparkVideo" controls>
-    <source src="SparkLab.mov" type="video/mp4">
-    Your browser does not support the video tag.
+<source src="SparkLab.mov" type="video/mp4">
+Your browser does not support the video tag.
 </video>
 
 <video id="missionsVideo" controls>
-    <source src="MISSIONS_Office.mov" type="video/mp4">
-    Your browser does not support the video tag.
+<source src="MISSIONS_Office.mov" type="video/mp4">
+Your browser does not support the video tag.
 </video>
 
 <br>
@@ -63,27 +72,29 @@
 <a href="sofia.html" class="btn">⬅ Back</a>
 
 <script>
-function playSpark() {
-    var spark = document.getElementById("sparkVideo");
-    var missions = document.getElementById("missionsVideo");
+
+function playSpark(){
+    var spark=document.getElementById("sparkVideo");
+    var missions=document.getElementById("missionsVideo");
 
     missions.pause();
-    missions.style.display = "none";
+    missions.style.display="none";
 
-    spark.style.display = "block";
+    spark.style.display="block";
     spark.play();
 }
 
-function playMissions() {
-    var spark = document.getElementById("sparkVideo");
-    var missions = document.getElementById("missionsVideo");
+function playMissions(){
+    var spark=document.getElementById("sparkVideo");
+    var missions=document.getElementById("missionsVideo");
 
     spark.pause();
-    spark.style.display = "none";
+    spark.style.display="none";
 
-    missions.style.display = "block";
+    missions.style.display="block";
     missions.play();
 }
+
 </script>
 
 </body>
