@@ -13,7 +13,7 @@ body{
     text-align:center;
     padding:20px;
 
-    /* Background image */
+    /* Background */
     background:url("Background.png") no-repeat center center fixed;
     background-size:cover;
 }
@@ -23,17 +23,27 @@ h1{
     color:white;
 }
 
-.video-btn{
-    display:block;
-    background:rgba(255,255,255,0.9);
-    padding:20px;
+/* Image buttons */
+
+.facility-btn img{
+    width:90%;
+    max-width:500px;
     margin:15px 0;
-    font-size:24px;
-    border-radius:10px;
-    text-decoration:none;
-    color:black;
-    box-shadow:0 0 8px rgba(0,0,0,0.15);
     cursor:pointer;
+    transition:transform 0.15s ease;
+}
+
+.facility-btn img:hover{
+    transform:scale(1.04);
+}
+
+video{
+    width:100%;
+    max-width:800px;
+    margin:20px auto;
+    display:none;
+    border-radius:12px;
+    box-shadow:0 0 12px rgba(0,0,0,0.4);
 }
 
 .back-btn{
@@ -48,23 +58,21 @@ h1{
     box-shadow:0 0 8px rgba(0,0,0,0.15);
 }
 
-video{
-    width:100%;
-    max-width:800px;
-    margin:20px auto;
-    display:none;
-    border-radius:12px;
-    box-shadow:0 0 12px rgba(0,0,0,0.4);
-}
-
 </style>
 
 <script>
-window.onload = function(){
+window.onload=function(){
     if(!document.fullscreenElement){
         document.documentElement.requestFullscreen().catch(err=>{});
     }
 };
+
+function playVideo(file){
+    const video=document.getElementById("videoPlayer");
+    video.src=file;
+    video.style.display="block";
+    video.play();
+}
 </script>
 
 </head>
@@ -73,25 +81,30 @@ window.onload = function(){
 
 <h1>Facilities and Faculties</h1>
 
-<!-- Buttons -->
-<div class="video-btn" onclick="playVideo('Sapienta.mov')">Sapienta</div>
-<div class="video-btn" onclick="playVideo('Chapel.mov')">Chapel</div>
-<div class="video-btn" onclick="playVideo('Bibliotheca.mov')">Bibliotheca</div>
-<div class="video-btn" onclick="playVideo('Clinic.mov')">Clinic</div>
+<!-- Sapienta -->
+<div class="facility-btn" onclick="playVideo('Sapienta.mov')">
+<img src="SAPIENTA_BU.png" alt="Sapienta">
+</div>
 
-<!-- Video Player -->
+<!-- Chapel -->
+<div class="facility-btn" onclick="playVideo('Chapel.mov')">
+<img src="CHAPEL_BU.png" alt="Chapel">
+</div>
+
+<!-- Bibliotheca -->
+<div class="facility-btn" onclick="playVideo('Bibliotheca.mov')">
+<img src="BIBLIOTHECA_BU.png" alt="Bibliotheca">
+</div>
+
+<!-- Clinic -->
+<div class="facility-btn" onclick="playVideo('Clinic.mov')">
+<img src="CLINIC_BU.png" alt="Clinic">
+</div>
+
+<!-- Video player -->
 <video id="videoPlayer" controls></video>
 
 <a href="map.html" class="back-btn">⬅ BACK</a>
-
-<script>
-function playVideo(file){
-    const video=document.getElementById("videoPlayer");
-    video.src=file;
-    video.style.display="block";
-    video.play();
-}
-</script>
 
 </body>
 </html>
