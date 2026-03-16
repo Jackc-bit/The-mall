@@ -8,28 +8,23 @@
 <style>
 body{
     margin:0;
-    font-family:Arial;
+    font-family:Arial, sans-serif;
     background:url("Background.png") no-repeat center center fixed;
     background-size:cover;
     text-align:center;
     padding:20px;
 }
 
-h1{
-    color:white;
-    margin-top:20px;
-}
-
-.staff-box{
-    background:white;
-    padding:20px;
+/* Staff images */
+.staff-img{
+    width:90%;
+    max-width:900px;
     margin:15px auto;
-    max-width:500px;
+    display:block;
     border-radius:12px;
-    font-size:22px;
-    box-shadow:0 0 10px rgba(0,0,0,0.2);
 }
 
+/* Back button */
 .back-btn{
     margin-top:20px;
     padding:18px;
@@ -40,24 +35,31 @@ h1{
     color:white;
     width:90%;
     max-width:500px;
+    cursor:pointer;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.back-btn:active{
+    transform:scale(0.97);
 }
 </style>
 </head>
 
 <body>
 
-<h1>Staff Directory</h1>
-
-<div class="staff-box">Principal</div>
-<div class="staff-box">Registrar</div>
-<div class="staff-box">Guidance Office</div>
-<div class="staff-box">Finance Office</div>
+<img src="1_FACI.jpg" class="staff-img">
+<img src="2_FACI.jpg" class="staff-img">
+<img src="3_FACI.jpg" class="staff-img">
+<img src="4_FACI.jpg" class="staff-img">
+<img src="5_FACI.jpg" class="staff-img">
+<img src="6_FACI.jpg" class="staff-img">
+<img src="7_FACI.jpg" class="staff-img">
 
 <button class="back-btn" onclick="goBack()">⬅ Back</button>
 
 <script>
 function goBack(){
-    window.history.back();
+    window.location.href = "map.html";
 }
 </script>
 
