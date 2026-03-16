@@ -26,6 +26,11 @@ h1 {
     max-width: 500px;
     margin: 15px 0;
     cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.floor-btn img:hover{
+    transform: scale(1.03);
 }
 
 /* Back button */
@@ -50,11 +55,11 @@ h1 {
 <h1>Sofia Building</h1>
 
 <a href="Sofia_1.html" class="floor-btn">
-    <img src="Sophia_BU1.png" alt="Sofia 1st Floor">
+    <img src="Sofia_BU1.png" alt="Sofia 1st Floor">
 </a>
 
 <a href="Sofia_2.html" class="floor-btn">
-    <img src="Sophia_BU2.png" alt="Sofia 2nd Floor">
+    <img src="Sofia_BU2.png" alt="Sofia 2nd Floor">
 </a>
 
 <button class="back-btn" onclick="goBack()">⬅ Back</button>
