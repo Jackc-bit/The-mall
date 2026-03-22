@@ -8,55 +8,50 @@
 <style>
     body {
         margin: 0;
-        font-family: Arial, sans-serif;
-        background: url("Background.png") no-repeat center center fixed;
-        background-size: cover;
+        font-family: Arial;
+        background: #f2f2f2;
         text-align: center;
         padding: 20px;
-    }
-
-    h1, p {
-        color: white;
-        text-shadow: 0 0 6px rgba(0,0,0,0.7);
     }
 
     h1 {
         margin-top: 20px;
     }
 
+    /* IMAGE BUTTONS */
+    .btn-img {
+        width: 90%;
+        max-width: 400px;
+        margin: 15px auto;
+        display: block;
+        cursor: pointer;
+        transition: transform 0.15s ease;
+    }
+
+    .btn-img:hover {
+        transform: scale(1.05);
+    }
+
     .nav-btn {
         display: inline-block;
-        background: rgba(0, 87, 216, 0.85);
+        background: #0057d8;
         color: white;
         padding: 15px 30px;
         margin-top: 20px;
         font-size: 20px;
         border-radius: 10px;
         text-decoration: none;
-        box-shadow: 0 0 10px rgba(0,0,0,0.3);
-        backdrop-filter: blur(5px);
+        box-shadow: 0 0 8px rgba(0,0,0,0.15);
         cursor: pointer;
         border: none;
-        transition: transform 0.15s ease, background 0.2s;
-    }
-
-    .nav-btn:hover {
-        transform: scale(1.05);
-        background: rgba(0, 87, 216, 1);
     }
 
     video {
         margin-top: 30px;
         max-width: 100%;
         border-radius: 12px;
-        box-shadow: 0 0 15px rgba(0,0,0,0.4);
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
         display: none;
-        animation: fadeIn 0.4s ease;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
     }
 </style>
 </head>
@@ -67,14 +62,14 @@
 
 <p>Content for MCL goes here.</p>
 
-<button class="nav-btn" onclick="playVideo('ishmaelVideo')">Tanghalang Ishmael</button><br>
+<!-- IMAGE BUTTONS -->
+<img src="TANGHALANG_ISHMAELBU.png" class="btn-img" onclick="playVideo('ishmaelVideo')">
 
-<button class="nav-btn" onclick="playVideo('caseRoomVideo')">Case Room</button><br>
-
-<button class="nav-btn" onclick="playVideo('feltaLabVideo')">Felta Lab</button><br>
+<img src="CASE_ROOMBU.png" class="btn-img" onclick="playVideo('caseRoomVideo')">
 
 <a href="map.html" class="nav-btn">⬅ BACK</a>
 
+<!-- VIDEOS -->
 <video id="ishmaelVideo" controls>
     <source src="Tanghalang_Ismael.mov" type="video/mp4">
     Your browser does not support the video tag.
@@ -82,11 +77,6 @@
 
 <video id="caseRoomVideo" controls>
     <source src="101_Caseroom.mov" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-
-<video id="feltaLabVideo" controls>
-    <source src="202_Felta_Lab.mov" type="video/mp4">
     Your browser does not support the video tag.
 </video>
 
