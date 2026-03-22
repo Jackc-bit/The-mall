@@ -9,13 +9,18 @@
     body {
         margin: 0;
         font-family: Arial;
-        background: #f2f2f2;
         text-align: center;
         padding: 20px;
+
+        /* BACKGROUND PNG */
+        background: url("Background.png") no-repeat center center fixed;
+        background-size: cover;
     }
 
-    h1 {
+    h1, p {
         margin-top: 20px;
+        color: white;
+        text-shadow: 0 0 6px rgba(0,0,0,0.7);
     }
 
     /* IMAGE BUTTONS */
@@ -34,14 +39,15 @@
 
     .nav-btn {
         display: inline-block;
-        background: #0057d8;
+        background: rgba(0, 87, 216, 0.9);
         color: white;
         padding: 15px 30px;
         margin-top: 20px;
         font-size: 20px;
         border-radius: 10px;
         text-decoration: none;
-        box-shadow: 0 0 8px rgba(0,0,0,0.15);
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        backdrop-filter: blur(5px);
         cursor: pointer;
         border: none;
     }
@@ -50,7 +56,7 @@
         margin-top: 30px;
         max-width: 100%;
         border-radius: 12px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        box-shadow: 0 0 12px rgba(0,0,0,0.4);
         display: none;
     }
 </style>
@@ -67,7 +73,6 @@
 
 <img src="CASE_ROOMBU.png" class="btn-img" onclick="playVideo('caseRoomVideo')">
 
-<!-- NEW FELTA BUTTON -->
 <img src="FELTA_BU.png" class="btn-img" onclick="playVideo('feltaLabVideo')">
 
 <a href="map.html" class="nav-btn">⬅ BACK</a>
@@ -83,7 +88,6 @@
     Your browser does not support the video tag.
 </video>
 
-<!-- NEW FELTA VIDEO -->
 <video id="feltaLabVideo" controls>
     <source src="202_Felta_Lab.mov" type="video/mp4">
     Your browser does not support the video tag.
