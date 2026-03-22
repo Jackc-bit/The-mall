@@ -23,6 +23,20 @@ h1{
     color:white;
 }
 
+/* IMAGE BUTTON */
+.btn-img{
+    width:90%;
+    max-width:300px;
+    margin:20px auto;
+    display:block;
+    cursor:pointer;
+    transition:transform 0.15s ease;
+}
+
+.btn-img:hover{
+    transform:scale(1.05);
+}
+
 .btn{
     display:inline-block;
     background:#0057d8;
@@ -53,7 +67,8 @@ video{
 
 <h1>CHMT Building</h1>
 
-<button class="btn" onclick="playRegistrar()">Registrar</button>
+<!-- IMAGE BUTTON (REPLACED) -->
+<img src="REGISTRARBU.png" class="btn-img" onclick="playRegistrar()">
 
 <br>
 
